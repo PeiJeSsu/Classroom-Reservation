@@ -11,9 +11,8 @@ public class ClassroomController {
     private ClassroomService classroomService;
 
     @PostConstruct
-    public String initializeClassrooms() {
+    public void initializeClassrooms() {
         classroomService.initClassrooms();
-        return "Classrooms initialized";
     }
 }
 
