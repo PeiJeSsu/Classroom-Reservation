@@ -1,7 +1,7 @@
-package ntou.cse.backend.service;
+package ntou.cse.backend.ClassroomBuild.service;
 
-import ntou.cse.backend.model.Classroom;
-import ntou.cse.backend.repo.ClassroomRepository;
+import ntou.cse.backend.ClassroomBuild.model.Classroom;
+import ntou.cse.backend.ClassroomBuild.repo.ClassroomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

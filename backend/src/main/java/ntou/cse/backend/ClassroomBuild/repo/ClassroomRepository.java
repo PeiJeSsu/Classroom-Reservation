@@ -1,6 +1,6 @@
-package ntou.cse.backend.repo;
+package ntou.cse.backend.ClassroomBuild.repo;
 
-import ntou.cse.backend.model.Classroom;
+import ntou.cse.backend.ClassroomBuild.model.Classroom;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.Optional;
 
