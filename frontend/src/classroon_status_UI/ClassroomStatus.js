@@ -1,21 +1,22 @@
-import React, { useState } from 'react'
-import {ThemeProvider, createTheme, Box, Modal, Fade, IconButton, Paper, Grid, Snackbar} from '@mui/material'
-import { Close } from '@mui/icons-material'
+import React, {useState} from 'react'
+import {ThemeProvider, createTheme, Box, Modal, Fade, IconButton, Paper, Grid} from '@mui/material'
+import {Close} from '@mui/icons-material'
 import DateSelector from './DateSelector'
 import FloorRoomSelector from './FloorRoomSelector'
 import ScheduleTable from './ScheduleTable'
 import SearchField from './SearchField'
+import CustomSnackbar from './CustomSnackbar'
 
 const theme = createTheme({
     palette: {
         mode: 'light',
-        primary: { main: '#1976d2' },
-        secondary: { main: '#dc004e' },
-        background: { default: '#ffffff', paper: '#ffffff' }
+        primary: {main: '#1976d2'},
+        secondary: {main: '#dc004e'},
+        background: {default: '#ffffff', paper: '#ffffff'}
     }
 })
 
-function ClassroomStatus({ open, onClose }) {
+function ClassroomStatus({open, onClose}) {
     const [currentDate, setCurrentDate] = useState(new Date())
     const [floor, setFloor] = useState('')
     const [room, setRoom] = useState('')
@@ -37,12 +38,12 @@ function ClassroomStatus({ open, onClose }) {
                         width: '90%', maxWidth: 1000,
                         bgcolor: 'background.paper', boxShadow: 24, p: 4, overflow: 'hidden',
                     }}>
-                        <IconButton onClick={onClose} size="small" sx={{ position: 'absolute', top: 4, right: 2 }}>
-                            <Close />
+                        <IconButton onClick={onClose} size="small" sx={{position: 'absolute', top: 4, right: 2}}>
+                            <Close/>
                         </IconButton>
 
-                        <Paper elevation={3} sx={{ p: 3 }}>
-                            <Grid container columnSpacing={2} rowSpacing={2} alignItems="center" sx={{ mb: 2 }}>
+                        <Paper elevation={3} sx={{p: 3}}>
+                            <Grid container columnSpacing={2} rowSpacing={2} alignItems="center" sx={{mb: 2}}>
                                 <FloorRoomSelector
                                     floor={floor} setFloor={setFloor}
                                     room={room} setRoom={setRoom}
@@ -64,10 +65,10 @@ function ClassroomStatus({ open, onClose }) {
                                 setCurrentDate={setCurrentDate}
                             />
 
-                            <ScheduleTable currentDate={currentDate} />
+                            <ScheduleTable currentDate={currentDate}/>
 
                         </Paper>
-                        <Snackbar
+                        <CustomSnackbar
                             open={openSnackbar}
                             onClose={() => setOpenSnackbar(false)}
                             message={errorMessage}
