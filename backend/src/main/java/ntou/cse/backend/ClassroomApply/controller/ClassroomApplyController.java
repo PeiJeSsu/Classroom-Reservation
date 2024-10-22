@@ -42,4 +42,15 @@ public class ClassroomApplyController {
     public ClassroomApply denyApplication(@PathVariable String id) {
         return classroomApplyService.updateApplicationApprovalStatus(id, false);
     }
+
+    @GetMapping("/search")
+    public List<ClassroomApply> searchApplicationsByClassroomAndTime(
+            @RequestParam String floor,
+            @RequestParam String roomNumber,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime) {
+
+        return classroomApplyService.findApplicationsByClassroomAndTime(floor, roomNumber, startTime, endTime);
+    }
+
 }

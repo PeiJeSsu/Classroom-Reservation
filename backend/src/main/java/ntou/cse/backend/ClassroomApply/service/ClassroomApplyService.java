@@ -42,4 +42,8 @@ public class ClassroomApplyService {
         }
         return null;
     }
+
+    public List<ClassroomApply> findApplicationsByClassroomAndTime(String floor, String classroom, LocalDateTime startTime, LocalDateTime endTime) {
+        return classroomApplyRepository.findByFloorAndClassroomAndDateBetween(floor, classroom, startTime, endTime);
+    }
 }
