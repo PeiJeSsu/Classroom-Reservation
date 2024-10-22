@@ -65,7 +65,11 @@ function ClassroomStatus({open, onClose}) {
                                 setCurrentDate={setCurrentDate}
                             />
 
-                            <ScheduleTable currentDate={currentDate}/>
+                            <ScheduleTable
+                                currentDate={currentDate}
+                                selectedFloor={floor}
+                                selectedRoomNumber={room}
+                            />
 
                         </Paper>
                         <CustomSnackbar
