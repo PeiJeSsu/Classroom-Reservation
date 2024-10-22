@@ -1,7 +1,6 @@
 package ntou.cse.backend.ClassroomApply.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.time.LocalDateTime;
 
 @Document(collection = "classrooms_apply")
