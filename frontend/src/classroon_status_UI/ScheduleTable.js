@@ -13,6 +13,7 @@ function ScheduleTable({currentDate, selectedFloor, selectedRoomNumber}) {
     const [unavailableSlots, setUnavailableSlots] = useState([])
 
     useEffect(() => {
+        setUnavailableSlots([]);
         if (selectedFloor && selectedRoomNumber && currentDate) {
             const {start, end} = getWeekRange(currentDate)
 
@@ -87,8 +88,6 @@ function ScheduleTable({currentDate, selectedFloor, selectedRoomNumber}) {
         return unavailableSlots.some(unavailable => {
             const unavailableStart = new Date(unavailable.startTime);
             const unavailableEnd = new Date(unavailable.endTime);
-            //console.log('startTime:', startTime, 'to', endTime);
-            //console.log('unavailableStart:', unavailableStart, 'to', unavailableEnd);
             return (((startTime >= unavailableStart && startTime < unavailableEnd) ||
                     (endTime > unavailableStart && endTime <= unavailableEnd)) &&
                 unavailable.approved === true);
