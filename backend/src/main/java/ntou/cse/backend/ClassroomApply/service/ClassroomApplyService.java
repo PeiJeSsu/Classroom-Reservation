@@ -14,11 +14,12 @@ public class ClassroomApplyService {
     @Autowired
     private ClassroomApplyRepository classroomApplyRepository;
 
-    public ClassroomApply createApplication(String floor, String classroom, LocalDateTime date) {
+    public ClassroomApply createApplication(String floor, String classroom, LocalDateTime startTime, LocalDateTime endTime) {
         ClassroomApply application = new ClassroomApply();
         application.setFloor(floor);
         application.setClassroom(classroom);
-        application.setDate(date);
+        application.setStartTime(startTime);
+        application.setEndTime(endTime);
         application.setApproved(false);
 
         return classroomApplyRepository.save(application);
@@ -44,6 +45,6 @@ public class ClassroomApplyService {
     }
 
     public List<ClassroomApply> findApplicationsByClassroomAndTime(String floor, String classroom, LocalDateTime startTime, LocalDateTime endTime) {
-        return classroomApplyRepository.findByFloorAndClassroomAndDateBetween(floor, classroom, startTime, endTime);
+        return classroomApplyRepository.findByFloorAndClassroomAndStartTimeBetweenAndIsApprovedTrue(floor, classroom, startTime, endTime);
     }
 }

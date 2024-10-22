@@ -8,7 +8,8 @@ public class ClassroomApply {
     private String id;
     private String floor;
     private String classroom;
-    private LocalDateTime date;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private boolean isApproved;
 
     public ClassroomApply() {}
@@ -37,12 +38,20 @@ public class ClassroomApply {
         this.classroom = classroom;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public LocalDateTime getStartTime() {
+        return startTime;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
     }
 
     public boolean isApproved() {
@@ -59,7 +68,8 @@ public class ClassroomApply {
                 "id='" + id + '\'' +
                 ", floor='" + floor + '\'' +
                 ", classroom='" + classroom + '\'' +
-                ", date=" + date +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
                 ", isApproved=" + isApproved +
                 '}';
     }
