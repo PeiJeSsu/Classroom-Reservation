@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 "use client"
 
 import React, { useState } from 'react'
@@ -12,10 +13,20 @@ import { ChevronLeft, ChevronRight, Search, Close } from '@mui/icons-material'
 
 const days = ['星期一', '星期二', '星期三', '星期四', '星期五']
 const timeSlots = ['08:00 ~ 09:00', '09:00 ~ 10:00', '10:00 ~ 11:00', '11:00 ~ 12:00', '12:00 ~ 13:00', '13:00 ~ 14:00', '14:00 ~ 15:00', '15:00 ~ 16:00', '16:00 ~ 17:00', '17:00 ~ 18:00', '18:00 ~ 19:00', '19:00 ~ 20:00']
+=======
+import React, { useState } from 'react'
+import {ThemeProvider, createTheme, Box, Modal, Fade, IconButton, Paper, Grid, Snackbar} from '@mui/material'
+import { Close } from '@mui/icons-material'
+import DateSelector from './DateSelector'
+import FloorRoomSelector from './FloorRoomSelector'
+import ScheduleTable from './ScheduleTable'
+import SearchField from './SearchField'
+>>>>>>> Stashed changes
 
 const theme = createTheme({
     palette: {
         mode: 'light',
+<<<<<<< Updated upstream
         primary: {
             main: '#1976d2',
         },
@@ -27,6 +38,12 @@ const theme = createTheme({
             paper: '#ffffff',
         },
     },
+=======
+        primary: { main: '#1976d2' },
+        secondary: { main: '#dc004e' },
+        background: { default: '#ffffff', paper: '#ffffff' }
+    }
+>>>>>>> Stashed changes
 })
 
 function ClassroomStatus({ open, onClose }) {
@@ -39,6 +56,7 @@ function ClassroomStatus({ open, onClose }) {
     const [openSnackbar, setOpenSnackbar] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
 
+<<<<<<< Updated upstream
     const handlePrev = () => {
         setCurrentDate(prevDate => {
             const newDate = new Date(prevDate)
@@ -108,12 +126,18 @@ function ClassroomStatus({ open, onClose }) {
                 onClose={onClose}
                 closeAfterTransition
             >
+=======
+    return (
+        <ThemeProvider theme={theme}>
+            <Modal open={open} onClose={onClose} closeAfterTransition>
+>>>>>>> Stashed changes
                 <Fade in={open}>
                     <Box sx={{
                         position: 'absolute',
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
+<<<<<<< Updated upstream
                         width: '90%',
                         maxWidth: 1000,
                         bgcolor: 'background.paper',
@@ -130,11 +154,18 @@ function ClassroomStatus({ open, onClose }) {
                                 right: 2,
                             }}
                         >
+=======
+                        width: '90%', maxWidth: 1000,
+                        bgcolor: 'background.paper', boxShadow: 24, p: 4, overflow: 'hidden',
+                    }}>
+                        <IconButton onClick={onClose} size="small" sx={{ position: 'absolute', top: 4, right: 2 }}>
+>>>>>>> Stashed changes
                             <Close />
                         </IconButton>
 
                         <Paper elevation={3} sx={{ p: 3 }}>
                             <Grid container columnSpacing={2} rowSpacing={2} alignItems="center" sx={{ mb: 2 }}>
+<<<<<<< Updated upstream
                                 <Grid xs={12} md={3.5} sx={{ ml: 2 }}>
                                     <FormControl fullWidth size="small">
                                         <InputLabel>樓層</InputLabel>
@@ -235,6 +266,37 @@ function ClassroomStatus({ open, onClose }) {
                                 {errorMessage}
                             </Alert>
                         </Snackbar>
+=======
+                                <FloorRoomSelector
+                                    floor={floor} setFloor={setFloor}
+                                    room={room} setRoom={setRoom}
+                                />
+                                <DateSelector
+                                    currentDate={currentDate} setCurrentDate={setCurrentDate}
+                                    year={year} setYear={setYear}
+                                    month={month} setMonth={setMonth}
+                                    day={day} setDay={setDay}
+                                />
+                            </Grid>
+
+                            <SearchField
+                                year={year} setYear={setYear}
+                                month={month} setMonth={setMonth}
+                                day={day} setDay={setDay}
+                                setErrorMessage={setErrorMessage}
+                                setOpenSnackbar={setOpenSnackbar}
+                                setCurrentDate={setCurrentDate}
+                            />
+
+                            <ScheduleTable currentDate={currentDate} />
+
+                        </Paper>
+                        <Snackbar
+                            open={openSnackbar}
+                            onClose={() => setOpenSnackbar(false)}
+                            message={errorMessage}
+                        />
+>>>>>>> Stashed changes
                     </Box>
                 </Fade>
             </Modal>
