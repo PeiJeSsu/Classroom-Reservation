@@ -18,9 +18,10 @@ public class ClassroomApplyController {
     @PostMapping("/apply")
     public void applyForClassroom(@RequestParam String floor,
                                   @RequestParam String roomNumber,
-                                  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime time) {
+                                  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
+                                  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime) {
 
-        classroomApplyService.createApplication(floor, roomNumber, time);
+        classroomApplyService.createApplication(floor, roomNumber, startTime, endTime);
     }
 
     @GetMapping
