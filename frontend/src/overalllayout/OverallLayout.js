@@ -3,6 +3,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import CustomTabPanel from './CustomTabPanel';
+import ClassroomQuery from "../classroom_query_UI/ClassroomQuery";
 
 export default function BasicTabs() {
     const [value, setValue] = React.useState(0);
@@ -27,7 +28,7 @@ export default function BasicTabs() {
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
-                查詢教室
+                <ClassroomQuery />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
                 申請管理
