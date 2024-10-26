@@ -4,6 +4,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import CustomTabPanel from './CustomTabPanel';
 import ClassroomQuery from "../classroom_query_UI/ClassroomQuery";
+import ApplyList from "../design_apply_list_UI/ApplyList";
 
 export default function BasicTabs() {
     const [value, setValue] = React.useState(0);
@@ -31,7 +32,7 @@ export default function BasicTabs() {
                 <ClassroomQuery />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
-                申請管理
+                <ApplyList />
             </CustomTabPanel>
         </Box>
     );
