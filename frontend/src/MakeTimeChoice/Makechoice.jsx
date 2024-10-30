@@ -7,8 +7,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
-import DateTimeSelection from "./DateTimeSelection";
-import FloorAndRoomSelection from "./FloorAndRoomSelection";
+import DateTimeSelection from './DateTimeSelection';
+import FloorAndRoomSelection from './FloorAndRoomSelection';
 
 const Makechoice = ({ onClose }) => {
     return (
@@ -28,9 +28,11 @@ const Makechoice = ({ onClose }) => {
                 }}
             >
                 <Card variant="outlined" sx={{ width: '40%', height: '45%' }}>
-                    <IconButton aria-label="close" onClick={onClose}>
-                        <CloseIcon />
-                    </IconButton>
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end',}}>
+                        <IconButton aria-label="close" onClick={onClose}>
+                            <CloseIcon />
+                        </IconButton>
+                    </Box>
                     <Box sx={{ padding: 2 }}>
                         <FloorAndRoomSelection />
                     </Box>
