@@ -20,6 +20,8 @@ const DateTimeSelection = () => {
                     minutes: renderTimeViewClock,
                     seconds: renderTimeViewClock,
                 }}
+                views={['year', 'month', 'day', 'hours']}
+                format="YYYY/MM/DD HH:00"
             />
             <DateTimePicker
                 label="選擇結束時間"
@@ -31,6 +33,8 @@ const DateTimeSelection = () => {
                     minutes: renderTimeViewClock,
                     seconds: renderTimeViewClock,
                 }}
+                views={['year', 'month', 'day', 'hours']}
+                format="YYYY/MM/DD HH:00"
             />
         </div>
     );
