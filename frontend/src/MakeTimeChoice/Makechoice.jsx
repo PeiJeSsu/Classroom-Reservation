@@ -25,6 +25,12 @@ const Makechoice = ({ onClose }) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     height: '100vh',
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
                 }}
             >
                 <Card variant="outlined" sx={{ width: '30%', height: '50%' }}>
@@ -43,14 +49,14 @@ const Makechoice = ({ onClose }) => {
                             value={firstDateTime}
                             onChange={(newValue) => setFirstDateTime(newValue)}
                             renderInput={(params) => <TextField {...params} fullWidth />}
-                            sx={{ width: '48%' }} // 增加寬度至 48%，讓兩個 DateTimePicker 在同一排
+                            sx={{ width: '48%' }}
                         />
                         <DateTimePicker
                             label="選擇結束時間"
                             value={secondDateTime}
                             onChange={(newValue) => setSecondDateTime(newValue)}
                             renderInput={(params) => <TextField {...params} fullWidth />}
-                            sx={{ width: '48%' }} // 同樣寬度的結束時間選擇
+                            sx={{ width: '48%' }}
                         />
                     </CardContent>
                     <CardActions sx={{ justifyContent: 'center' }}>
@@ -62,6 +68,6 @@ const Makechoice = ({ onClose }) => {
             </Box>
         </LocalizationProvider>
     );
-}
+};
 
 export default Makechoice;
