@@ -1,9 +1,9 @@
 package ntou.cse.backend.ClassroomBuild.controller;
 
+import jakarta.annotation.PostConstruct;
 import ntou.cse.backend.ClassroomBuild.model.Classroom;
 import ntou.cse.backend.ClassroomBuild.service.ClassroomInitService;
 import ntou.cse.backend.ClassroomBuild.service.ClassroomService;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,9 +23,9 @@ public class ClassroomController {
         classroomInitService.initClassrooms();
     }
 
-    @GetMapping("/all")
-    public List<Classroom> getAllClassrooms() {
-        return classroomService.getAllClassrooms();
+    @GetMapping("/floor")
+    public List<String> getAllFloors() {
+        return classroomService.getAllFloor();
     }
 
     @GetMapping("/floor/{floor}")
@@ -33,14 +33,12 @@ public class ClassroomController {
         return classroomService.getClassroomsByFloor(floor);
     }
 
-    @GetMapping("/room/{roomNumber}")
-    public Classroom getClassroomByRoomNumber(@PathVariable String roomNumber) {
-        return classroomService.getClassroomByRoomNumber(roomNumber);
-    }
-
     @GetMapping("/search")
-    public List<Classroom> searchClassroomsByKeyword(@RequestParam String keyword) {
-        return classroomService.searchClassroomsByKeyword(keyword);
+    public List<Classroom> searchClassrooms(
+            @RequestParam(required = false) String floor,
+            @RequestParam(required = false) String classroomCode,
+            @RequestParam(required = false) String searchQuery) {
+
+        return classroomService.searchClassrooms(floor, classroomCode, searchQuery);
     }
 }
-

@@ -44,8 +44,8 @@ public class ClassroomInitService {
     }
 
     private boolean classroomExists(String floor, String roomNumber) {
-        Optional<Classroom> existingClassroom = classroomRepository.findByFloorAndRoomNumber(floor, roomNumber);
-        return existingClassroom.isPresent();
+        List<Classroom> existingClassroomList = classroomRepository.findByFloorAndRoomNumber(floor, roomNumber);
+        return !existingClassroomList.isEmpty();
     }
 
     private void removeExtraClassrooms() {

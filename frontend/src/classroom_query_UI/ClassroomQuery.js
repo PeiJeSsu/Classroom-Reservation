@@ -8,11 +8,6 @@ export default function ClassroomQuery() {
     const [classroomCode, setClassroomCode] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
 
-    const handleSearch = () => {
-        // Handle the search logic here
-        console.log('Searching for:', { floor, classroomCode, searchQuery });
-    };
-
     return (
         <Box>
             <ClassroomQueryPaper
@@ -22,9 +17,12 @@ export default function ClassroomQuery() {
                 setClassroomCode={setClassroomCode}
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
-                onSearch={handleSearch}
             />
-            <ResultList />
+            <ResultList
+                floor={floor}
+                classroomCode={classroomCode}
+                searchQuery={searchQuery}
+            />
         </Box>
     );
 }
