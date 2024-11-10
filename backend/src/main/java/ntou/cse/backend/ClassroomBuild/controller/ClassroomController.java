@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/classroom_build")
@@ -26,6 +27,11 @@ public class ClassroomController {
     @GetMapping("/all")
     public List<Classroom> getAllClassrooms() {
         return classroomService.getAllClassrooms();
+    }
+
+    @GetMapping("/floors")
+    public List<String> getAllFloors() {
+        return classroomService.getAllFloors();
     }
 
     @GetMapping("/floor/{floor}")
