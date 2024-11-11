@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Box } from '@mui/material';
+import React, {useState} from 'react';
+import {Box} from '@mui/material';
 import ClassroomQueryPaper from './ClassroomQueryPaper';
 import ResultList from "./ResultList";
 
@@ -10,7 +10,7 @@ export default function ClassroomQuery() {
 
     const handleSearch = () => {
         // Handle the search logic here
-        console.log('Searching for:', { floor, classroomCode, searchQuery });
+        console.log('Searching for:', {floor, classroomCode, searchQuery});
     };
 
     return (
@@ -24,7 +24,7 @@ export default function ClassroomQuery() {
                 setSearchQuery={setSearchQuery}
                 onSearch={handleSearch}
             />
-            <ResultList />
+            <ResultList floor={floor} classroomCode={classroomCode}/>
         </Box>
     );
 }
