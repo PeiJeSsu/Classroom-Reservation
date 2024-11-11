@@ -1,40 +1,59 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Box, Typography, Paper, Button} from '@mui/material';
 
-export default function ResultList() {
-    const sampleResults = [
-        {id: 1, code: '101', floor: '1'},
-        {id: 2, code: '102', floor: '1'},
-        {id: 3, code: '201', floor: '2'},
-        {id: 4, code: '202', floor: '2'},
-        {id: 5, code: 'B101', floor: 'B1'}
-    ];
+export default function ResultList({floor, classroomCode}) {
+    const [classrooms, setClassrooms] = useState([]);
+
+    useEffect(() => {
+        const fetchClassrooms = async () => {
+            try {
+                let url = 'http://localhost:8080/classroom_build/all';
+                if (classroomCode) {
+                    url = `http://localhost:8080/classroom_build/room/${classroomCode}`;
+                }  else if (floor) {
+                    url = `http://localhost:8080/classroom_build/floor/${floor}`;
+                }
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Network response was not ok');
+                const data = await response.json();
+                const classroomData = Array.isArray(data) ? data : [data];
+                setClassrooms(classroomData);
+            } catch (error) {
+                console.log("error fetching classroom data", error)
+            }
+        };
+        fetchClassrooms();
+    }, [floor, classroomCode])
 
     return (
         <Paper elevation={3} sx={{padding: '20px', marginTop: '20px'}}>
-            {sampleResults.map((result) => (
-                <Box
-                    key={result.id}
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        padding: '10px',
-                        marginBottom: '10px',
-                        border: '1px solid #ccc',
-                        borderRadius: '20px',
-                    }}
-                >
-                    <Box sx={{display: 'flex', gap: 2}}>
-                        <Typography variant="body1">教室編號: {result.code}</Typography>
-                        <Typography variant="body1">樓層: {result.floor}</Typography>
+            {classrooms.length === 0 ? (
+                <Typography variant="body1">沒有找到相關的教室。</Typography>
+            ) : (
+                classrooms.map((classroom) => (
+                    <Box
+                        key={classroom.id}
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            padding: '10px',
+                            marginBottom: '10px',
+                            border: '1px solid #ccc',
+                            borderRadius: '20px',
+                        }}
+                    >
+                        <Box sx={{display: 'flex', gap: 2}}>
+                            <Typography variant="body1">教室編號: {classroom.roomNumber}</Typography>
+                            <Typography variant="body1">樓層: {classroom.floor}</Typography>
+                        </Box>
+                        <Box>
+                            <Button variant="contained" sx={{marginRight: 4}}>查看</Button>
+                            <Button variant="contained">申請</Button>
+                        </Box>
                     </Box>
-                    <Box>
-                        <Button variant="contained" sx={{marginRight: 4}}>查看</Button>
-                        <Button variant="contained">申請</Button>
-                    </Box>
-                </Box>
-            ))}
+                ))
+            )}
         </Paper>
     );
 }
