@@ -16,7 +16,7 @@ export default function ResultList({floor, classroomCode}) {
                 const response = await fetch(url);
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
-                const classroomData = Array.isArray(data) ? data : [data]; // 如果資料不是陣列，轉為陣列
+                const classroomData = Array.isArray(data) ? data : [data];
                 setClassrooms(classroomData);
             } catch (error) {
                 console.log("error fetching classroom data", error)

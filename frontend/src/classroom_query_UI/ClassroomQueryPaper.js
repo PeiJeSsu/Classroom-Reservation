@@ -1,8 +1,6 @@
 import React from 'react';
-import { Grid2, Paper, IconButton } from '@mui/material';
-import { Search } from '@mui/icons-material';
+import { Grid2, Paper } from '@mui/material';
 import FloorAndClassroomCodeSelector from "../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector";
-import SearchField from "./SearchField";
 
 const ClassroomQueryPaper = ({ floor, setFloor, classroomCode, setClassroomCode }) => {
     return (
