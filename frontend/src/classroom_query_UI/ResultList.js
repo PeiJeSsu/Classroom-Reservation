@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Box, Typography, Paper, Button} from '@mui/material';
 import ClassroomStatus from '../classroom_status_UI/ClassroomStatus';
+import ClassroomStatusTestButton from "../classroom_status_UI/ClassroomStatusTestButton";
 
 export default function ResultList({floor, classroomCode}) {
     const [classrooms, setClassrooms] = useState([]);
@@ -8,11 +9,7 @@ export default function ResultList({floor, classroomCode}) {
     const [selectedFloor, setSelectedFloor] = useState('');
     const [selectedClassroomCode, setSelectedClassroomCode] = useState('');
 
-    const handleOpen = (floor, classroomCode) => {
-        setSelectedFloor(floor);
-        setSelectedClassroomCode(classroomCode);
-        setOpen(true);
-    };
+    const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     useEffect(() => {
@@ -59,7 +56,7 @@ export default function ResultList({floor, classroomCode}) {
                             <Typography variant="body1">樓層: {classroom.floor}</Typography>
                         </Box>
                         <Box>
-                            <Button variant="contained" sx={{marginRight: 4}} onClick={() => handleOpen(classroom.floor, classroom.roomNumber)}>查看</Button>
+                            <ClassroomStatusTestButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber}>查看</ClassroomStatusTestButton>
                             <Button variant="contained">申請</Button>
                         </Box>
                     </Box>

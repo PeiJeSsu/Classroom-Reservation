@@ -1,35 +1,31 @@
-import React, {useState,useEffect} from 'react'
-import {ThemeProvider, createTheme, Box, Modal, Fade, IconButton, Paper, Grid} from '@mui/material'
-import {Close} from '@mui/icons-material'
-import DateSelector from './DateSelector'
-import FloorAndClassroomCodeSelector from '../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector'
-import ScheduleTable from './ScheduleTable'
-import SearchField from './SearchField'
-import CustomSnackbar from './CustomSnackbar'
+import React, {useState} from 'react';
+import { ThemeProvider, createTheme, Box, Modal, Fade, IconButton, Paper, Grid } from '@mui/material';
+import { Close } from '@mui/icons-material';
+import DateSelector from './DateSelector';
+import FloorAndClassroomCodeSelector from '../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector';
+import ScheduleTable from './ScheduleTable';
+import SearchField from './SearchField';
+import CustomSnackbar from './CustomSnackbar';
 
 const theme = createTheme({
     palette: {
         mode: 'light',
-        primary: {main: '#1976d2'},
-        secondary: {main: '#dc004e'},
-        background: {default: '#ffffff', paper: '#ffffff'}
+        primary: { main: '#1976d2' },
+        secondary: { main: '#dc004e' },
+        background: { default: '#ffffff', paper: '#ffffff' }
     }
-})
+});
 
-function ClassroomStatus({open, onClose,initialFloor,initialClassroomCode}) {
-    const [currentDate, setCurrentDate] = useState(new Date())
-    const [floor, setFloor] = useState(initialFloor || '')
-    const [classroomCode, setClassroomCode] = useState(initialClassroomCode || '')
-    const [year, setYear] = useState(currentDate.getFullYear().toString())
-    const [month, setMonth] = useState((currentDate.getMonth() + 1).toString().padStart(2, '0'))
-    const [day, setDay] = useState(currentDate.getDate().toString().padStart(2, '0'))
-    const [openSnackbar, setOpenSnackbar] = useState(false)
-    const [errorMessage, setErrorMessage] = useState('')
+function ClassroomStatus({ open, onClose, initialFloor, initialClassroomCode }) {
+    const [currentDate, setCurrentDate] = useState(new Date());
+    const [floor, setFloor] = useState(initialFloor || '');
+    const [classroomCode, setClassroomCode] = useState(initialClassroomCode || '');
+    const [year, setYear] = useState(currentDate.getFullYear().toString());
+    const [month, setMonth] = useState((currentDate.getMonth() + 1).toString().padStart(2, '0'));
+    const [day, setDay] = useState(currentDate.getDate().toString().padStart(2, '0'));
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
-    useEffect(() => {
-        setFloor(initialFloor);
-        setClassroomCode(initialClassroomCode);
-    }, [initialFloor, initialClassroomCode]);
     return (
         <ThemeProvider theme={theme}>
             <Modal open={open} onClose={onClose} closeAfterTransition>
@@ -42,12 +38,12 @@ function ClassroomStatus({open, onClose,initialFloor,initialClassroomCode}) {
                         width: '90%', maxWidth: 1000,
                         bgcolor: 'background.paper', boxShadow: 24, p: 4, overflow: 'hidden',
                     }}>
-                        <IconButton onClick={onClose} size="small" sx={{position: 'absolute', top: 4, right: 2}}>
-                            <Close/>
+                        <IconButton onClick={onClose} size="small" sx={{ position: 'absolute', top: 4, right: 2 }}>
+                            <Close />
                         </IconButton>
 
-                        <Paper elevation={3} sx={{p: 3}}>
-                            <Grid container columnSpacing={2} rowSpacing={2} alignItems="center" sx={{mb: 2}}>
+                        <Paper elevation={3} sx={{ p: 3 }}>
+                            <Grid container columnSpacing={2} rowSpacing={2} alignItems="center" sx={{ mb: 2 }}>
                                 <FloorAndClassroomCodeSelector
                                     floor={floor} setFloor={setFloor}
                                     classroomCode={classroomCode} setClassroomCode={setClassroomCode}
@@ -69,7 +65,7 @@ function ClassroomStatus({open, onClose,initialFloor,initialClassroomCode}) {
                                 setCurrentDate={setCurrentDate}
                             />
 
-                            <ScheduleTable currentDate={currentDate}/>
+                            <ScheduleTable currentDate={currentDate} />
 
                         </Paper>
                         <CustomSnackbar
@@ -81,7 +77,7 @@ function ClassroomStatus({open, onClose,initialFloor,initialClassroomCode}) {
                 </Fade>
             </Modal>
         </ThemeProvider>
-    )
+    );
 }
 
-export default ClassroomStatus
+export default ClassroomStatus;

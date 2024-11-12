@@ -14,7 +14,6 @@ export default function FloorSelector({ floor, setFloor, setClassroomCode }) {
                 console.error('Error fetching floors:', error);
             }
         };
-
         fetchFloors();
     }, []);
 

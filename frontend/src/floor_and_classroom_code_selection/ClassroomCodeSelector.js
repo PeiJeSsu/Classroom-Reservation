@@ -16,7 +16,7 @@ export default function ClassroomCodeSelector({ floor, classroomCode, setClassro
                     console.error("Error fetching classrooms:", error);
                 });
         }
-    }, [floor]);
+    }, [floor, classroomCode, setClassroomCode]);
 
     const handleChange = (event) => {
         setClassroomCode(event.target.value);
