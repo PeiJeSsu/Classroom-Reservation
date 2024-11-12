@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import {ThemeProvider, createTheme, Box, Modal, Fade, IconButton, Paper, Grid} from '@mui/material'
 import {Close} from '@mui/icons-material'
 import DateSelector from './DateSelector'
-import FloorRoomSelector from './FloorRoomSelector'
+import FloorAndClassroomCodeSelector from '../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector'
 import ScheduleTable from './ScheduleTable'
 import SearchField from './SearchField'
 import CustomSnackbar from './CustomSnackbar'
@@ -16,16 +16,20 @@ const theme = createTheme({
     }
 })
 
-function ClassroomStatus({open, onClose}) {
+function ClassroomStatus({open, onClose,initialFloor,initialClassroomCode}) {
     const [currentDate, setCurrentDate] = useState(new Date())
-    const [floor, setFloor] = useState('')
-    const [room, setRoom] = useState('')
+    const [floor, setFloor] = useState(initialFloor || '')
+    const [classroomCode, setClassroomCode] = useState(initialClassroomCode || '')
     const [year, setYear] = useState(currentDate.getFullYear().toString())
     const [month, setMonth] = useState((currentDate.getMonth() + 1).toString().padStart(2, '0'))
     const [day, setDay] = useState(currentDate.getDate().toString().padStart(2, '0'))
     const [openSnackbar, setOpenSnackbar] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
 
+    useEffect(() => {
+        setFloor(initialFloor);
+        setClassroomCode(initialClassroomCode);
+    }, [initialFloor, initialClassroomCode]);
     return (
         <ThemeProvider theme={theme}>
             <Modal open={open} onClose={onClose} closeAfterTransition>
@@ -44,9 +48,9 @@ function ClassroomStatus({open, onClose}) {
 
                         <Paper elevation={3} sx={{p: 3}}>
                             <Grid container columnSpacing={2} rowSpacing={2} alignItems="center" sx={{mb: 2}}>
-                                <FloorRoomSelector
+                                <FloorAndClassroomCodeSelector
                                     floor={floor} setFloor={setFloor}
-                                    room={room} setRoom={setRoom}
+                                    classroomCode={classroomCode} setClassroomCode={setClassroomCode}
                                 />
                                 <DateSelector
                                     currentDate={currentDate} setCurrentDate={setCurrentDate}

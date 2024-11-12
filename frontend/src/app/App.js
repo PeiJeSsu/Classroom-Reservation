@@ -1,6 +1,6 @@
 import * as React from 'react';
 import BasicTabs from '../overalllayout/OverallLayout';
-import ClassroomStatusTestButton from "../classroon_status_UI/ClassroomStatusTestButton";
+import ClassroomStatusTestButton from "../classroom_status_UI/ClassroomStatusTestButton";
 import MakeChoiceButton from "../MakeTimeChoice/MakeChoiceButton";
 
 function App() {
