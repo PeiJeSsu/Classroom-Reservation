@@ -26,7 +26,7 @@ export default function ClassroomStatusTestButton({initialFloor, initialClassroo
 
     return (
         <ThemeProvider theme={theme}>
-            <Button onClick={handleOpen} variant="contained">Test</Button>
+            <Button onClick={handleOpen} variant="contained">查看</Button>
             <ClassroomStatus open={open} onClose={handleClose} initialFloor={initialFloor} initialClassroomCode={initialClassroomCode} />
         </ThemeProvider>
     )

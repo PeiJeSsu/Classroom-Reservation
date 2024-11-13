@@ -47,18 +47,22 @@ function ClassroomStatus({ open, onClose, initialFloor, initialClassroomCode }) 
                             <Close />
                         </IconButton>
 
-                        <Paper elevation={3} sx={{ p: 3 }}>
-                            <Grid container columnSpacing={2} rowSpacing={2} alignItems="center" sx={{ mb: 2 }}>
-                                <FloorAndClassroomCodeSelector
-                                    floor={floor} setFloor={setFloor}
-                                    classroomCode={classroomCode} setClassroomCode={setClassroomCode}
-                                />
-                                <DateSelector
-                                    currentDate={currentDate} setCurrentDate={setCurrentDate}
-                                    year={year} setYear={setYear}
-                                    month={month} setMonth={setMonth}
-                                    day={day} setDay={setDay}
-                                />
+                        <Paper elevation={3} sx={{ p: 2 }}>
+                            <Grid container columnSpacing={1} rowSpacing={2} alignItems="center" sx={{ mb: 1 }}>
+                                    <FloorAndClassroomCodeSelector
+                                        floor={floor} setFloor={setFloor}
+                                        classroomCode={classroomCode} setClassroomCode={setClassroomCode}
+                                    />
+                                <Grid item xs>
+                                    <Box display="flex" justifyContent="flex-end">
+                                        <DateSelector
+                                            currentDate={currentDate} setCurrentDate={setCurrentDate}
+                                            year={year} setYear={setYear}
+                                            month={month} setMonth={setMonth}
+                                            day={day} setDay={setDay}
+                                        />
+                                    </Box>
+                                </Grid>
                             </Grid>
 
                             <SearchField

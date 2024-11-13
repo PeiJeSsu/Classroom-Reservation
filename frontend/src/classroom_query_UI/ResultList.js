@@ -48,8 +48,13 @@ export default function ResultList({floor, classroomCode}) {
                             <Typography variant="body1">教室編號: {classroom.roomNumber}</Typography>
                             <Typography variant="body1">樓層: {classroom.floor}</Typography>
                         </Box>
-                        <Box>
-                            <ClassroomStatusTestButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber}>查看</ClassroomStatusTestButton>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                gap: 2
+                            }}
+                        >
+                            <ClassroomStatusTestButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
                             <Button variant="contained">申請</Button>
                         </Box>
                     </Box>
