@@ -1,16 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {Box, Typography, Paper, Button} from '@mui/material';
-import ClassroomStatus from '../classroom_status_UI/ClassroomStatus';
 import ClassroomStatusTestButton from "../classroom_status_UI/ClassroomStatusTestButton";
 
 export default function ResultList({floor, classroomCode}) {
     const [classrooms, setClassrooms] = useState([]);
-    const [open, setOpen] = useState(false);
-    const [selectedFloor, setSelectedFloor] = useState('');
-    const [selectedClassroomCode, setSelectedClassroomCode] = useState('');
-
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
 
     useEffect(() => {
         const fetchClassrooms = async () => {
@@ -62,12 +55,6 @@ export default function ResultList({floor, classroomCode}) {
                     </Box>
                 ))
             )}
-            <ClassroomStatus
-                open={open}
-                onClose={handleClose}
-                initialFloor={selectedFloor}
-                initialClassroomCode={selectedClassroomCode}
-            />
         </Paper>
     );
 }
