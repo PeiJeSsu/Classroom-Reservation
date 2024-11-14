@@ -53,7 +53,7 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode}) => {
                                         <CloseIcon/>
                                     </IconButton>
                                 </Box>
-                                <Box sx={{padding: 4}}>
+                                <Box sx={{paddingTop: '6%', paddingRight: 4, paddingBottom: '6%', paddingLeft: 4}}>
                                     <FloorAndClassroomCodeSelector
                                         floor={floor} setFloor={setFloor}
                                         classroomCode={classroomCode} setClassroomCode={setClassroomCode}
