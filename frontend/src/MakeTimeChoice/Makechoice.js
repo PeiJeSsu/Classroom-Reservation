@@ -47,7 +47,7 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode}) => {
                                 bottom: 0,
                             }}
                         >
-                            <Card variant="outlined" sx={{width: '40%', height: '45%'}}>
+                            <Card variant="outlined" sx={{width: '40%', height: '42%'}}>
                                 <Box sx={{display: 'flex', justifyContent: 'flex-end',}}>
                                     <IconButton aria-label="close" onClick={onClose}>
                                         <CloseIcon/>

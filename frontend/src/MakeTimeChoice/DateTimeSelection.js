@@ -9,7 +9,7 @@ const DateTimeSelection = () => {
     const [secondDateTime, setSecondDateTime] = useState(dayjs());
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'space-around', gap: '5px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
             <DateTimePicker
                 label="選擇開始時間"
                 value={firstDateTime}
