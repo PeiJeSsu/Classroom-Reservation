@@ -47,19 +47,19 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode}) => {
                                 bottom: 0,
                             }}
                         >
-                            <Card variant="outlined" sx={{width: '40%', height: '42%'}}>
+                            <Card variant="outlined" sx={{width: '40%', height: '35%'}}>
                                 <Box sx={{display: 'flex', justifyContent: 'flex-end',}}>
                                     <IconButton aria-label="close" onClick={onClose}>
                                         <CloseIcon/>
                                     </IconButton>
                                 </Box>
-                                <Box sx={{paddingTop: '6%', paddingRight: 4, paddingBottom: '6%', paddingLeft: 4}}>
+                                <Box sx={{paddingTop: 1.5, paddingBottom: 1.5, paddingLeft: 4, paddingRight: 4}}>
                                     <FloorAndClassroomCodeSelector
                                         floor={floor} setFloor={setFloor}
                                         classroomCode={classroomCode} setClassroomCode={setClassroomCode}
                                     />
                                 </Box>
-                                <CardContent>
+                                <CardContent sx={{paddingTop: 1.5, paddingBottom: 2, paddingLeft: 4, paddingRight: 4}}>
                                     <DateTimeSelection/>
                                 </CardContent>
                                 <CardActions sx={{justifyContent: 'center'}}>
