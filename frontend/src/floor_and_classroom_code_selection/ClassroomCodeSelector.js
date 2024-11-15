@@ -27,7 +27,7 @@ export default function ClassroomCodeSelector({ floor, classroomCode, setClassro
             <InputLabel id="classroom-code-label">教室代號</InputLabel>
             <Select
                 labelId="classroom-code-label"
-                value={classroomCode}
+                value={classroomCodes.includes(classroomCode) ? classroomCode : ''}
                 onChange={handleChange}
                 label="教室代號"
             >

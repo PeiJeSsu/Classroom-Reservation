@@ -18,7 +18,7 @@ const theme = createTheme({
     },
 })
 
-export default function ClassroomStatusTestButton({initialFloor, initialClassroomCode}) {
+export default function ClassroomStatusButton({initialFloor, initialClassroomCode}) {
     const [open, setOpen] = useState(false)
 
     const handleOpen = () => setOpen(true)

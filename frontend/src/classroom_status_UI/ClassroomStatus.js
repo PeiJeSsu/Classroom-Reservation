@@ -1,9 +1,9 @@
 import React, {useState,useLayoutEffect } from 'react';
-import { ThemeProvider, createTheme, Box, Modal, Fade, IconButton, Paper, Grid } from '@mui/material';
+import { ThemeProvider, createTheme, Box, Modal, Fade, IconButton, Paper, Grid2 } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import DateSelector from './DateSelector';
 import FloorAndClassroomCodeSelector from '../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector';
-import ScheduleTable from './ScheduleTable';
+import ScheduleTable from './ScheduleTable/ScheduleTable';
 import SearchField from './SearchField';
 import CustomSnackbar from './CustomSnackbar';
 
@@ -48,22 +48,28 @@ function ClassroomStatus({ open, onClose, initialFloor, initialClassroomCode }) 
                         </IconButton>
 
                         <Paper elevation={3} sx={{ p: 2 }}>
-                            <Grid container columnSpacing={1} rowSpacing={2} alignItems="center" sx={{ mb: 1 }}>
-                                    <FloorAndClassroomCodeSelector
-                                        floor={floor} setFloor={setFloor}
-                                        classroomCode={classroomCode} setClassroomCode={setClassroomCode}
-                                    />
-                                <Grid item xs>
+                            <Grid2 container columnSpacing={1} rowSpacing={2} alignItems="center" justifyContent="flex-end" sx={{ mb: 2 }}>
+                                <FloorAndClassroomCodeSelector
+                                    floor={floor}
+                                    setFloor={setFloor}
+                                    classroomCode={classroomCode}
+                                    setClassroomCode={setClassroomCode}
+                                />
+                                <Grid2 item xs>
                                     <Box display="flex" justifyContent="flex-end">
                                         <DateSelector
-                                            currentDate={currentDate} setCurrentDate={setCurrentDate}
-                                            year={year} setYear={setYear}
-                                            month={month} setMonth={setMonth}
-                                            day={day} setDay={setDay}
+                                            currentDate={currentDate}
+                                            setCurrentDate={setCurrentDate}
+                                            year={year}
+                                            setYear={setYear}
+                                            month={month}
+                                            setMonth={setMonth}
+                                            day={day}
+                                            setDay={setDay}
                                         />
                                     </Box>
-                                </Grid>
-                            </Grid>
+                                </Grid2>
+                            </Grid2>
 
                             <SearchField
                                 year={year} setYear={setYear}
@@ -74,7 +80,11 @@ function ClassroomStatus({ open, onClose, initialFloor, initialClassroomCode }) 
                                 setCurrentDate={setCurrentDate}
                             />
 
-                            <ScheduleTable currentDate={currentDate} />
+                            <ScheduleTable
+                                currentDate={currentDate}
+                                selectedFloor={floor}
+                                selectedRoomNumber={classroomCode}
+                            />
 
                         </Paper>
                         <CustomSnackbar
