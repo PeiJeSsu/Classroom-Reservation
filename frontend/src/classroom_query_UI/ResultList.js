@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Box, Typography, Paper, Button} from '@mui/material';
-import ClassroomStatusTestButton from "../classroom_status_UI/ClassroomStatusTestButton";
+import ClassroomStatusTestButton from "../classroom_status_UI/ClassroomStatusButton";
 
 export default function ResultList({floor, classroomCode}) {
     const [classrooms, setClassrooms] = useState([]);

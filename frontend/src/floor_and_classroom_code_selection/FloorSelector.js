@@ -27,7 +27,7 @@ export default function FloorSelector({ floor, setFloor, setClassroomCode }) {
             <InputLabel id="floor-label">樓層</InputLabel>
             <Select
                 labelId="floor-label"
-                value={floor}
+                value={floors.includes(floor) ? floor : ''}
                 onChange={handleChange}
                 label="樓層"
             >

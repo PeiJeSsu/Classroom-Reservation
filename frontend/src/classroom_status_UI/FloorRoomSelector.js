@@ -1,31 +1,65 @@
-import React from 'react'
-import { FormControl, InputLabel, Select, MenuItem, Grid } from '@mui/material'
+import React, { useState, useEffect } from 'react';
+import { FormControl, InputLabel, Select, MenuItem, Grid2} from '@mui/material';
+import axios from 'axios';
 
 function FloorRoomSelector({ floor, setFloor, room, setRoom }) {
+    const [classrooms, setClassrooms] = useState([]);
+    const [floors, setFloors] = useState([]);
+    const [rooms, setRooms] = useState([]);
+
+    useEffect(() => {
+        axios.get('/classroom_build/all')
+            .then((response) => {
+                setClassrooms(response.data);
+                const uniqueFloors = [...new Set(response.data.map(classroom => classroom.floor))];
+                setFloors(uniqueFloors);
+            })
+            .catch((error) => {
+                console.error("Error fetching classrooms:", error);
+            });
+    }, []);
+
+    useEffect(() => {
+        const filteredRooms = classrooms
+            .filter(classroom => classroom.floor === floor)
+            .map(classroom => classroom.roomNumber);
+        setRooms(filteredRooms);
+
+    }, [floor, classrooms, room, setRoom]);
+
+    const handleFloorChange = (event) => {
+        setFloor(event.target.value);
+        setRoom('');
+    };
+
     return (
         <>
-            <Grid xs={12} md={3.5} sx={{ ml: 2 }}>
+            <Grid2 xs={12} md={3.5} sx={{ ml: 2 }}>
                 <FormControl fullWidth size="small">
                     <InputLabel>樓層</InputLabel>
-                    <Select value={floor} onChange={(event) => setFloor(event.target.value)} label="樓層">
-                        <MenuItem value="1">1樓</MenuItem>
-                        <MenuItem value="2">2樓</MenuItem>
-                        <MenuItem value="3">3樓</MenuItem>
+                    <Select value={floor} onChange={handleFloorChange} label="樓層" variant={}>
+                        {floors.map((floorNumber) => (
+                            <MenuItem key={floorNumber} value={floorNumber}>
+                                {floorNumber}樓
+                            </MenuItem>
+                        ))}
                     </Select>
                 </FormControl>
-            </Grid>
-            <Grid xs={12} md={3.5} sx={{ ml: 2 }}>
+            </Grid2>
+            <Grid2 xs={12} md={3.5} sx={{ ml: 2 }}>
                 <FormControl fullWidth size="small">
                     <InputLabel>教室編號</InputLabel>
-                    <Select value={room} onChange={(event) => setRoom(event.target.value)} label="教室編號">
-                        <MenuItem value="101">101</MenuItem>
-                        <MenuItem value="102">102</MenuItem>
-                        <MenuItem value="103">103</MenuItem>
+                    <Select value={rooms.includes(room) ? room : ''} onChange={(event) => setRoom(event.target.value)} label="教室編號" disabled={!floor} variant={}>
+                        {rooms.map((roomNumber) => (
+                            <MenuItem key={roomNumber} value={roomNumber}>
+                                {roomNumber}
+                            </MenuItem>
+                        ))}
                     </Select>
                 </FormControl>
-            </Grid>
+            </Grid2>
         </>
-    )
+    );
 }
 
-export default FloorRoomSelector
+export default FloorRoomSelector;
