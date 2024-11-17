@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconButton, Typography, Grid } from '@mui/material'
+import { IconButton, Typography, Grid2 } from '@mui/material'
 import { ChevronLeft, ChevronRight } from '@mui/icons-material'
 import Box from "@mui/material/Box";
 
@@ -29,7 +29,7 @@ function DateSelector({ currentDate, setCurrentDate, setYear, setMonth, setDay }
     }
 
     return (
-        <Grid xs={12} md={4} sx={{ ml: 6 }}>
+        <Grid2 xs={12} md={4} sx={{ ml: 6 }}>
             <Box display="flex" justifyContent="flex-end" alignItems="center">
                 <IconButton onClick={handlePrev} size="small">
                     <ChevronLeft />
@@ -41,7 +41,7 @@ function DateSelector({ currentDate, setCurrentDate, setYear, setMonth, setDay }
                     <ChevronRight />
                 </IconButton>
             </Box>
-        </Grid>
+        </Grid2>
     )
 }
 
