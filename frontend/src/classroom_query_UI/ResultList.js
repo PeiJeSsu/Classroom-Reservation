@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Box, Typography, Paper, Button} from '@mui/material';
+import ClassroomStatusTestButton from "../classroom_status_UI/ClassroomStatusButton";
+import MakeChoiceButton from "../MakeTimeChoice/MakeChoiceButton";
 
 export default function ResultList({floor, classroomCode}) {
     const [classrooms, setClassrooms] = useState([]);
@@ -47,9 +49,14 @@ export default function ResultList({floor, classroomCode}) {
                             <Typography variant="body1">教室編號: {classroom.roomNumber}</Typography>
                             <Typography variant="body1">樓層: {classroom.floor}</Typography>
                         </Box>
-                        <Box>
-                            <Button variant="contained" sx={{marginRight: 4}}>查看</Button>
-                            <Button variant="contained">申請</Button>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                gap: 2
+                            }}
+                        >
+                            <ClassroomStatusTestButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
+                            <MakeChoiceButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
                         </Box>
                     </Box>
                 ))
