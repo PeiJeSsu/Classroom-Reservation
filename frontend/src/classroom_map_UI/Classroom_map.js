@@ -1,10 +1,8 @@
 import React,{useState} from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import Classroom_map_button from "./Classroom_map_button";
-export default function Classroom_map(){
+import ClassroomMapButton  from "./Classroom_map_button";
+export default function ClassroomMap(){
     const [currentImage, setCurrentImage] = useState(null);
     const  handleButtonClick =(floor) =>{
         const imageMap ={
@@ -26,11 +24,11 @@ export default function Classroom_map(){
         >
             <Card sx={{ width: '100%', height: '100%' }}>
                 <h1 style={{ marginLeft: '1.5%' ,marginTop:'1.5%' }}>選擇樓層:</h1>
-                <Classroom_map_button text="B1" onClick={handleButtonClick} ></Classroom_map_button>
-                <Classroom_map_button text=" 1" onClick={handleButtonClick}></Classroom_map_button>
-                <Classroom_map_button text=" 2" onClick={handleButtonClick}></Classroom_map_button>
-                <Classroom_map_button text=" 3" onClick={handleButtonClick}></Classroom_map_button>
-                <Classroom_map_button text=" 4" onClick={handleButtonClick}></Classroom_map_button>
+                <ClassroomMapButton text="B1" onClick={handleButtonClick} ></ClassroomMapButton>
+                <ClassroomMapButton text=" 1" onClick={handleButtonClick}></ClassroomMapButton>
+                <ClassroomMapButton text=" 2" onClick={handleButtonClick}></ClassroomMapButton>
+                <ClassroomMapButton text=" 3" onClick={handleButtonClick}></ClassroomMapButton>
+                <ClassroomMapButton text=" 4" onClick={handleButtonClick}></ClassroomMapButton>
                 {currentImage &&(
                     <Box sx={{textAlign:'center',marginTop:2}}>
                         <img src={currentImage} alt='classroom map' style={{width:'80%'}}/>
