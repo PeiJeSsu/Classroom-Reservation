@@ -18,7 +18,7 @@ const theme = createTheme({
     },
 })
 
-export default function ClassroomStatusTestButton() {
+export default function ClassroomStatusButton({initialFloor, initialClassroomCode}) {
     const [open, setOpen] = useState(false)
 
     const handleOpen = () => setOpen(true)
@@ -26,8 +26,8 @@ export default function ClassroomStatusTestButton() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Button onClick={handleOpen} variant="contained">Test</Button>
-            <ClassroomStatus open={open} onClose={handleClose} />
+            <Button onClick={handleOpen} variant="contained">查看</Button>
+            <ClassroomStatus open={open} onClose={handleClose} initialFloor={initialFloor} initialClassroomCode={initialClassroomCode} />
         </ThemeProvider>
     )
 }

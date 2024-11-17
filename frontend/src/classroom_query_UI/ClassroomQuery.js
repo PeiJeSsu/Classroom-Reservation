@@ -6,12 +6,6 @@ import ResultList from "./ResultList";
 export default function ClassroomQuery() {
     const [floor, setFloor] = useState('');
     const [classroomCode, setClassroomCode] = useState('');
-    const [searchQuery, setSearchQuery] = useState('');
-
-    const handleSearch = () => {
-        // Handle the search logic here
-        console.log('Searching for:', {floor, classroomCode, searchQuery});
-    };
 
     return (
         <Box>
@@ -20,9 +14,6 @@ export default function ClassroomQuery() {
                 setFloor={setFloor}
                 classroomCode={classroomCode}
                 setClassroomCode={setClassroomCode}
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-                onSearch={handleSearch}
             />
             <ResultList floor={floor} classroomCode={classroomCode}/>
         </Box>
