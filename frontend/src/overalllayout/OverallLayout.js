@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import CustomTabPanel from './CustomTabPanel';
 import ClassroomQuery from "../classroom_query_UI/ClassroomQuery";
 import ApplyList from "../design_apply_list_UI/ApplyList";
-import Classroom_map from "../classroom_map_UI/Classroom_map";
+import ClassroomMap from "../classroom_map_UI/Classroom_map";
 export default function BasicTabs() {
     const [value, setValue] = React.useState(0);
 
@@ -36,7 +36,7 @@ export default function BasicTabs() {
                 <ApplyList />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
-                <Classroom_map/>
+                <ClassroomMap/>
             </CustomTabPanel>
         </Box>
     );
