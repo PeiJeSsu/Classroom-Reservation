@@ -1,16 +1,18 @@
 package ntou.cse.backend.ClassroomApply.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 
 @Document(collection = "classrooms_apply")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClassroomApply {
     private String id;
     private String floor;
     private String classroom;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private boolean isApproved;
+    private Boolean isApproved;
 
     public ClassroomApply() {}
 
@@ -55,10 +57,10 @@ public class ClassroomApply {
     }
 
     public boolean isApproved() {
-        return isApproved;
+        return isApproved != null ? isApproved : false;
     }
 
-    public void setApproved(boolean approved) {
+    public void setApproved(Boolean approved) {
         isApproved = approved;
     }
 

@@ -9,4 +9,9 @@ import java.util.List;
 @Repository
 public interface ClassroomApplyRepository extends MongoRepository<ClassroomApply, String> {
     List<ClassroomApply> findByFloorAndClassroomAndStartTimeBetweenAndIsApprovedTrue(String floor, String classroom, LocalDateTime startTime, LocalDateTime endTime);
+
+    List<ClassroomApply> findByFloorAndClassroomAndIsApprovedTrueAndStartTimeBeforeAndEndTimeAfter(
+            String floor, String classroom, LocalDateTime endTime, LocalDateTime startTime);
+
+    List<ClassroomApply> findByIsApprovedNull();
 }
