@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import CustomTabPanel from './CustomTabPanel';
 import ClassroomQuery from "../classroom_query_UI/ClassroomQuery";
 import ApplyList from "../design_apply_list_UI/ApplyList";
-
+import Classroom_map from "../classroom_map_UI/Classroom_map";
 export default function BasicTabs() {
     const [value, setValue] = React.useState(0);
 
@@ -26,6 +26,7 @@ export default function BasicTabs() {
                 <Tabs value={value} onChange={handleChange}>
                     <Tab label="查詢教室" {...a11yProps(0)} />
                     <Tab label="申請管理" {...a11yProps(1)} />
+                    <Tab label="教室地圖" {...a11yProps(2)} />
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
@@ -33,6 +34,9 @@ export default function BasicTabs() {
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
                 <ApplyList />
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={2}>
+                <Classroom_map/>
             </CustomTabPanel>
         </Box>
     );
