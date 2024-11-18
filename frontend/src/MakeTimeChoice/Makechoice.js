@@ -1,3 +1,4 @@
+import React, {useLayoutEffect, useState} from "react";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -9,7 +10,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import DateTimeSelection from './DateTimeSelection';
 import FloorAndClassroomCodeSelector from "../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector";
-import React, {useLayoutEffect, useState} from "react";
+import CustomSnackbar from '../classroom_status_UI/CustomSnackbar';
 import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
@@ -31,6 +32,11 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode}) => {
     const [classroomCode, setClassroomCode] = useState(initialClassroomCode);
     const [startTime, setStartTime] = useState(null);
     const [endTime, setEndTime] = useState(null);
+    const [snackbar, setSnackbar] = useState({open: false, message: ''});
+
+    const handleSnackbarClose = () => {
+        setSnackbar({open: false, message: ''});
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -57,11 +63,11 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode}) => {
                 alert('申請成功: ' + responseData);
             } else {
                 const errorData = await response.text();
-                alert('申請失敗: ' + errorData);
+                setSnackbar({open: true, message: '申請失敗: ' + errorData});
             }
 
         } catch (error) {
-            alert('申請失敗: ' + error.message);
+            setSnackbar({open: true, message: '申請失敗: ' + error.message});
         }
     };
 
@@ -90,7 +96,7 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode}) => {
                                 bottom: 0,
                             }}
                         >
-                            <Card variant="outlined" sx={{width: '40%', height: '35%'}}>
+                            <Card variant="outlined" sx={{width: '40%', height: '17em'}}>
                                 <Box sx={{display: 'flex', justifyContent: 'flex-end',}}>
                                     <IconButton aria-label="close" onClick={onClose}>
                                         <CloseIcon/>
@@ -117,6 +123,11 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode}) => {
                     </Fade>
                 </Modal>
             </LocalizationProvider>
+            <CustomSnackbar
+                open={snackbar.open}
+                onClose={handleSnackbarClose}
+                message={snackbar.message}
+            />
         </ThemeProvider>
     );
 };
