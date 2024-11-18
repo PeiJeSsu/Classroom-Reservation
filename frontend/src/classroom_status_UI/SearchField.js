@@ -8,6 +8,10 @@ function SearchField({ year, setYear, month, setMonth, day, setDay, setErrorMess
         if (isNaN(searchDate.getTime())) {
             setErrorMessage('請輸入有效的日期格式')
             setOpenSnackbar(true)
+            setTimeout(() => {
+                setErrorMessage('請輸入有效的日期格式');
+                setOpenSnackbar(true);
+            }, 100);
             return
         }
         setCurrentDate(searchDate)
