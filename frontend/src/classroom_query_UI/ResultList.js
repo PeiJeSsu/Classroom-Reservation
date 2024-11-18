@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Box, Typography, Paper} from '@mui/material';
-import ClassroomStatusTestButton from "../classroom_status_UI/ClassroomStatusButton";
+import ClassroomStatusButton from "../classroom_status_UI/ClassroomStatusButton";
 import MakeChoiceButton from "../MakeTimeChoice/MakeChoiceButton";
 
 export default function ResultList({floor, classroomCode}) {
@@ -55,7 +55,7 @@ export default function ResultList({floor, classroomCode}) {
                                 gap: 2
                             }}
                         >
-                            <ClassroomStatusTestButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
+                            <ClassroomStatusButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
                             <MakeChoiceButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
                         </Box>
                     </Box>
