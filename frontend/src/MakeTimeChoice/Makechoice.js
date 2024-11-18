@@ -65,7 +65,6 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode}) => {
                 const errorData = await response.text();
                 setSnackbar({open: true, message: '申請失敗: ' + errorData});
             }
-
         } catch (error) {
             setSnackbar({open: true, message: '申請失敗: ' + error.message});
         }
@@ -96,7 +95,7 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode}) => {
                                 bottom: 0,
                             }}
                         >
-                            <Card variant="outlined" sx={{width: '40%', height: '17em'}}>
+                            <Card variant="outlined" sx={{width: '%', height: '17em'}}>
                                 <Box sx={{display: 'flex', justifyContent: 'flex-end',}}>
                                     <IconButton aria-label="close" onClick={onClose}>
                                         <CloseIcon/>

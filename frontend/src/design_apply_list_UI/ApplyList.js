@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Paper, Button } from '@mui/material';
-import axios from 'axios'; // 用來發送 HTTP 請求
+import axios from 'axios';
 
 export default function ApplyList() {
-    const [applications, setApplications] = useState([]); // 用來存儲所有申請
-    const [reload, setReload] = useState(false); // 觸發重新抓取資料的狀態
+    const [applications, setApplications] = useState([]);
+    const [reload, setReload] = useState(false);
 
     useEffect(() => {
         axios
             .get('http://localhost:8080/api/classroom_apply/pending')
             .then((response) => {
-                setApplications(response.data); // 設置資料
+                setApplications(response.data);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
             });
-    }, [reload]); // 當 reload 變化時重新執行
+    }, [reload]);
 
     const handleApprove = (id) => {
         axios
             .put(`http://localhost:8080/api/classroom_apply/${id}/approve`)
             .then(() => {
-                setReload((prev) => !prev); // 更新 reload 狀態，觸發重新抓取資料
+                setReload((prev) => !prev);
             })
             .catch((error) => {
                 console.error('Error approving application:', error);
@@ -32,26 +32,23 @@ export default function ApplyList() {
         axios
             .put(`http://localhost:8080/api/classroom_apply/${id}/deny`)
             .then(() => {
-                setReload((prev) => !prev); // 更新 reload 狀態，觸發重新抓取資料
+                setReload((prev) => !prev);
             })
             .catch((error) => {
                 console.error('Error denying application:', error);
             });
     };
 
-    // 格式化時間為 24 小時制
     const formatTime = (dateTime) => {
         const date = new Date(dateTime);
         return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
     };
 
-    // 格式化日期為 yyyy-MM-dd
     const formatDate = (dateTime) => {
         const date = new Date(dateTime);
         return date.toLocaleDateString([], { year: 'numeric', month: '2-digit', day: '2-digit' });
     };
-
-    // 格式化時間範圍，包括日期和時間
+    
     const formatTimeRange = (startTime, endTime) => {
         const startDate = formatDate(startTime);
         const start = formatTime(startTime);
