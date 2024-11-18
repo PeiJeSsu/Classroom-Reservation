@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TextField from '@mui/material/TextField';
 import { DateTimeField } from '@mui/x-date-pickers/DateTimeField';
-import dayjs from 'dayjs';
 import { renderTimeViewClock } from '@mui/x-date-pickers';
 
-const DateTimeSelection = () => {
-    const [firstDateTime, setFirstDateTime] = useState(dayjs());
-    const [secondDateTime, setSecondDateTime] = useState(dayjs());
-
+const DateTimeSelection = ({ startDateTime, setStartDateTime, endDateTime, setEndDateTime }) => {
     return (
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
             <DateTimeField
@@ -16,8 +12,8 @@ const DateTimeSelection = () => {
                     height: '3rem'
                 }}
                 label="選擇開始時間"
-                value={firstDateTime}
-                onChange={(newValue) => setFirstDateTime(newValue)}
+                value={startDateTime}
+                onChange={(newValue) => setStartDateTime(newValue)}
                 renderInput={(params) => <TextField {...params} fullWidth />}
                 viewRenderers={{
                     hours: renderTimeViewClock
@@ -31,13 +27,11 @@ const DateTimeSelection = () => {
                     height: '3rem'
                 }}
                 label="選擇結束時間"
-                value={secondDateTime}
-                onChange={(newValue) => setSecondDateTime(newValue)}
+                value={endDateTime}
+                onChange={(newValue) => setEndDateTime(newValue)}
                 renderInput={(params) => <TextField {...params} fullWidth />}
                 viewRenderers={{
-                    hours: renderTimeViewClock,
-                    minutes: renderTimeViewClock,
-                    seconds: renderTimeViewClock,
+                    hours: renderTimeViewClock
                 }}
                 views={['year', 'month', 'day', 'hours']}
                 format="YYYY/MM/DD HH:00"

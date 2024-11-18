@@ -4,7 +4,9 @@ import ntou.cse.backend.ClassroomApply.model.ClassroomApply;
 import ntou.cse.backend.ClassroomApply.service.ClassroomApplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,17 +18,28 @@ public class ClassroomApplyController {
     private ClassroomApplyService classroomApplyService;
 
     @PostMapping("/apply")
-    public void applyForClassroom(@RequestParam String floor,
-                                  @RequestParam String roomNumber,
-                                  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
-                                  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime) {
-
-        classroomApplyService.createApplication(floor, roomNumber, startTime, endTime);
+    public ResponseEntity<String> applyForClassroom(@RequestParam String floor,
+                                                    @RequestParam String classroomCode,
+                                                    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
+                                                    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime) {
+        try {
+            classroomApplyService.createApplication(floor, classroomCode, startTime, endTime);
+            return new ResponseEntity<>("Application created successfully", HttpStatus.OK);
+        } catch (IllegalArgumentException | IllegalStateException ex) {
+                return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception ex) {
+            return new ResponseEntity<>("An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping
     public List<ClassroomApply> getAllApplications() {
         return classroomApplyService.getAllApplications();
+    }
+
+    @GetMapping("/pending")
+    public List<ClassroomApply> getAllPendingApplications() {
+        return classroomApplyService.getAllPendingApplications();
     }
 
     @GetMapping("/{id}")

@@ -1,3 +1,4 @@
+import React, {useLayoutEffect, useState} from "react";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -9,7 +10,13 @@ import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import DateTimeSelection from './DateTimeSelection';
 import FloorAndClassroomCodeSelector from "../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector";
-import React, {useLayoutEffect, useState} from "react";
+import CustomSnackbar from '../classroom_status_UI/CustomSnackbar';
+import dayjs from "dayjs";
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const theme = createTheme({
     palette: {
@@ -23,12 +30,53 @@ const theme = createTheme({
 const Makechoice = ({open, onClose, initialFloor, initialClassroomCode}) => {
     const [floor, setFloor] = useState(initialFloor);
     const [classroomCode, setClassroomCode] = useState(initialClassroomCode);
+    const [startTime, setStartTime] = useState(null);
+    const [endTime, setEndTime] = useState(null);
+    const [snackbar, setSnackbar] = useState({open: false, message: ''});
+
+    const handleSnackbarClose = () => {
+        setSnackbar({open: false, message: ''});
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const startTimeInUTC8 = startTime ? dayjs(startTime).tz('Asia/Taipei').format() : null;
+            const endTimeInUTC8 = endTime ? dayjs(endTime).tz('Asia/Taipei').format() : null;
+
+            const params = new URLSearchParams({
+                floor,
+                classroomCode,
+                startTime: startTimeInUTC8,
+                endTime: endTimeInUTC8
+            });
+
+            console.log(startTime.toISOString(), endTime.toISOString());
+
+            const response = await fetch(`http://localhost:8080/api/classroom_apply/apply?${params.toString()}`, {
+                method: 'POST',
+            });
+
+            if (response.ok) {
+                const responseData = await response.text();
+                alert('申請成功: ' + responseData);
+            } else {
+                const errorData = await response.text();
+                setSnackbar({open: true, message: '申請失敗: ' + errorData});
+            }
+        } catch (error) {
+            setSnackbar({open: true, message: '申請失敗: ' + error.message});
+        }
+    };
+
     useLayoutEffect(() => {
         if (open) {
             setFloor(initialFloor);
             setClassroomCode(initialClassroomCode);
         }
     }, [initialFloor, initialClassroomCode, open]);
+
     return (
         <ThemeProvider theme={theme}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -47,7 +95,7 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode}) => {
                                 bottom: 0,
                             }}
                         >
-                            <Card variant="outlined" sx={{width: '40%', height: '35%'}}>
+                            <Card variant="outlined" sx={{width: '%', height: '17em'}}>
                                 <Box sx={{display: 'flex', justifyContent: 'flex-end',}}>
                                     <IconButton aria-label="close" onClick={onClose}>
                                         <CloseIcon/>
@@ -60,10 +108,12 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode}) => {
                                     />
                                 </Box>
                                 <CardContent sx={{paddingTop: 1.5, paddingBottom: 2, paddingLeft: 4, paddingRight: 4}}>
-                                    <DateTimeSelection/>
+                                    <DateTimeSelection startDateTime={startTime} setStartDateTime={setStartTime}
+                                                       endDateTime={endTime} setEndDateTime={setEndTime}
+                                    />
                                 </CardContent>
                                 <CardActions sx={{justifyContent: 'center'}}>
-                                    <Button variant="contained" color="primary">
+                                    <Button variant="contained" color="primary" onClick={handleSubmit}>
                                         提交
                                     </Button>
                                 </CardActions>
@@ -72,6 +122,11 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode}) => {
                     </Fade>
                 </Modal>
             </LocalizationProvider>
+            <CustomSnackbar
+                open={snackbar.open}
+                onClose={handleSnackbarClose}
+                message={snackbar.message}
+            />
         </ThemeProvider>
     );
 };

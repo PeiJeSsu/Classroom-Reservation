@@ -14,19 +14,34 @@ public class ClassroomApplyService {
     @Autowired
     private ClassroomApplyRepository classroomApplyRepository;
 
-    public ClassroomApply createApplication(String floor, String classroom, LocalDateTime startTime, LocalDateTime endTime) {
+    public void createApplication(String floor, String classroomCode, LocalDateTime startTime, LocalDateTime endTime) {
+        if (startTime.isAfter(endTime)) {
+            throw new IllegalArgumentException("Start time cannot be after end time.");
+        }
+
+        List<ClassroomApply> conflictingApplications = classroomApplyRepository.findByFloorAndClassroomAndIsApprovedTrueAndStartTimeBeforeAndEndTimeAfter(
+                floor, classroomCode, endTime, startTime);
+
+        if (!conflictingApplications.isEmpty()) {
+            throw new IllegalStateException("The classroom is already booked and approved during the requested time.");
+        }
+
         ClassroomApply application = new ClassroomApply();
         application.setFloor(floor);
-        application.setClassroom(classroom);
+        application.setClassroom(classroomCode);
         application.setStartTime(startTime);
         application.setEndTime(endTime);
-        application.setApproved(false);
+        application.setApproved(null);
 
-        return classroomApplyRepository.save(application);
+        classroomApplyRepository.save(application);
     }
 
     public List<ClassroomApply> getAllApplications() {
         return classroomApplyRepository.findAll();
+    }
+
+    public List<ClassroomApply> getAllPendingApplications() {
+        return classroomApplyRepository.findByIsApprovedNull();
     }
 
     public ClassroomApply getApplicationById(String id) {
@@ -34,7 +49,7 @@ public class ClassroomApplyService {
         return application.orElse(null);
     }
 
-    public ClassroomApply updateApplicationApprovalStatus(String id, boolean isApproved) {
+    public ClassroomApply updateApplicationApprovalStatus(String id, Boolean isApproved) {
         Optional<ClassroomApply> applicationOptional = classroomApplyRepository.findById(id);
         if (applicationOptional.isPresent()) {
             ClassroomApply application = applicationOptional.get();
