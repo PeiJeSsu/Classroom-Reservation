@@ -1,11 +1,13 @@
 package ntou.cse.backend.ClassroomBuild.service;
 
+import ntou.cse.backend.ClassroomApply.model.ClassroomApply;
 import ntou.cse.backend.ClassroomBuild.model.Classroom;
 import ntou.cse.backend.ClassroomBuild.repo.ClassroomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -55,5 +57,16 @@ public class ClassroomService {
 
     public List<Classroom> searchClassroomsByKeyword(String keyword) {
         return classroomRepository.findByFloorContainingOrRoomNumberContaining(keyword, keyword);
+    }
+
+    public Classroom updateKeyStatusAndBorrower(String id, Classroom.KeyStatus keyStatus, String borrower) {
+        Optional<Classroom> applicationOptional = classroomRepository.findById(id);
+        if (applicationOptional.isPresent()) {
+            Classroom application = applicationOptional.get();
+            application.setKeyStatus(keyStatus);
+            application.setBorrower(borrower);
+            return classroomRepository.save(application);
+        }
+        return null;
     }
 }

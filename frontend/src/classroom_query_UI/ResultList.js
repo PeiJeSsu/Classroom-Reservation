@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Box, Typography, Paper} from '@mui/material';
 import ClassroomStatusButton from "../classroom_status_UI/ClassroomStatusButton";
 import MakeChoiceButton from "../MakeTimeChoice/MakeChoiceButton";
+import UpdateKeyStatusButton from "../key_status_UI/UpdateKeyStatusButton";
 
 export default function ResultList({floor, classroomCode}) {
     const [classrooms, setClassrooms] = useState([]);
@@ -9,11 +10,11 @@ export default function ResultList({floor, classroomCode}) {
     useEffect(() => {
         const fetchClassrooms = async () => {
             try {
-                let url = 'http://localhost:8080/classroom_build/all';
+                let url = '/classroom_build/all';
                 if (classroomCode) {
-                    url = `http://localhost:8080/classroom_build/room/${classroomCode}`;
+                    url = `/classroom_build/room/${classroomCode}`;
                 }  else if (floor) {
-                    url = `http://localhost:8080/classroom_build/floor/${floor}`;
+                    url = `/classroom_build/floor/${floor}`;
                 }
                 const response = await fetch(url);
                 if (!response.ok) throw new Error('Network response was not ok');
@@ -25,7 +26,7 @@ export default function ResultList({floor, classroomCode}) {
             }
         };
         fetchClassrooms();
-    }, [floor, classroomCode])
+    }, [floor, classroomCode, ])
 
     return (
         <Paper elevation={3} sx={{padding: '20px', marginTop: '20px'}}>
@@ -46,8 +47,12 @@ export default function ResultList({floor, classroomCode}) {
                         }}
                     >
                         <Box sx={{display: 'flex', gap: 2}}>
-                            <Typography variant="body1">教室編號: {classroom.roomNumber}</Typography>
-                            <Typography variant="body1">樓層: {classroom.floor}</Typography>
+                            <Typography variant="body1" sx={{ minWidth: '110px'}}>教室編號: {classroom.roomNumber}</Typography>
+                            <Typography variant="body1" sx={{ minWidth: '60px'}}>樓層: {classroom.floor}</Typography>
+                            <Typography variant="body1" sx={{ minWidth: '180px'}}>教室狀態: {classroom.keyStatus}</Typography>
+                            {classroom.borrower && (
+                                <Typography variant="body1">借用人: {classroom.borrower}</Typography>
+                            )}
                         </Box>
                         <Box
                             sx={{
@@ -57,6 +62,9 @@ export default function ResultList({floor, classroomCode}) {
                         >
                             <ClassroomStatusButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
                             <MakeChoiceButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
+                            <UpdateKeyStatusButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber}
+                                                   classroomId={classroom.id} keyStatus={classroom.keyStatus} borrower={classroom.borrower || ''}
+                            />
                         </Box>
                     </Box>
                 ))
