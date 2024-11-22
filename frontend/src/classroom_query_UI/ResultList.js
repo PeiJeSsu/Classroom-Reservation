@@ -49,7 +49,7 @@ export default function ResultList({floor, classroomCode}) {
                         <Box sx={{display: 'flex', gap: 2}}>
                             <Typography variant="body1" sx={{ minWidth: '110px'}}>教室編號: {classroom.roomNumber}</Typography>
                             <Typography variant="body1" sx={{ minWidth: '60px'}}>樓層: {classroom.floor}</Typography>
-                            <Typography variant="body1" sx={{ minWidth: '180px'}}>教室狀態: {classroom.keyStatus}</Typography>
+                            <Typography variant="body1" sx={{ minWidth: '180px'}}>鑰匙狀態: {classroom.keyStatus}</Typography>
                             {classroom.borrower && (
                                 <Typography variant="body1">借用人: {classroom.borrower}</Typography>
                             )}
