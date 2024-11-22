@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useLayoutEffect, useState} from "react";
 import {Box, Card, CardContent, Button, CardActions, Modal, Fade, ThemeProvider, IconButton, createTheme} from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -22,7 +22,7 @@ const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClas
     const [inputKeyStatus, setInputKeyStatus] = useState(initialKeyStatus);
     const [inputBorrower, setInputBorrower] = useState(initialBorrower);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (open) {
             setFloor(initialFloor);
             setClassroomCode(initialClassroomCode);
