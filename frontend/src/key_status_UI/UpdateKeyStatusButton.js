@@ -19,7 +19,7 @@ const theme = createTheme({
     },
 })
 
-const UpdateKeyStatusButton = ({initialFloor, initialClassroomCode, classroomId, keyStatus, borrower }) => {
+const UpdateKeyStatusButton = ({initialFloor, initialClassroomCode, classroomId, keyStatus, borrower, setReload}) => {
     const [openKeyStatus, setOpenKeyStatus] = useState(false);
 
     const handleOpen = () => {
@@ -33,7 +33,16 @@ const UpdateKeyStatusButton = ({initialFloor, initialClassroomCode, classroomId,
     return (
         <ThemeProvider theme={theme}>
             <Button variant="contained" onClick={handleOpen}>更改鑰匙狀態</Button>
-            <UpdateKeyStatus open={openKeyStatus} onClose={handleClose} classroomId={classroomId} initialFloor={initialFloor} initialClassroomCode={initialClassroomCode} initialKeyStatus={keyStatus} initialBorrower={borrower}/>
+            <UpdateKeyStatus
+                open={openKeyStatus}
+                onClose={handleClose}
+                classroomId={classroomId}
+                initialFloor={initialFloor}
+                initialClassroomCode={initialClassroomCode}
+                initialKeyStatus={keyStatus}
+                initialBorrower={borrower}
+                setReload={setReload}
+            />
         </ThemeProvider>
     );
 };

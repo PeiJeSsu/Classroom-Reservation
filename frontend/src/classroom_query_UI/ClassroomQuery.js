@@ -6,6 +6,7 @@ import ResultList from "./ResultList";
 export default function ClassroomQuery() {
     const [floor, setFloor] = useState('');
     const [classroomCode, setClassroomCode] = useState('');
+    const [reload, setReload] = useState(false);
 
     return (
         <Box>
@@ -15,7 +16,13 @@ export default function ClassroomQuery() {
                 classroomCode={classroomCode}
                 setClassroomCode={setClassroomCode}
             />
-            <ResultList floor={floor} classroomCode={classroomCode}/>
+            <ResultList
+                floor={floor}
+                classroomCode={classroomCode}
+                reload={reload}
+                setReload={setReload}
+            />
         </Box>
     );
 }
+

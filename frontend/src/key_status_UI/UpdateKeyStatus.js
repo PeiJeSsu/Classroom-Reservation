@@ -16,7 +16,7 @@ const theme = createTheme({
     }
 });
 
-const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClassroomCode, initialKeyStatus, initialBorrower }) => {
+const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClassroomCode, initialKeyStatus, initialBorrower, setReload }) => {
     const [floor, setFloor] = useState(initialFloor);
     const [classroomCode, setClassroomCode] = useState(initialClassroomCode);
     const [inputKeyStatus, setInputKeyStatus] = useState(initialKeyStatus);
@@ -41,6 +41,7 @@ const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClas
             const response = await axios.patch(url, null, { params });
             if (response.status === 200) {
                 alert('鑰匙狀態更新成功');
+                setReload(true);
                 onClose();
             }
         } catch (error) {

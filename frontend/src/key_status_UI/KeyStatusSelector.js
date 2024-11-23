@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-    FormControl, InputLabel, Select, MenuItem, TextField, Box
-} from '@mui/material';
+import {FormControl, InputLabel, Select, MenuItem, TextField, Box} from '@mui/material';
 
 const KeyStatusSelector = ({ inputKeyStatus, setInputKeyStatus, inputBorrower, setInputBorrower }) => {
     return (

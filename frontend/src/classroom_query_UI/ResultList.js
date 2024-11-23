@@ -4,7 +4,7 @@ import ClassroomStatusButton from "../classroom_status_UI/ClassroomStatusButton"
 import MakeChoiceButton from "../MakeTimeChoice/MakeChoiceButton";
 import UpdateKeyStatusButton from "../key_status_UI/UpdateKeyStatusButton";
 
-export default function ResultList({floor, classroomCode}) {
+export default function ResultList({ floor, classroomCode, reload, setReload }) {
     const [classrooms, setClassrooms] = useState([]);
 
     useEffect(() => {
@@ -13,7 +13,7 @@ export default function ResultList({floor, classroomCode}) {
                 let url = '/classroom_build/all';
                 if (classroomCode) {
                     url = `/classroom_build/room/${classroomCode}`;
-                }  else if (floor) {
+                } else if (floor) {
                     url = `/classroom_build/floor/${floor}`;
                 }
                 const response = await fetch(url);
@@ -22,11 +22,17 @@ export default function ResultList({floor, classroomCode}) {
                 const classroomData = Array.isArray(data) ? data : [data];
                 setClassrooms(classroomData);
             } catch (error) {
-                console.log("error fetching classroom data", error)
+                console.error("error fetching classroom data", error);
             }
         };
+
         fetchClassrooms();
-    }, [floor, classroomCode, ])
+
+        if (reload) {
+            setReload(false);
+        }
+    }, [floor, classroomCode, reload]);
+
 
     return (
         <Paper elevation={3} sx={{padding: '20px', marginTop: '20px'}}>
@@ -62,8 +68,14 @@ export default function ResultList({floor, classroomCode}) {
                         >
                             <ClassroomStatusButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
                             <MakeChoiceButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
-                            <UpdateKeyStatusButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber}
-                                                   classroomId={classroom.id} keyStatus={classroom.keyStatus} borrower={classroom.borrower || ''}
+                            <UpdateKeyStatusButton
+                                variant="contained"
+                                initialFloor={classroom.floor}
+                                initialClassroomCode={classroom.roomNumber}
+                                classroomId={classroom.id}
+                                keyStatus={classroom.keyStatus}
+                                borrower={<classroom className="bor"></classroom>rower || ''}
+                                setReload={setReload}
                             />
                         </Box>
                     </Box>
