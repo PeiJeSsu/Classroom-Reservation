@@ -74,7 +74,7 @@ export default function ResultList({ floor, classroomCode, reload, setReload }) 
                                 initialClassroomCode={classroom.roomNumber}
                                 classroomId={classroom.id}
                                 keyStatus={classroom.keyStatus}
-                                borrower={<classroom className="bor"></classroom>rower || ''}
+                                borrower={classroom.borrower || ''}
                                 setReload={setReload}
                             />
                         </Box>
