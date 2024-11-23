@@ -2,18 +2,19 @@ import React, {useEffect, useState} from 'react';
 import {Box, Typography, Paper} from '@mui/material';
 import ClassroomStatusButton from "../classroom_status_UI/ClassroomStatusButton";
 import MakeChoiceButton from "../MakeTimeChoice/MakeChoiceButton";
+import UpdateKeyStatusButton from "../key_status_UI/UpdateKeyStatusButton";
 
-export default function ResultList({floor, classroomCode}) {
+export default function ResultList({ floor, classroomCode, reload, setReload }) {
     const [classrooms, setClassrooms] = useState([]);
 
     useEffect(() => {
         const fetchClassrooms = async () => {
             try {
-                let url = 'http://localhost:8080/classroom_build/all';
+                let url = '/classroom_build/all';
                 if (classroomCode) {
-                    url = `http://localhost:8080/classroom_build/room/${classroomCode}`;
-                }  else if (floor) {
-                    url = `http://localhost:8080/classroom_build/floor/${floor}`;
+                    url = `/classroom_build/room/${classroomCode}`;
+                } else if (floor) {
+                    url = `/classroom_build/floor/${floor}`;
                 }
                 const response = await fetch(url);
                 if (!response.ok) throw new Error('Network response was not ok');
@@ -21,11 +22,17 @@ export default function ResultList({floor, classroomCode}) {
                 const classroomData = Array.isArray(data) ? data : [data];
                 setClassrooms(classroomData);
             } catch (error) {
-                console.log("error fetching classroom data", error)
+                console.error("error fetching classroom data", error);
             }
         };
+
         fetchClassrooms();
-    }, [floor, classroomCode])
+
+        if (reload) {
+            setReload(false);
+        }
+    }, [floor, classroomCode, reload]);
+
 
     return (
         <Paper elevation={3} sx={{padding: '20px', marginTop: '20px'}}>
@@ -46,8 +53,12 @@ export default function ResultList({floor, classroomCode}) {
                         }}
                     >
                         <Box sx={{display: 'flex', gap: 2}}>
-                            <Typography variant="body1">教室編號: {classroom.roomNumber}</Typography>
-                            <Typography variant="body1">樓層: {classroom.floor}</Typography>
+                            <Typography variant="body1" sx={{ minWidth: '110px'}}>教室編號: {classroom.roomNumber}</Typography>
+                            <Typography variant="body1" sx={{ minWidth: '60px'}}>樓層: {classroom.floor}</Typography>
+                            <Typography variant="body1" sx={{ minWidth: '180px'}}>鑰匙狀態: {classroom.keyStatus}</Typography>
+                            {classroom.borrower && (
+                                <Typography variant="body1">借用人: {classroom.borrower}</Typography>
+                            )}
                         </Box>
                         <Box
                             sx={{
@@ -57,6 +68,15 @@ export default function ResultList({floor, classroomCode}) {
                         >
                             <ClassroomStatusButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
                             <MakeChoiceButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
+                            <UpdateKeyStatusButton
+                                variant="contained"
+                                initialFloor={classroom.floor}
+                                initialClassroomCode={classroom.roomNumber}
+                                classroomId={classroom.id}
+                                keyStatus={classroom.keyStatus}
+                                borrower={classroom.borrower || ''}
+                                setReload={setReload}
+                            />
                         </Box>
                     </Box>
                 ))

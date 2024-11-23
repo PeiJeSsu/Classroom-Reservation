@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import BasicTabs from '../overalllayout/OverallLayout';
-import MakeChoiceButton from "../MakeTimeChoice/MakeChoiceButton";
 import RegisterPage from "../login/RegisterPage";
 import LoginPage from "../login/LoginPage";
 
@@ -12,7 +11,6 @@ function MainPage() {
         <div className="main-page">
             <div>
                 <BasicTabs />
-                <MakeChoiceButton />
             </div>
 
             <div className="button-container">

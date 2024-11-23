@@ -10,6 +10,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static ntou.cse.backend.ClassroomBuild.model.Classroom.KeyStatus;
+
 @Service
 public class ClassroomInitService {
 
@@ -38,6 +40,8 @@ public class ClassroomInitService {
                 Classroom classroom = new Classroom();
                 classroom.setFloor(floor);
                 classroom.setRoomNumber(roomNumber);
+                // classroom.setKeyStatus(AVAILABLE);
+                // classroom.setBorrower(null);
                 classroomRepository.save(classroom);
             }
         }

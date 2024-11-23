@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/classroom_build")
@@ -47,6 +46,18 @@ public class ClassroomController {
     @GetMapping("/search")
     public List<Classroom> searchClassroomsByKeyword(@RequestParam String keyword) {
         return classroomService.searchClassroomsByKeyword(keyword);
+    }
+
+    @PatchMapping("/{id}/update-status")
+    public Classroom updateKeyStatusAndBorrower(
+            @PathVariable String id,
+            @RequestParam Classroom.KeyStatus keyStatus,
+            @RequestParam(required = false) String borrower) {
+        Classroom updatedClassroom = classroomService.updateKeyStatusAndBorrower(id, keyStatus, borrower);
+        if (updatedClassroom == null) {
+            throw new IllegalArgumentException("Classroom not found with id: " + id);
+        }
+        return updatedClassroom;
     }
 }
 
