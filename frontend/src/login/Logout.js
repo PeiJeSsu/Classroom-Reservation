@@ -1,18 +1,18 @@
 import React from "react";
-import { auth } from "../config/firebase"; // Ensure your Firebase config is correctly set
-import { signOut } from "firebase/auth"; // Import Firebase signOut method
-import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
-import Button from "@mui/material/Button"; // Import MUI Button
+import { auth } from "../config/firebase";
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
 
 function Logout() {
-    const navigate = useNavigate(); // Used to redirect to login page
+    const navigate = useNavigate();
 
     const handleLogout = async () => {
         try {
-            await signOut(auth); // Sign out the Firebase user
-            localStorage.setItem("isLoggedIn", "false"); // Clear login status
-            localStorage.setItem("userRole", ""); // Clear user role
-            navigate("/login"); // Redirect to login page
+            await signOut(auth);
+            localStorage.setItem("isLoggedIn", "false");
+            localStorage.setItem("userRole", "");
+            navigate("/login");
         } catch (error) {
             console.error("登出失敗：", error.message);
         }

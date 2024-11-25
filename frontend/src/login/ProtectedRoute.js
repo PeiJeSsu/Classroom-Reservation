@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { auth } from "../config/firebase"; // Firebase 配置
-import { CircularProgress, Box } from "@mui/material"; // 用於加載中狀態
+import { auth } from "../config/firebase";
+import { CircularProgress, Box } from "@mui/material";
 
 function ProtectedRoute({ children }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [isLoading, setIsLoading] = useState(true); // 加入加載中狀態
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
-            setIsAuthenticated(!!user); // 設置認證狀態
-            setIsLoading(false); // 完成檢查後設置加載為 false
+            setIsAuthenticated(!!user);
+            setIsLoading(false);
         });
 
-        // 清理訂閱
         return () => unsubscribe();
     }, []);
 
@@ -27,16 +26,16 @@ function ProtectedRoute({ children }) {
                     height: "100vh",
                 }}
             >
-                <CircularProgress /> {/* 加載中圖標 */}
+                <CircularProgress />
             </Box>
         );
     }
 
     if (!isAuthenticated) {
-        return <Navigate to="/login" />; // 重定向到登錄頁面
+        return <Navigate to="/login" />;
     }
 
-    return children; // 如果用戶已登錄，則顯示子組件
+    return children;
 }
 
 export default ProtectedRoute;

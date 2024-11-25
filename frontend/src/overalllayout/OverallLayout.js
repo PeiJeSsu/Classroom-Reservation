@@ -31,7 +31,6 @@ export default function BasicTabs() {
                     {userRole !== "borrower" && <Tab label="申請管理" {...a11yProps(1)} />}
                     <Tab label="教室地圖" {...a11yProps(userRole !== "borrower" ? 2 : 1)} />
                 </Tabs>
-                {/* Place Logout button at the top-right */}
                 <Box sx={{ paddingRight: 2 }}>
                     <Logout />
                 </Box>
@@ -41,7 +40,6 @@ export default function BasicTabs() {
                 <ClassroomQuery />
             </CustomTabPanel>
 
-            {/* Conditionally render the ApplyList panel if the user is not a borrower */}
             {userRole !== "borrower" && (
                 <CustomTabPanel value={value} index={1}>
                     <ApplyList />

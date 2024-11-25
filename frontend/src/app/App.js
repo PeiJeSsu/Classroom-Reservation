@@ -19,7 +19,6 @@ function App() {
             <Routes>
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/login" element={<Login/>}/>
-                {/* 使用 ProtectedRoute 包裹 MainPage */}
                 <Route path="/" element={<ProtectedRoute><MainPage/></ProtectedRoute>}/>
             </Routes>
         </Router>

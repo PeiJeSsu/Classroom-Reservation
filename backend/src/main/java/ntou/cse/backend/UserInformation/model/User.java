@@ -10,10 +10,8 @@ public class User {
     private String email;
     private String role;
 
-    // Constructor
     public User() {}
 
-    // Getters and Setters
     public String getEmail() {
         return email;
     }

@@ -55,7 +55,6 @@ export default function ResultList({ floor, classroomCode, reload, setReload }) 
                         <Box sx={{ display: 'flex', gap: 2 }}>
                             <Typography variant="body1" sx={{ minWidth: '110px' }}>教室編號: {classroom.roomNumber}</Typography>
                             <Typography variant="body1" sx={{ minWidth: '60px' }}>樓層: {classroom.floor}</Typography>
-                            {/* Conditionally render key status and borrower */}
                             {userRole !== "borrower" && (
                                 <>
                                     <Typography variant="body1" sx={{ minWidth: '180px' }}>鑰匙狀態: {classroom.keyStatus}</Typography>
@@ -73,7 +72,6 @@ export default function ResultList({ floor, classroomCode, reload, setReload }) 
                         >
                             <ClassroomStatusButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
                             <MakeChoiceButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
-                            {/* Conditionally render the UpdateKeyStatusButton */}
                             {userRole !== "borrower" && (
                                 <UpdateKeyStatusButton
                                     variant="contained"

@@ -19,7 +19,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    // New method to fetch a user by email
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }

@@ -2,52 +2,62 @@ import React, { useState } from "react";
 import { auth } from "../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Box, TextField, Button, Typography, Alert, Container } from "@mui/material";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import { useNavigate } from "react-router-dom";
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [message, setMessage] = useState("");
-    const navigate = useNavigate(); // Use navigate hook
+    const [alert, setAlert] = useState(null);
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setAlert(null);
+
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            // Check if email is verified
             if (!user.emailVerified) {
-                setMessage("請檢查您的電子郵件並完成驗證。");
+                setAlert({
+                    type: "error",
+                    message: "請檢查您的電子郵件並完成驗證。",
+                });
                 return;
             }
 
-            // Fetch the user's role from the backend
             const response = await fetch("http://localhost:8080/api/users/role", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ email: user.email }), // Send email to backend
+                body: JSON.stringify({ email: user.email }),
             });
 
             if (response.ok) {
-                const role = await response.text(); // Assuming the response contains just the role as a string
+                const role = await response.text();
 
-                // Store the user's role in localStorage
                 localStorage.setItem("userRole", role);
 
                 console.log("User role stored:", localStorage.getItem("userRole"));
 
-                setMessage("登入成功！");
-                navigate("/"); // Redirect to home page after login
+                setAlert({
+                    type: "success",
+                    message: "登入成功！",
+                });
+                navigate("/");
             } else {
-                // Handle backend error
                 const errorMessage = await response.text();
-                setMessage(`取得角色失敗：${errorMessage}`);
+                setAlert({
+                    type: "error",
+                    message: `取得角色失敗：${errorMessage}`,
+                });
             }
         } catch (error) {
-            setMessage(`登入失敗：${error.message}`);
+            setAlert({
+                type: "error",
+                message: `登入失敗：${error.message}`,
+            });
         }
     };
 
@@ -96,11 +106,11 @@ function Login() {
                 <Button variant="contained" color="primary" type="submit" fullWidth>
                     登入
                 </Button>
-                {message && (
-                    <Alert severity={message.includes("失敗") ? "error" : "success"}>
-                        {message}
-                    </Alert>
+
+                {alert && (
+                    <Alert severity={alert.type}>{alert.message}</Alert>
                 )}
+
                 <Button
                     variant="text"
                     color="secondary"

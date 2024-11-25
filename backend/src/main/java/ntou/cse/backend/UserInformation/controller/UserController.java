@@ -23,18 +23,15 @@ public class UserController {
         }
     }
 
-    // New endpoint to fetch the user's role by email
     @PostMapping("/role")
     public ResponseEntity<?> getUserRole(@RequestBody User user) {
         try {
-            // Fetch user by email
             User foundUser = userService.getUserByEmail(user.getEmail());
 
             if (foundUser == null) {
                 return ResponseEntity.status(404).body("User not found");
             }
 
-            // Return the role of the user
             return ResponseEntity.ok().body(foundUser.getRole());
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error retrieving user role: " + e.getMessage());
