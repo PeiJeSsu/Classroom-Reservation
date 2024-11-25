@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import BasicTabs from '../overalllayout/OverallLayout';
 import Register from "../login/Register";
 import Login from "../login/Login";
-import ProtectedRoute from '../login/ProtectedRoute'; // 引入 ProtectedRoute
+import ProtectedRoute from '../login/ProtectedRoute';
 
 function MainPage() {
     return (
