@@ -1,14 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { auth } from "../config/firebase";
+import { CircularProgress, Box } from "@mui/material";
 
 function ProtectedRoute({ children }) {
-    const isAuthenticated = localStorage.getItem('isLoggedIn') === 'true';  // Check if user is logged in
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
-    if (!isAuthenticated) {
-        return <Navigate to="/login" />;  // Redirect to login if not authenticated
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(user => {
+            setIsAuthenticated(!!user);
+            setIsLoading(false);
+        });
+
+        return () => unsubscribe();
+    }, []);
+
+    if (isLoading) {
+        return (
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100vh",
+                }}
+            >
+                <CircularProgress />
+            </Box>
+        );
     }
 
-    return children;  // If authenticated, render the children components
+    if (!isAuthenticated) {
+        return <Navigate to="/login" />;
+    }
+
+    return children;
 }
 
 export default ProtectedRoute;
