@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Typography, Paper } from '@mui/material';
+import React, {useEffect, useState} from 'react';
+import {Box, Typography, Paper} from '@mui/material';
 import ClassroomStatusButton from "../classroom_status_UI/ClassroomStatusButton";
 import MakeChoiceButton from "../MakeTimeChoice/MakeChoiceButton";
 import UpdateKeyStatusButton from "../key_status_UI/UpdateKeyStatusButton";
 
 export default function ResultList({ floor, classroomCode, reload, setReload }) {
     const [classrooms, setClassrooms] = useState([]);
-    const userRole = localStorage.getItem("userRole");
 
     useEffect(() => {
         const fetchClassrooms = async () => {
@@ -23,7 +22,7 @@ export default function ResultList({ floor, classroomCode, reload, setReload }) 
                 const classroomData = Array.isArray(data) ? data : [data];
                 setClassrooms(classroomData);
             } catch (error) {
-                console.error("Error fetching classroom data", error);
+                console.error("error fetching classroom data", error);
             }
         };
 
@@ -34,8 +33,9 @@ export default function ResultList({ floor, classroomCode, reload, setReload }) 
         }
     }, [floor, classroomCode, reload]);
 
+
     return (
-        <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>
+        <Paper elevation={3} sx={{padding: '20px', marginTop: '20px'}}>
             {classrooms.length === 0 ? (
                 <Typography variant="body1">沒有找到相關的教室。</Typography>
             ) : (
@@ -52,17 +52,12 @@ export default function ResultList({ floor, classroomCode, reload, setReload }) 
                             borderRadius: '20px',
                         }}
                     >
-                        <Box sx={{ display: 'flex', gap: 2 }}>
-                            <Typography variant="body1" sx={{ minWidth: '110px' }}>教室編號: {classroom.roomNumber}</Typography>
-                            <Typography variant="body1" sx={{ minWidth: '60px' }}>樓層: {classroom.floor}</Typography>
-                            {/* Conditionally render key status and borrower */}
-                            {userRole !== "borrower" && (
-                                <>
-                                    <Typography variant="body1" sx={{ minWidth: '180px' }}>鑰匙狀態: {classroom.keyStatus}</Typography>
-                                    {classroom.borrower && (
-                                        <Typography variant="body1">借用人: {classroom.borrower}</Typography>
-                                    )}
-                                </>
+                        <Box sx={{display: 'flex', gap: 2}}>
+                            <Typography variant="body1" sx={{ minWidth: '110px'}}>教室編號: {classroom.roomNumber}</Typography>
+                            <Typography variant="body1" sx={{ minWidth: '60px'}}>樓層: {classroom.floor}</Typography>
+                            <Typography variant="body1" sx={{ minWidth: '180px'}}>鑰匙狀態: {classroom.keyStatus}</Typography>
+                            {classroom.borrower && (
+                                <Typography variant="body1">借用人: {classroom.borrower}</Typography>
                             )}
                         </Box>
                         <Box
@@ -73,18 +68,15 @@ export default function ResultList({ floor, classroomCode, reload, setReload }) 
                         >
                             <ClassroomStatusButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
                             <MakeChoiceButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
-                            {/* Conditionally render the UpdateKeyStatusButton */}
-                            {userRole !== "borrower" && (
-                                <UpdateKeyStatusButton
-                                    variant="contained"
-                                    initialFloor={classroom.floor}
-                                    initialClassroomCode={classroom.roomNumber}
-                                    classroomId={classroom.id}
-                                    keyStatus={classroom.keyStatus}
-                                    borrower={classroom.borrower || ''}
-                                    setReload={setReload}
-                                />
-                            )}
+                            <UpdateKeyStatusButton
+                                variant="contained"
+                                initialFloor={classroom.floor}
+                                initialClassroomCode={classroom.roomNumber}
+                                classroomId={classroom.id}
+                                keyStatus={classroom.keyStatus}
+                                borrower={classroom.borrower || ''}
+                                setReload={setReload}
+                            />
                         </Box>
                     </Box>
                 ))

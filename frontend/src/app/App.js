@@ -1,14 +1,22 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import BasicTabs from '../overalllayout/OverallLayout';
-import Register from "../login/Register";
-import Login from "../login/Login";
-import ProtectedRoute from '../login/ProtectedRoute'; // 引入 ProtectedRoute
+import RegisterPage from "../login/RegisterPage";
+import LoginPage from "../login/LoginPage";
 
 function MainPage() {
+    const navigate = useNavigate();
+
     return (
         <div className="main-page">
-            <BasicTabs/>
+            <div>
+                <BasicTabs />
+            </div>
+
+            <div className="button-container">
+                <button onClick={() => navigate('/register')}>Register</button>
+                <button onClick={() => navigate('/login')}>Login</button>
+            </div>
         </div>
     );
 }
@@ -17,10 +25,9 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/register" element={<Register/>}/>
-                <Route path="/login" element={<Login/>}/>
-                {/* 使用 ProtectedRoute 包裹 MainPage */}
-                <Route path="/" element={<ProtectedRoute><MainPage/></ProtectedRoute>}/>
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/" element={<MainPage />} />
             </Routes>
         </Router>
     );
