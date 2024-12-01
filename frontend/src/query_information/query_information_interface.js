@@ -20,7 +20,7 @@ export default function Query_information_interface() {
             .then((data) => {
                 console.log("後端回傳的資料:", data);
 
-                
+
                 const uniqueBorrowers = Array.from(
                     new Set(
                         data
@@ -43,9 +43,9 @@ export default function Query_information_interface() {
                         ? new Date(application.startTime).toLocaleDateString()
                         : "未知日期",
                     isRented:
-                        application.approved === null || application.approved === undefined
+                        application.isApproved === null || application.isApproved === undefined
                             ? "尚未審核"
-                            : application.approved
+                            : application.isApproved
                                 ? "已出租"
                                 : "未出租",
                 }));

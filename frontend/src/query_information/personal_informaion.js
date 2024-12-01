@@ -23,14 +23,14 @@ export default function Personal_information() {
                     // 將後端資料轉換成需要的格式
 
                     const transformedData = data.map((item) => {
-                        
+                        console.log("後端傳回的完整資料: ", data);
                         return {
                             user: item.borrower,
                             classroom: item.classroom,
                             rentalDate: new Date(item.startTime).toLocaleDateString(),
-                            isRented: item.approved === null || item.approved === undefined
+                            isRented: item.isApproved === null || item.isApproved === undefined
                                 ? "尚未審核"
-                                : item.approved ? "已出租" : "未出租", // 根據 isApproved 設定狀態
+                                : item.isApproved ? "已出租" : "未出租", // 根據 isApproved 設定狀態
                         };
                     });
                     setPersonalInfo(transformedData);

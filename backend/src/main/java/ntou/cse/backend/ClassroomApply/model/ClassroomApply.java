@@ -13,9 +13,10 @@ public class ClassroomApply {
     private String borrower;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private Boolean isApproved;
+    private Boolean isApproved; // 改為 Boolean 類型
 
-    public ClassroomApply() {}
+    public ClassroomApply() {
+    }
 
     public String getId() {
         return id;
@@ -57,13 +58,14 @@ public class ClassroomApply {
         this.endTime = endTime;
     }
 
-    public boolean isApproved() {
-        return isApproved != null ? isApproved : false;
+    public Boolean getIsApproved() {
+        return isApproved;  // 直接返回原始值，允許返回 null
     }
 
     public void setApproved(Boolean approved) {
-        isApproved = approved;
+        this.isApproved = approved;
     }
+
     public String getBorrower() {
         return borrower;
     }
@@ -71,6 +73,7 @@ public class ClassroomApply {
     public void setBorrower(String borrower) {
         this.borrower = borrower;
     }
+
     @Override
     public String toString() {
         return "ClassroomApply{" +
@@ -82,6 +85,4 @@ public class ClassroomApply {
                 ", isApproved=" + isApproved +
                 '}';
     }
-
-
 }
