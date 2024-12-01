@@ -13,7 +13,7 @@ public class ClassroomApply {
     private String borrower;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private Boolean isApproved; // 改為 Boolean 類型
+    private Boolean isApproved;
 
     public ClassroomApply() {
     }
@@ -59,7 +59,7 @@ public class ClassroomApply {
     }
 
     public Boolean getIsApproved() {
-        return isApproved;  // 直接返回原始值，允許返回 null
+        return isApproved;
     }
 
     public void setApproved(Boolean approved) {

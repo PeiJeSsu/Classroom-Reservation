@@ -10,7 +10,7 @@ export default function Query_information_interface() {
     const [options, setOptions] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/classroom_apply") // 使用查詢所有申請資訊的 API
+        fetch("http://localhost:8080/api/classroom_apply")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -32,10 +32,10 @@ export default function Query_information_interface() {
                     value: borrower,
                 }));
 
-                // 更新 options
+
                 setOptions(uniqueBorrowers);
 
-                // 將後端資料轉換成需要的格式
+
                 const transformedData = data.map((application) => ({
                     user: application.borrower || "未知借用者",
                     classroomId: application.classroom || "未知教室",
@@ -50,7 +50,7 @@ export default function Query_information_interface() {
                                 : "未出租",
                 }));
 
-                setInfo(transformedData); // 更新狀態
+                setInfo(transformedData);
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
@@ -66,7 +66,7 @@ export default function Query_information_interface() {
         if (selectedOption) {
             return item.user === selectedOption.value;
         }
-        return true; // 如果沒選擇使用者，顯示所有紀錄
+        return true;
     });
 
     return (
@@ -86,9 +86,9 @@ export default function Query_information_interface() {
                 />
                 <Box
                     sx={{
-                        maxHeight: "80vh", // 設定最大高度，根據需要調整
-                        overflowY: "auto", // 啟用垂直滾動
-                        padding: "1%", // 設定內邊距
+                        maxHeight: "80vh",
+                        overflowY: "auto",
+                        padding: "1%",
                     }}
                 >
                     {filteredRentalInfo.map((item, index) => (
