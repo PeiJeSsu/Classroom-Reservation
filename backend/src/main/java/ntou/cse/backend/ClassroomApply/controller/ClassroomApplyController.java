@@ -21,9 +21,11 @@ public class ClassroomApplyController {
     public ResponseEntity<String> applyForClassroom(@RequestParam String floor,
                                                     @RequestParam String classroomCode,
                                                     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
-                                                    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime) {
+                                                    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime,
+                                                    @RequestParam String borrower) {
+        System.out.println("Received borrower: " + borrower);
         try {
-            classroomApplyService.createApplication(floor, classroomCode, startTime, endTime);
+            classroomApplyService.createApplication(floor, classroomCode, startTime, endTime,borrower);
             return new ResponseEntity<>("Application created successfully", HttpStatus.OK);
         } catch (IllegalArgumentException | IllegalStateException ex) {
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
@@ -34,11 +36,13 @@ public class ClassroomApplyController {
 
     @GetMapping
     public List<ClassroomApply> getAllApplications() {
+
         return classroomApplyService.getAllApplications();
     }
 
     @GetMapping("/pending")
     public List<ClassroomApply> getAllPendingApplications() {
+
         return classroomApplyService.getAllPendingApplications();
     }
 
@@ -65,6 +69,10 @@ public class ClassroomApplyController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime) {
 
         return classroomApplyService.findApplicationsByClassroomAndTime(floor, roomNumber, startTime, endTime);
+    }
+    @GetMapping("/borrower/{borrower}")
+    public List<ClassroomApply> getApplicationsByBorrower(@PathVariable String borrower) {
+        return classroomApplyService.findApplicationsByBorrower(borrower);
     }
 
 }

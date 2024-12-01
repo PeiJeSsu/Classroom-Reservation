@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -35,6 +37,17 @@ public class UserController {
             return ResponseEntity.ok().body(foundUser.getRole());
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error retrieving user role: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/borrowers")
+    public ResponseEntity<?> getBorrowers() {
+        try {
+            // 使用 Service 過濾角色為 borrower 的使用者
+            List<User> borrowers = userService.getBorrowers();
+            return ResponseEntity.ok(borrowers);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error retrieving borrowers: " + e.getMessage());
         }
     }
 }
