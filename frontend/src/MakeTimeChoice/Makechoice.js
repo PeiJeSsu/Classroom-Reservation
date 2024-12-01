@@ -42,14 +42,21 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode}) => {
         e.preventDefault();
 
         try {
+
             const startTimeInUTC8 = startTime ? dayjs(startTime).tz('Asia/Taipei').format() : null;
             const endTimeInUTC8 = endTime ? dayjs(endTime).tz('Asia/Taipei').format() : null;
 
+            const borrower = localStorage.getItem("userName");
+            if (!borrower) {
+                setSnackbar({ open: true, message: '未找到借用者！' });
+                return;
+            }
             const params = new URLSearchParams({
                 floor,
                 classroomCode,
                 startTime: startTimeInUTC8,
-                endTime: endTimeInUTC8
+                endTime: endTimeInUTC8,
+                borrower
             });
 
             console.log(startTime.toISOString(), endTime.toISOString());

@@ -14,4 +14,5 @@ public interface ClassroomApplyRepository extends MongoRepository<ClassroomApply
             String floor, String classroom, LocalDateTime endTime, LocalDateTime startTime);
 
     List<ClassroomApply> findByIsApprovedNull();
+    List<ClassroomApply> findByBorrower(String borrower);
 }

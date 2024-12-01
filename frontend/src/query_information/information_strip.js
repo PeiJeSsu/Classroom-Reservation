@@ -6,7 +6,7 @@ export default function Informaion_strip({user, classroomId, rentalDate, isRente
             <p><strong>出租者:</strong>{user}</p>
             <p><strong>教室代號:</strong> {classroomId}</p>
             <p><strong>出租日期:</strong> {rentalDate}</p>
-            <p><strong>出租結果:</strong> {isRented ? "已出租" : "未出租"}</p>
+            <p><strong>出租結果:</strong> {isRented}</p>
         </Card>
     );
 }

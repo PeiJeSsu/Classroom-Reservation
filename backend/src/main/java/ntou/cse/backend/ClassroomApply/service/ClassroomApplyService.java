@@ -14,7 +14,7 @@ public class ClassroomApplyService {
     @Autowired
     private ClassroomApplyRepository classroomApplyRepository;
 
-    public void createApplication(String floor, String classroomCode, LocalDateTime startTime, LocalDateTime endTime) {
+    public void createApplication(String floor, String classroomCode, LocalDateTime startTime, LocalDateTime endTime, String borrower) {
         if (startTime.isAfter(endTime)) {
             throw new IllegalArgumentException("Start time cannot be after end time.");
         }
@@ -31,6 +31,7 @@ public class ClassroomApplyService {
         application.setClassroom(classroomCode);
         application.setStartTime(startTime);
         application.setEndTime(endTime);
+        application.setBorrower(borrower);
         application.setApproved(null);
 
         classroomApplyRepository.save(application);
@@ -61,5 +62,8 @@ public class ClassroomApplyService {
 
     public List<ClassroomApply> findApplicationsByClassroomAndTime(String floor, String classroom, LocalDateTime startTime, LocalDateTime endTime) {
         return classroomApplyRepository.findByFloorAndClassroomAndStartTimeBetweenAndIsApprovedTrue(floor, classroom, startTime, endTime);
+    }
+    public List<ClassroomApply> findApplicationsByBorrower(String borrower) {
+        return classroomApplyRepository.findByBorrower(borrower);
     }
 }

@@ -10,6 +10,7 @@ public class ClassroomApply {
     private String id;
     private String floor;
     private String classroom;
+    private String borrower;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private Boolean isApproved;
@@ -63,7 +64,13 @@ public class ClassroomApply {
     public void setApproved(Boolean approved) {
         isApproved = approved;
     }
+    public String getBorrower() {
+        return borrower;
+    }
 
+    public void setBorrower(String borrower) {
+        this.borrower = borrower;
+    }
     @Override
     public String toString() {
         return "ClassroomApply{" +
@@ -75,4 +82,6 @@ public class ClassroomApply {
                 ", isApproved=" + isApproved +
                 '}';
     }
+
+
 }
