@@ -43,7 +43,7 @@ public class UserController {
     @GetMapping("/borrowers")
     public ResponseEntity<?> getBorrowers() {
         try {
-            // 使用 Service 過濾角色為 borrower 的使用者
+
             List<User> borrowers = userService.getBorrowers();
             return ResponseEntity.ok(borrowers);
         } catch (Exception e) {

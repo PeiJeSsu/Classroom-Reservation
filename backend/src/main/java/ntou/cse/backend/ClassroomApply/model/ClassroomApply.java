@@ -15,7 +15,8 @@ public class ClassroomApply {
     private LocalDateTime endTime;
     private Boolean isApproved;
 
-    public ClassroomApply() {}
+    public ClassroomApply() {
+    }
 
     public String getId() {
         return id;
@@ -57,13 +58,14 @@ public class ClassroomApply {
         this.endTime = endTime;
     }
 
-    public boolean isApproved() {
-        return isApproved != null ? isApproved : false;
+    public Boolean getIsApproved() {
+        return isApproved;
     }
 
     public void setApproved(Boolean approved) {
-        isApproved = approved;
+        this.isApproved = approved;
     }
+
     public String getBorrower() {
         return borrower;
     }
@@ -71,6 +73,7 @@ public class ClassroomApply {
     public void setBorrower(String borrower) {
         this.borrower = borrower;
     }
+
     @Override
     public String toString() {
         return "ClassroomApply{" +
@@ -82,6 +85,4 @@ public class ClassroomApply {
                 ", isApproved=" + isApproved +
                 '}';
     }
-
-
 }

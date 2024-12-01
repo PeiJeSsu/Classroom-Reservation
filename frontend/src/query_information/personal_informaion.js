@@ -7,11 +7,11 @@ export default function Personal_information() {
     const [personalInfo, setPersonalInfo] = useState([]);
 
     useEffect(() => {
-        const userName = localStorage.getItem('userName'); // 獲取 localStorage 中的 userName
+        const userName = localStorage.getItem('userName'); 
         console.log("Logged in userName: ", userName);
 
         if (userName) {
-            // 根據 userName 查詢該借用者的所有資料
+            
             fetch(`http://localhost:8080/api/classroom_apply/borrower/${userName}`)
                 .then((response) => {
                     if (!response.ok) {
@@ -20,17 +20,17 @@ export default function Personal_information() {
                     return response.json();
                 })
                 .then((data) => {
-                    // 將後端資料轉換成需要的格式
+                   
 
                     const transformedData = data.map((item) => {
-                        
+                        console.log("後端傳回的完整資料: ", data);
                         return {
                             user: item.borrower,
                             classroom: item.classroom,
                             rentalDate: new Date(item.startTime).toLocaleDateString(),
-                            isRented: item.approved === null || item.approved === undefined
+                            isRented: item.isApproved === null || item.isApproved === undefined
                                 ? "尚未審核"
-                                : item.approved ? "已出租" : "未出租", // 根據 isApproved 設定狀態
+                                : item.isApproved ? "已出租" : "未出租", 
                         };
                     });
                     setPersonalInfo(transformedData);
@@ -46,9 +46,9 @@ export default function Personal_information() {
         <Box sx={{ width: '100%', height: '95vh' }}>
             <Card sx={{ width: '100%', height: '100%' }}>
                 <Box sx={{
-                    maxHeight: '80vh', // 設定最大高度，根據需要調整
-                    overflowY: 'auto', // 啟用垂直滾動
-                    padding: '1%', // 設定內邊距
+                    maxHeight: '80vh', 
+                    overflowY: 'auto', 
+                    padding: '1%', 
                 }}>
                     {personalInfo.map((item, index) => (
                         <Strip
