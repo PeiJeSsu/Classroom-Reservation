@@ -9,6 +9,7 @@ import ClassroomMap from "../classroom_map_UI/Classroom_map";
 import Logout from "../login/Logout";
 import Information from "../query_information/query_information_interface";
 import Personal_Info from "../query_information/personal_informaion";
+import UserIsBannedStatus from "../user_isbanned_status_UI/UserIsBannedStatus";
 export default function BasicTabs() {
     const [value, setValue] = React.useState(0);
     const userRole = localStorage.getItem("userRole");
@@ -30,8 +31,9 @@ export default function BasicTabs() {
                 <Tabs value={value} onChange={handleChange}>
                     <Tab label="查詢教室" {...a11yProps(0)} />
                     {userRole !== "borrower" && <Tab label="申請管理" {...a11yProps(1)} />}
-                    <Tab label="教室地圖" {...a11yProps(userRole !== "borrower" ? 2 : 1)} />
-                    <Tab label="資訊查詢" {...a11yProps(userRole !== "borrower" ? 3 : 2)} />
+                    {userRole !== "borrower" && <Tab label="使用者狀態管理" {...a11yProps(2)} />}
+                    <Tab label="教室地圖" {...a11yProps(userRole !== "borrower" ? 3 : 1)} />
+                    <Tab label="資訊查詢" {...a11yProps(userRole !== "borrower" ? 4 : 2)} />
                 </Tabs>
                 <Box sx={{ paddingRight: 2 }}>
                     <Logout />
@@ -48,15 +50,22 @@ export default function BasicTabs() {
                 </CustomTabPanel>
             )}
 
+            {userRole !== "borrower" && (
+                <CustomTabPanel value={value} index={2}>
+                    <UserIsBannedStatus />
+                </CustomTabPanel>
+            )}
+
             <CustomTabPanel
                 value={value}
-                index={userRole !== "borrower" ? 2 : 1} // Adjust index dynamically
+                index={userRole !== "borrower" ? 3 : 1} // Adjust index dynamically
             >
                 <ClassroomMap />
             </CustomTabPanel>
+
             <CustomTabPanel
                 value={value}
-                index={userRole !== "borrower" ? 3 : 2} //
+                index={userRole !== "borrower" ? 4 : 2} //
             >
                 {userRole === "borrower" ? <Personal_Info /> : <Information />}
             </CustomTabPanel>

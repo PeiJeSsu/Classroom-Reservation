@@ -10,7 +10,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import DateTimeSelection from './DateTimeSelection';
 import FloorAndClassroomCodeSelector from "../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector";
-import CustomSnackbar from '../classroom_status_UI/CustomSnackbar';
+import CustomSnackbar from '../custom_snackbar/CustomSnackbar';
 import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';

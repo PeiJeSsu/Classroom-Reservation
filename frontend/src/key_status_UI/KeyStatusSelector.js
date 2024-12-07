@@ -4,7 +4,7 @@ import {FormControl, InputLabel, Select, MenuItem, TextField, Box} from '@mui/ma
 const KeyStatusSelector = ({ inputKeyStatus, setInputKeyStatus, inputBorrower, setInputBorrower }) => {
     return (
         <Box sx={{ display: 'flex', gap: 2, flexDirection: 'row', width: '100%' }}>
-            <FormControl sx={{ width: 150 }}>
+            <FormControl sx={{ width: 200 }}>
                 <InputLabel id="key-status-label">鑰匙狀態</InputLabel>
                 <Select
                     labelId="key-status-label"
@@ -24,7 +24,7 @@ const KeyStatusSelector = ({ inputKeyStatus, setInputKeyStatus, inputBorrower, s
                 </Select>
             </FormControl>
             <TextField
-                sx={{ width: 150 }}
+                sx={{ width: 200 }}
                 label="借用者"
                 value={inputBorrower || ''}
                 onChange={(e) => setInputBorrower(e.target.value)}

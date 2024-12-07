@@ -43,11 +43,59 @@ public class UserController {
     @GetMapping("/borrowers")
     public ResponseEntity<?> getBorrowers() {
         try {
-
             List<User> borrowers = userService.getBorrowers();
             return ResponseEntity.ok(borrowers);
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error retrieving borrowers: " + e.getMessage());
+        }
+    }
+
+    @PatchMapping("/{email}/ban")
+    public ResponseEntity<String> banUser(@PathVariable String email, @RequestBody int lastTimeInSeconds) {
+        try {
+            boolean banned = userService.banUser(email, lastTimeInSeconds);
+            if (banned) {
+                return ResponseEntity.ok("User banned successfully.");
+            } else {
+                return ResponseEntity.status(404).body("User not found.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error banning user: " + e.getMessage());
+        }
+    }
+
+    @PatchMapping("/{email}/unban")
+    public ResponseEntity<String> unbanUser(@PathVariable String email) {
+        try {
+            boolean unbanned = userService.unbanUser(email);
+            if (unbanned) {
+                return ResponseEntity.ok("User unbanned successfully.");
+            } else {
+                return ResponseEntity.status(404).body("User not found.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error unbanning user: " + e.getMessage());
+        }
+    }
+
+
+    @PatchMapping("/unBanAllUsers")
+    public ResponseEntity<String> unBanAllUsers() {  // 用來初始化的
+        try {
+            userService.updateAllUsersUnBanned();
+            return ResponseEntity.ok("All users have been unbanned successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error unbanned all users: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/allUsers")
+    public ResponseEntity<List<User>> getAllUsers() {
+        try {
+            List<User> users = userService.getAllUsers();
+            return ResponseEntity.ok(users);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
         }
     }
 }

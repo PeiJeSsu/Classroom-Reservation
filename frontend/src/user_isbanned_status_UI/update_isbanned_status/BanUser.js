@@ -1,11 +1,10 @@
-import React, {useLayoutEffect, useState} from "react";
-import {Box, Card, CardContent, Button, CardActions, Modal, Fade, ThemeProvider, IconButton, createTheme} from '@mui/material';
+import React, { useLayoutEffect, useState } from "react";
+import { Box, Card, CardContent, Button, CardActions, Modal, Fade, ThemeProvider, IconButton, createTheme, TextField } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import CloseIcon from '@mui/icons-material/Close';
-import FloorAndClassroomCodeSelector from "../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector";
 import axios from "axios";
-import KeyStatusSelector from "./KeyStatusSelector";
+import LastTimeSelector from './LastTimeSelector';
 
 const theme = createTheme({
     palette: {
@@ -16,38 +15,48 @@ const theme = createTheme({
     }
 });
 
-const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClassroomCode, initialKeyStatus, initialBorrower, setReload }) => {
-    const [floor, setFloor] = useState(initialFloor);
-    const [classroomCode, setClassroomCode] = useState(initialClassroomCode);
-    const [inputKeyStatus, setInputKeyStatus] = useState(initialKeyStatus);
-    const [inputBorrower, setInputBorrower] = useState(initialBorrower);
+const BanUser = ({ open, onClose, user, setReload }) => {
+    const [inputMonth, setInputMonth] = useState(0);
+    const [inputDay, setInputDay] = useState(0);
+    const [inputHour, setInputHour] = useState(0);
 
     useLayoutEffect(() => {
         if (open) {
-            setFloor(initialFloor);
-            setClassroomCode(initialClassroomCode);
-            setInputKeyStatus(initialKeyStatus);
-            setInputBorrower(initialBorrower);
+            setInputMonth(0);
+            setInputDay(0);
+            setInputHour(0);
         }
-    }, [open, initialFloor, initialClassroomCode, initialKeyStatus, initialBorrower]);
+    }, [open]);
+
+    const calculateBanDuration = () => {
+        return (inputMonth * 30 * 24 * 60 * 60) + (inputDay * 24 * 60 * 60) + (inputHour * 60 * 60);
+    };
 
     const handleSubmit = async () => {
         try {
-            const url = `/classroom_build/${classroomId}/update-status`;
-            const params = {
-                keyStatus: inputKeyStatus,
-                borrower: inputBorrower,
-            };
-            const response = await axios.patch(url, null, { params });
+            const lastTimeInSeconds = calculateBanDuration();
+
+            const response = await axios.patch(`api/users/${user.email}/ban`, lastTimeInSeconds, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
             if (response.status === 200) {
-                alert('鑰匙狀態更新成功');
+                alert('使用者狀態更新成功');
                 setReload(true);
                 onClose();
             }
         } catch (error) {
-            console.error('Error updating key status:', error);
-            alert('更新鑰匙狀態失敗');
+            console.error('Error banning user:', error);
+            alert('更新使用者狀態失敗');
         }
+    };
+
+    const handleTimeChange = (month, day, hour) => {
+        setInputMonth(month);
+        setInputDay(day);
+        setInputHour(hour);
     };
 
     return (
@@ -68,25 +77,22 @@ const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClas
                                 bottom: 0,
                             }}
                         >
-                            <Card variant="outlined" sx={{ width: '500', height: '18em' }}>
-                                <Box sx={{ display: 'flex', justifyContent: 'flex-end', }}>
+                            <Card variant="outlined" sx={{ width: 400, height: '18em' }}>
+                                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                                     <IconButton aria-label="close" onClick={onClose}>
                                         <CloseIcon />
                                     </IconButton>
                                 </Box>
                                 <Box sx={{ paddingTop: 1.5, paddingBottom: 1.5, paddingLeft: 4, paddingRight: 4 }}>
-                                    <FloorAndClassroomCodeSelector
-                                        floor={floor} setFloor={setFloor}
-                                        classroomCode={classroomCode} setClassroomCode={setClassroomCode}
+                                    <TextField
+                                        label="使用者"
+                                        value={user.email.split('@')[0]}
+                                        fullWidth
+                                        disabled
                                     />
                                 </Box>
                                 <CardContent sx={{ paddingTop: 1.5, paddingBottom: 2, paddingLeft: 4, paddingRight: 4 }}>
-                                    <KeyStatusSelector
-                                        inputKeyStatus={inputKeyStatus}
-                                        setInputKeyStatus={setInputKeyStatus}
-                                        inputBorrower={inputBorrower}
-                                        setInputBorrower={setInputBorrower}
-                                    />
+                                    <LastTimeSelector onTimeChange={handleTimeChange} />
                                 </CardContent>
                                 <CardActions sx={{ justifyContent: 'center' }}>
                                     <Button variant="contained" color="primary" onClick={handleSubmit}>
@@ -102,4 +108,4 @@ const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClas
     );
 };
 
-export default UpdateKeyStatus;
+export default BanUser;
