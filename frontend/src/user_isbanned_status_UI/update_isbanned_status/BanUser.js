@@ -5,6 +5,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from "axios";
 import LastTimeSelector from './LastTimeSelector';
+import ErrorSnackbar from "../../custom_snackbar/ErrorSnackbar";
 
 const theme = createTheme({
     palette: {
@@ -19,6 +20,8 @@ const BanUser = ({ open, onClose, user, setReload }) => {
     const [inputMonth, setInputMonth] = useState(0);
     const [inputDay, setInputDay] = useState(0);
     const [inputHour, setInputHour] = useState(0);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [openSnackbar, setOpenSnackbar] = useState(false);
 
     useLayoutEffect(() => {
         if (open) {
@@ -33,6 +36,15 @@ const BanUser = ({ open, onClose, user, setReload }) => {
     };
 
     const handleSubmit = async () => {
+        if (inputMonth === 0 && inputDay === 0 && inputHour === 0) {
+            setErrorMessage('請至少輸入一個非零的時間');
+            setOpenSnackbar(true);
+            setTimeout(() => {
+                setErrorMessage('請至少輸入一個非零的時間');
+                setOpenSnackbar(true);
+            }, 100);
+            return;
+        }
         try {
             const lastTimeInSeconds = calculateBanDuration();
 
@@ -103,6 +115,11 @@ const BanUser = ({ open, onClose, user, setReload }) => {
                         </Box>
                     </Fade>
                 </Modal>
+                <ErrorSnackbar
+                    open={openSnackbar}
+                    onClose={() => setOpenSnackbar(false)}
+                    message={errorMessage}
+                />
             </LocalizationProvider>
         </ThemeProvider>
     );

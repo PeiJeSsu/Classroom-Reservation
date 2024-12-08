@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, Paper } from '@mui/material';
 import BanUserButton from "./update_isbanned_status/BanUserButton";
+import UnBanUserButton from "./update_isbanned_status/UnBanUserButton";
 
 export default function UserList({ user, reload, setReload }) {
     const [users, setUsers] = useState([]);
-    console.log('UserList', user);
+    // console.log('UserList', user);
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -57,12 +58,17 @@ export default function UserList({ user, reload, setReload }) {
                             </Typography>
                             {user.isBanned && user.unbanTime && (
                                 <Typography variant="body1" sx={{ minWidth: '150px' }}>
-                                    解禁時間: {user.unbanTime}
+                                    解禁時間: {new Date(user.unbanTime).toLocaleString('zh-TW', {
+                                        year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit',
+                                        minute: '2-digit', second: '2-digit', hour12: false
+                                    })}
                                 </Typography>
                             )}
                         </Box>
-
-                        <BanUserButton variant="contained" user={user} setReload={setReload}/>
+                        <Box sx={{ display: 'flex', gap: 2 }}>
+                            <UnBanUserButton variant="contained" user={user} setReload={setReload}/>
+                            <BanUserButton variant="contained" user={user} setReload={setReload}/>
+                        </Box>
                     </Box>
                 ))
             )}

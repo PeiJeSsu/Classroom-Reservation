@@ -4,7 +4,7 @@ import ClassroomStatusButton from "../classroom_status_UI/ClassroomStatusButton"
 import MakeChoiceButton from "../MakeTimeChoice/MakeChoiceButton";
 import UpdateKeyStatusButton from "../key_status_UI/UpdateKeyStatusButton";
 
-export default function ResultList({ floor, classroomCode, reload, setReload }) {
+export default function ResultList({ floor, classroomCode, reload, setReload, isBanned }) {
     const [classrooms, setClassrooms] = useState([]);
     const userRole = localStorage.getItem("userRole");
 
@@ -71,7 +71,7 @@ export default function ResultList({ floor, classroomCode, reload, setReload }) 
                             }}
                         >
                             <ClassroomStatusButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
-                            <MakeChoiceButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
+                            <MakeChoiceButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} isBanned={isBanned}/>
                             {userRole !== "borrower" && (
                                 <UpdateKeyStatusButton
                                     variant="contained"

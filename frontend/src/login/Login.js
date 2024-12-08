@@ -39,6 +39,7 @@ function Login() {
                 const name = email.split("@")[0];
                 localStorage.setItem("userRole", role);
                 localStorage.setItem("userName", name);
+                localStorage.setItem("userEmail", email);
                 console.log("User role stored:", localStorage.getItem("userRole"));
 
                 setAlert({

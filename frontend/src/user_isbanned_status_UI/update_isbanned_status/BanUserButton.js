@@ -3,22 +3,6 @@ import Button from '@mui/material/Button';
 import {createTheme,ThemeProvider} from "@mui/material";
 import BanUser from "./BanUser";
 
-const theme = createTheme({
-    palette: {
-        mode: 'dark',
-        primary: {
-            main: '#90caf9',
-        },
-        secondary: {
-            main: '#f48fb1',
-        },
-        background: {
-            default: '#303030',
-            paper: '#424242',
-        },
-    },
-})
-
 const BanUserButton = ({user, setReload}) => {
     const [openWindow, setOpenWindow] = useState(false);
 
@@ -31,15 +15,15 @@ const BanUserButton = ({user, setReload}) => {
     };
 
     return (
-        <ThemeProvider theme={theme}>
-            <Button variant="contained" onClick={handleOpen}>更改使用者狀態</Button>
+        <div>
+            <Button variant="contained" onClick={handleOpen}>禁用使用者</Button>
             <BanUser
                 open={openWindow}
                 onClose={handleClose}
                 user={user}
                 setReload={setReload}
             />
-        </ThemeProvider>
+        </div>
     );
 };
 

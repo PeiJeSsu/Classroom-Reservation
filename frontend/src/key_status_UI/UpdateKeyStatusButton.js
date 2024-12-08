@@ -3,22 +3,6 @@ import Button from '@mui/material/Button';
 import {createTheme,ThemeProvider} from "@mui/material";
 import UpdateKeyStatus from "./UpdateKeyStatus";
 
-const theme = createTheme({
-    palette: {
-        mode: 'dark',
-        primary: {
-            main: '#90caf9',
-        },
-        secondary: {
-            main: '#f48fb1',
-        },
-        background: {
-            default: '#303030',
-            paper: '#424242',
-        },
-    },
-})
-
 const UpdateKeyStatusButton = ({initialFloor, initialClassroomCode, classroomId, keyStatus, borrower, setReload}) => {
     const [openKeyStatus, setOpenKeyStatus] = useState(false);
 
@@ -31,7 +15,7 @@ const UpdateKeyStatusButton = ({initialFloor, initialClassroomCode, classroomId,
     };
 
     return (
-        <ThemeProvider theme={theme}>
+        <div>
             <Button variant="contained" onClick={handleOpen}>更改鑰匙狀態</Button>
             <UpdateKeyStatus
                 open={openKeyStatus}
@@ -43,7 +27,7 @@ const UpdateKeyStatusButton = ({initialFloor, initialClassroomCode, classroomId,
                 initialBorrower={borrower}
                 setReload={setReload}
             />
-        </ThemeProvider>
+        </div>
     );
 };
 

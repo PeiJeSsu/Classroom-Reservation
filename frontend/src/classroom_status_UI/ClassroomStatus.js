@@ -5,7 +5,7 @@ import DateSelector from './DateSelector';
 import FloorAndClassroomCodeSelector from '../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector';
 import ScheduleTable from './ScheduleTable/ScheduleTable';
 import SearchField from './SearchField';
-import CustomSnackbar from '../custom_snackbar/CustomSnackbar';
+import ErrorSnackbar from '../custom_snackbar/ErrorSnackbar';
 
 const theme = createTheme({
     palette: {
@@ -87,7 +87,7 @@ function ClassroomStatus({ open, onClose, initialFloor, initialClassroomCode }) 
                             />
 
                         </Paper>
-                        <CustomSnackbar
+                        <ErrorSnackbar
                             open={openSnackbar}
                             onClose={() => setOpenSnackbar(false)}
                             message={errorMessage}
