@@ -5,7 +5,7 @@ import DateSelector from './DateSelector';
 import FloorAndClassroomCodeSelector from '../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector';
 import ScheduleTable from './ScheduleTable/ScheduleTable';
 import SearchField from './SearchField';
-import CustomSnackbar from './CustomSnackbar';
+import ErrorSnackbar from '../custom_snackbar/ErrorSnackbar';
 
 const theme = createTheme({
     palette: {
@@ -43,7 +43,7 @@ function ClassroomStatus({ open, onClose, initialFloor, initialClassroomCode }) 
                         width: '90%', maxWidth: 1000,
                         bgcolor: 'background.paper', boxShadow: 24, p: 4, overflow: 'hidden',
                     }}>
-                        <IconButton onClick={onClose} size="small" sx={{ position: 'absolute', top: 4, right: 2 }}>
+                        <IconButton onClick={onClose} size='small' sx={{ position: 'absolute', top: 4, right: 2 }}>
                             <Close />
                         </IconButton>
 
@@ -87,7 +87,7 @@ function ClassroomStatus({ open, onClose, initialFloor, initialClassroomCode }) 
                             />
 
                         </Paper>
-                        <CustomSnackbar
+                        <ErrorSnackbar
                             open={openSnackbar}
                             onClose={() => setOpenSnackbar(false)}
                             message={errorMessage}

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Snackbar, Alert} from '@mui/material'
 
-function CustomSnackbar({open, onClose, message}) {
+function ErrorSnackbar({open, onClose, message}) {
     return (
         <Snackbar open={open} autoHideDuration={2000} onClose={onClose} key={message}>
             <Alert onClose={onClose} severity="error">
@@ -11,4 +11,4 @@ function CustomSnackbar({open, onClose, message}) {
     )
 }
 
-export default CustomSnackbar
+export default ErrorSnackbar

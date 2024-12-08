@@ -18,7 +18,7 @@ const TableBodyComponent = ({ weekDates, unavailableSlots }) => {
             const unavailableEnd = new Date(unavailable.endTime);
             return (((startTime >= unavailableStart && startTime < unavailableEnd) ||
                     (endTime > unavailableStart && endTime <= unavailableEnd)) &&
-                unavailable.approved === true);
+                unavailable.isApproved === true);
         });
     };
 

@@ -10,7 +10,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import DateTimeSelection from './DateTimeSelection';
 import FloorAndClassroomCodeSelector from "../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector";
-import CustomSnackbar from '../classroom_status_UI/CustomSnackbar';
+import ErrorSnackbar from '../custom_snackbar/ErrorSnackbar';
 import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
@@ -129,7 +129,7 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode}) => {
                     </Fade>
                 </Modal>
             </LocalizationProvider>
-            <CustomSnackbar
+            <ErrorSnackbar
                 open={snackbar.open}
                 onClose={handleSnackbarClose}
                 message={snackbar.message}

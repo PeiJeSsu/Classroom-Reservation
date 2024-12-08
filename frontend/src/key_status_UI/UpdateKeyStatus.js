@@ -68,7 +68,7 @@ const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClas
                                 bottom: 0,
                             }}
                         >
-                            <Card variant="outlined" sx={{ width: '%', height: '20em' }}>
+                            <Card variant="outlined" sx={{ width: '500', height: '18em' }}>
                                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', }}>
                                     <IconButton aria-label="close" onClick={onClose}>
                                         <CloseIcon />
