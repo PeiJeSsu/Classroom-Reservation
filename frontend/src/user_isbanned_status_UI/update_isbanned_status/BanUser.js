@@ -108,7 +108,7 @@ const BanUser = ({ open, onClose, user, setReload }) => {
                                 </CardContent>
                                 <CardActions sx={{ justifyContent: 'center' }}>
                                     <Button variant="contained" color="primary" onClick={handleSubmit}>
-                                        確定
+                                        禁用
                                     </Button>
                                 </CardActions>
                             </Card>
