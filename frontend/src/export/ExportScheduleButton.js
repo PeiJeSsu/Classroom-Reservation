@@ -30,7 +30,9 @@ const ExportScheduleButton = ({ classroom }) => {
         setSelectedMonday(monday);
         setWeekRange(calculateWeekRange(monday));
     };
-
+    useEffect(() => {
+        setWeekRange(calculateWeekRange(selectedMonday));
+    }, [selectedMonday]);
     const fetchReservations = async () => {
         try {
             const startDate = selectedMonday.format('YYYY-MM-DDTHH:mm:ss');
@@ -113,12 +115,12 @@ const ExportScheduleButton = ({ classroom }) => {
 
     const handleExport = async () => {
         setIsExporting(true);
-        await fetchReservations(); 
+        await fetchReservations();
     };
 
     return (
         <div>
-            <Button variant="contained" color="secondary" onClick={handleOpen}>
+            <Button variant="contained" onClick={handleOpen}>
                 匯出
             </Button>
             <Modal open={open} onClose={handleClose} closeAfterTransition>
@@ -131,6 +133,7 @@ const ExportScheduleButton = ({ classroom }) => {
                                 </IconButton>
                             </Box>
                             <CardContent>
+                                <Typography variant="h6" sx={{ mb: 2 }}>教室編號: {classroom.roomNumber}</Typography>
                                 <Typography variant="h6" sx={{ mb: 2 }}>選擇要匯出的週</Typography>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                     <DatePicker
