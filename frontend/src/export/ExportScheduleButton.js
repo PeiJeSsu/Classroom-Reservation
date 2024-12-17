@@ -108,8 +108,11 @@ const ExportScheduleButton = ({ classroom }) => {
             body: tableRows,
             startY: 30,
         });
+        const startDate = selectedMonday.format('YYYYMMDD');
+        const endDate = selectedMonday.add(4, 'day').format('YYYYMMDD');
+        const filename = `Classroom_${classroom.roomNumber}_Schedule_${startDate}~${endDate}.pdf`;
 
-        doc.save(`Classroom_${classroom.roomNumber}_Schedule.pdf`);
+        doc.save(filename);
         handleClose();
     };
 
@@ -132,9 +135,9 @@ const ExportScheduleButton = ({ classroom }) => {
                                     <CloseIcon />
                                 </IconButton>
                             </Box>
-                            <CardContent>
-                                <Typography variant="h6" sx={{ mb: 2 }}>教室編號: {classroom.roomNumber}</Typography>
-                                <Typography variant="h6" sx={{ mb: 2 }}>選擇要匯出的週</Typography>
+                            <CardContent sx={{ textAlign: 'center' }}>
+                                <Typography variant="h5" sx={{ mb: 3 }}>教室編號: {classroom.roomNumber}</Typography>
+                                <Typography variant="h5" sx={{ mb: 4 }}>選擇要匯出的週</Typography>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                     <DatePicker
                                         label="Select Monday"
@@ -144,7 +147,7 @@ const ExportScheduleButton = ({ classroom }) => {
                                     />
                                 </LocalizationProvider>
                                 {weekRange && (
-                                    <Typography sx={{ mt: 2 }}>選擇的日期範圍：{weekRange}</Typography>
+                                    <Typography sx={{ mt: 3 }}>選擇的日期範圍：{weekRange}</Typography>
                                 )}
                             </CardContent>
                             <CardActions sx={{ justifyContent: 'center' }}>
