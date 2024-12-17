@@ -3,7 +3,7 @@ import { Box, Typography, Paper } from '@mui/material';
 import ClassroomStatusButton from "../classroom_status_UI/ClassroomStatusButton";
 import MakeChoiceButton from "../MakeTimeChoice/MakeChoiceButton";
 import UpdateKeyStatusButton from "../key_status_UI/UpdateKeyStatusButton";
-
+import ExportScheduleButton from "../export/ExportScheduleButton";
 export default function ResultList({ floor, classroomCode, reload, setReload, isBanned }) {
     const [classrooms, setClassrooms] = useState([]);
     const userRole = localStorage.getItem("userRole");
@@ -70,6 +70,9 @@ export default function ResultList({ floor, classroomCode, reload, setReload, is
                                 gap: 2
                             }}
                         >
+                            {userRole === "admin" && (
+                                <ExportScheduleButton variant="contained" classroom={classroom} />
+                            )}
                             <ClassroomStatusButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
                             <MakeChoiceButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} isBanned={isBanned}/>
                             {userRole !== "borrower" && (
