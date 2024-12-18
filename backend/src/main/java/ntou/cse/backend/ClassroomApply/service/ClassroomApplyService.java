@@ -1,7 +1,9 @@
 package ntou.cse.backend.ClassroomApply.service;
 
+import ntou.cse.backend.ClassroomApply.exception.UserBannedException;
 import ntou.cse.backend.ClassroomApply.model.ClassroomApply;
 import ntou.cse.backend.ClassroomApply.repo.ClassroomApplyRepository;
+import ntou.cse.backend.UserInformation.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
@@ -14,9 +16,15 @@ public class ClassroomApplyService {
     @Autowired
     private ClassroomApplyRepository classroomApplyRepository;
 
-    public void createApplication(String floor, String classroomCode, LocalDateTime startTime, LocalDateTime endTime, String borrower) {
+
+
+    public void createApplication(String floor, String classroomCode, LocalDateTime startTime, LocalDateTime endTime, String borrower, User targetUser) {
         if (startTime.isAfter(endTime)) {
             throw new IllegalArgumentException("Start time cannot be after end time.");
+        }
+        // System.out.println(targetUser.getIsBanned());
+        if (targetUser.getIsBanned()) {
+            throw new UserBannedException("User is banned. Should not apply classroom.");
         }
 
         List<ClassroomApply> conflictingApplications = classroomApplyRepository.findByFloorAndClassroomAndIsApprovedTrueAndStartTimeBeforeAndEndTimeAfter(

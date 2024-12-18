@@ -8,6 +8,7 @@ export default function ClassroomQuery() {
     const [classroomCode, setClassroomCode] = useState('');
     const [reload, setReload] = useState(false);
     const [isBanned, setIsBanned] = useState(null);
+    const [displayReload, setDisplayReload] = useState(false);
 
     return (
         <Box>
@@ -18,6 +19,8 @@ export default function ClassroomQuery() {
                 setClassroomCode={setClassroomCode}
                 isBanned={isBanned}
                 setIsBanned={setIsBanned}
+                displayReload={displayReload}
+                setDisplayReload={setDisplayReload}
             />
             <ResultList
                 floor={floor}
@@ -25,6 +28,7 @@ export default function ClassroomQuery() {
                 reload={reload}
                 setReload={setReload}
                 isBanned={isBanned}
+                setDisplayReload={setDisplayReload}
             />
         </Box>
     );

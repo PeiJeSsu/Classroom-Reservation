@@ -27,12 +27,13 @@ const theme = createTheme({
     }
 });
 
-const Makechoice = ({open, onClose, initialFloor, initialClassroomCode}) => {
+const Makechoice = ({open, onClose, initialFloor, initialClassroomCode, setDisplayReload}) => {
     const [floor, setFloor] = useState(initialFloor);
     const [classroomCode, setClassroomCode] = useState(initialClassroomCode);
     const [startTime, setStartTime] = useState(null);
     const [endTime, setEndTime] = useState(null);
     const [snackbar, setSnackbar] = useState({open: false, message: ''});
+    const userEmail = localStorage.getItem("userEmail");
 
     const handleSnackbarClose = () => {
         setSnackbar({open: false, message: ''});
@@ -56,9 +57,11 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode}) => {
                 classroomCode,
                 startTime: startTimeInUTC8,
                 endTime: endTimeInUTC8,
-                borrower
+                borrower,
+                userEmail
             });
 
+            // console.log("borrower userEmail", userEmail);
             console.log(startTime.toISOString(), endTime.toISOString());
 
             const response = await fetch(`http://localhost:8080/api/classroom_apply/apply?${params.toString()}`, {
@@ -70,6 +73,11 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode}) => {
                 alert('申請成功: ' + responseData);
             } else {
                 const errorData = await response.text();
+                if (errorData === 'User is banned. Should not apply classroom.') {
+                    setDisplayReload(true);
+                    onClose(true);
+                    alert('您已經被禁用申請權限，系統將自動刷新頁面，禁用訊息顯示於右上角');
+                }
                 setSnackbar({open: true, message: '申請失敗: ' + errorData});
             }
         } catch (error) {

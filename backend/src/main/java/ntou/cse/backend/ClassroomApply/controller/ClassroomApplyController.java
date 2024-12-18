@@ -1,7 +1,10 @@
 package ntou.cse.backend.ClassroomApply.controller;
 
+import ntou.cse.backend.ClassroomApply.exception.UserBannedException;
 import ntou.cse.backend.ClassroomApply.model.ClassroomApply;
 import ntou.cse.backend.ClassroomApply.service.ClassroomApplyService;
+import ntou.cse.backend.UserInformation.model.User;
+import ntou.cse.backend.UserInformation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -16,22 +19,35 @@ public class ClassroomApplyController {
 
     @Autowired
     private ClassroomApplyService classroomApplyService;
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/apply")
     public ResponseEntity<String> applyForClassroom(@RequestParam String floor,
                                                     @RequestParam String classroomCode,
                                                     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
                                                     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime,
-                                                    @RequestParam String borrower) {
+                                                    @RequestParam String borrower,
+                                                    @RequestParam String userEmail) {
         System.out.println("Received borrower: " + borrower);
+
         try {
-            classroomApplyService.createApplication(floor, classroomCode, startTime, endTime,borrower);
-            return new ResponseEntity<>("Application created successfully", HttpStatus.OK);
-        } catch (IllegalArgumentException | IllegalStateException ex) {
+            User targetUser = userService.getUserByEmail(userEmail);
+            try {
+                classroomApplyService.createApplication(floor, classroomCode, startTime, endTime, borrower, targetUser);
+                return new ResponseEntity<>("Application created successfully", HttpStatus.OK);
+            } catch (IllegalArgumentException | IllegalStateException ex) {
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (Exception ex) {
-            return new ResponseEntity<>("An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR);
+            } catch (UserBannedException e) {
+                return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+            }
+            catch (Exception ex) {
+                return new ResponseEntity<>("An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
         }
+
     }
 
     @GetMapping
