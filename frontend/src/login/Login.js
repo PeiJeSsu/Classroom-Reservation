@@ -174,6 +174,9 @@ function Login() {
                     bgcolor: "background.paper",
                 }}
             >
+                <Typography variant="h4" component="h1" gutterBottom>
+                    登入
+                </Typography>
                 {isFirstTimeLogin ? (
                     <>
                         <Typography variant="h5" component="h1" gutterBottom>
@@ -199,9 +202,6 @@ function Login() {
                     </>
                 ) : (
                     <>
-                        <Typography variant="h4" component="h1" gutterBottom>
-                            登入
-                        </Typography>
                         <TextField
                             label="Email"
                             type="email"
