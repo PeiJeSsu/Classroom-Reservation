@@ -69,6 +69,11 @@ function Login() {
         setAlert(null);
 
         try {
+            googleProvider.setCustomParameters({
+                prompt: 'select_account',  // 強制顯示帳戶選擇框
+            });
+
+            // 進行 Google 登入
             const result = await signInWithPopup(auth, googleProvider);
             const user = result.user;
 
