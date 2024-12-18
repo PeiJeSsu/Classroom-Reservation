@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Alert } from '@mui/material';
 import axios from 'axios';
 
-const DisplayIsBanned = ({ userEmail, isBanned, setIsBanned }) => {
+const DisplayIsBanned = ({ userEmail, isBanned, setIsBanned, displayReload, setDisplayReload }) => {
     const [unbanTime, setUnbanTime] = useState(null);
 
     useEffect(() => {
@@ -23,7 +23,9 @@ const DisplayIsBanned = ({ userEmail, isBanned, setIsBanned }) => {
         if (userEmail) {
             fetchUserStatus();
         }
-    }, [userEmail, setIsBanned]);
+        if (displayReload)
+            setDisplayReload(false);
+    }, [userEmail, setIsBanned, displayReload]);
 
     const formatUnbanTime = (timeString) => {
         const date = new Date(timeString);
