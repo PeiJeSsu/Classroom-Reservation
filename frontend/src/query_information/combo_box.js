@@ -19,8 +19,10 @@ export default function Combo_box({
             multiple ={multiple}
             value={value}
             onChange={onChange}
+
             getOptionLabel={getOptionLabel}
             isOptionEqualToValue={isOptionEqualToValue}
+            freeSolo={true}
             renderInput={(params) => <TextField {...params} label={label} />}
         />
         </Box>
