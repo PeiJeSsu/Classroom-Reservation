@@ -10,16 +10,20 @@ export default function ClassroomCodeSelector({ floor, classroomCode, setClassro
                 .then(response => response.json())
                 .then(data => {
                     const codes = data.map(classroom => classroom.roomNumber);
-                    setClassroomCodes(codes);
+                    setClassroomCodes(['全部', ...codes]);
                 })
                 .catch(error => {
                     console.error("Error fetching classrooms:", error);
                 });
+        } else {
+            // When floor is null or '全部', reset classroom codes
+            setClassroomCodes([]);
         }
-    }, [floor, classroomCode, setClassroomCode]);
+    }, [floor, setClassroomCode]);
 
     const handleChange = (event) => {
         setClassroomCode(event.target.value);
+        if (event.target.value === '全部') setClassroomCode(null);
     };
 
     return (
@@ -30,6 +34,7 @@ export default function ClassroomCodeSelector({ floor, classroomCode, setClassro
                 value={classroomCodes.includes(classroomCode) ? classroomCode : ''}
                 onChange={handleChange}
                 label="教室代號"
+                disabled={classroomCodes.length === 0}
             >
                 {classroomCodes.map((code) => (
                     <MenuItem key={code} value={code}>

@@ -9,7 +9,7 @@ export default function FloorSelector({ floor, setFloor, setClassroomCode }) {
             try {
                 const response = await fetch('http://localhost:8080/classroom_build/floors');
                 const data = await response.json();
-                setFloors(data);
+                setFloors(['全部', ...data]);
             } catch (error) {
                 console.error('Error fetching floors:', error);
             }
@@ -19,6 +19,8 @@ export default function FloorSelector({ floor, setFloor, setClassroomCode }) {
 
     const handleChange = (event) => {
         setFloor(event.target.value);
+        if (event.target.value === '全部')
+            setFloor(null);
         setClassroomCode('');
     };
 
