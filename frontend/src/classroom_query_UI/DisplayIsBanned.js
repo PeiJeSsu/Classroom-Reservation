@@ -13,7 +13,7 @@ const DisplayIsBanned = ({ userEmail, isBanned, setIsBanned, displayReload, setD
                     const { isBanned, unbanTime } = response.data;
                     setIsBanned(isBanned);
                     setUnbanTime(unbanTime);
-                    console.log(isBanned, unbanTime);
+                    // console.log(isBanned, unbanTime);
                 }
             } catch (error) {
                 console.error("Error fetching user data", error);

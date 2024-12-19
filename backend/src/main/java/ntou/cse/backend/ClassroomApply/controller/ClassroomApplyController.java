@@ -29,7 +29,7 @@ public class ClassroomApplyController {
                                                     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime,
                                                     @RequestParam String borrower,
                                                     @RequestParam String userEmail) {
-        System.out.println("Received borrower: " + borrower);
+        // System.out.println("Received borrower: " + borrower);
 
         try {
             User targetUser = userService.getUserByEmail(userEmail);

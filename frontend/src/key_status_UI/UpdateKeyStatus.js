@@ -3,8 +3,8 @@ import {Box, Card, CardContent, Button, CardActions, Modal, Fade, ThemeProvider,
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import CloseIcon from '@mui/icons-material/Close';
-import FloorAndClassroomCodeSelector from "../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector";
 import axios from "axios";
+import FloorAndClassroomCodeSelector from "../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector";
 import KeyStatusSelector from "./KeyStatusSelector";
 
 const theme = createTheme({
@@ -33,10 +33,11 @@ const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClas
 
     const handleSubmit = async () => {
         try {
+            // console.log("inputBorrower", inputBorrower);
             const url = `/classroom_build/${classroomId}/update-status`;
             const params = {
                 keyStatus: inputKeyStatus,
-                borrower: inputBorrower,
+                borrower: inputBorrower && inputBorrower.email ? inputBorrower.email.split('@')[0] : null
             };
             const response = await axios.patch(url, null, { params });
             if (response.status === 200) {
@@ -88,7 +89,7 @@ const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClas
                                         setInputBorrower={setInputBorrower}
                                     />
                                 </CardContent>
-                                <CardActions sx={{ justifyContent: 'center' }}>
+                                <CardActions sx={{ justifyContent: 'center', mt: 2 }}>
                                     <Button variant="contained" color="primary" onClick={handleSubmit}>
                                         確定
                                     </Button>
