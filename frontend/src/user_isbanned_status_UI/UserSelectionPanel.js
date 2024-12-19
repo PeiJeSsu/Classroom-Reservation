@@ -9,7 +9,7 @@ const UserSelectionPanel = ({user, setUser}) => {
         <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>
             <Grid2 container spacing={5}>
                 <Grid2 item xs={3}>
-                    <UserSelector user={user} setUser={setUser}></UserSelector>
+                    <UserSelector user={user} setUser={setUser} disabled={false}></UserSelector>
                 </Grid2>
             </Grid2>
         </Paper>

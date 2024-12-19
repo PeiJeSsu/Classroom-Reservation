@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {Autocomplete, TextField, Typography} from '@mui/material';
 
-const UserSelector = ({ user, setUser }) => {
+const UserSelector = ({ user, setUser, disabled }) => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
@@ -20,22 +20,35 @@ const UserSelector = ({ user, setUser }) => {
             });
     }, []);
 
+    const handleValueUpdate = (value) => {
+        if (typeof value === 'string') {
+            setUser({
+                email: value,
+                role: 'unknown',
+                isBanned: false,
+                unbanTime: null,
+            });
+        } else if (typeof value === 'object') {
+            setUser(value);
+        }
+    };
+
     const handleUserChange = (event, value) => {
         // console.log('UserSelector', value);
-        if (typeof value === 'string')
-            setUser({ email: value, role: 'unknown' });
-        else if (typeof value === 'object')
-            setUser(value);
+        handleValueUpdate(value);
+    };
+
+    const handleInputBlur = (event) => {
+        handleValueUpdate(event.target.value);
     };
 
     return (
         <Autocomplete
             options={users}
             getOptionLabel={(option) => {
-                if (typeof option === 'string')
+                if (typeof option === 'string') 
                     return option;
-                const emailPart = option.email.split('@')[0];
-                return `${emailPart}`;
+                return option.email.split('@')[0];
             }}
             groupBy={(option) => option.role}
             freeSolo
@@ -46,17 +59,18 @@ const UserSelector = ({ user, setUser }) => {
                     <Typography sx={{ display: 'inline-block', width: '10ch' }}>
                         {option.email.split('@')[0]}
                     </Typography>
-                    {/*<span>({option.role === 'borrower' ? '借用人' : '管理者'})</span>*/}
                 </li>
             )}
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    label="請選擇使用者（輸入關鍵字來快速查詢）"
+                    label="請選擇使用者（輸入關鍵字查詢）"
                     variant="outlined"
+                    onBlur={handleInputBlur}
                 />
             )}
-            sx={{ minWidth: 350 }}
+            sx={{ minWidth: 300 }}
+            disabled={disabled}
         />
     );
 };

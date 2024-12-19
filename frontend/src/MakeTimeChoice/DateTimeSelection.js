@@ -2,10 +2,11 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import { DateTimeField } from '@mui/x-date-pickers/DateTimeField';
 import { renderTimeViewClock } from '@mui/x-date-pickers';
+import { Box } from '@mui/material';
 
 const DateTimeSelection = ({ startDateTime, setStartDateTime, endDateTime, setEndDateTime }) => {
     return (
-        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <Box sx={{ display: 'flex', gap: 2, flexDirection: 'row', width: '100%' }}>
             <DateTimeField
                 sx={{
                     width: '15rem',
@@ -36,7 +37,7 @@ const DateTimeSelection = ({ startDateTime, setStartDateTime, endDateTime, setEn
                 views={['year', 'month', 'day', 'hours']}
                 format="YYYY/MM/DD HH:00"
             />
-        </div>
+        </Box>
     );
 };
 
