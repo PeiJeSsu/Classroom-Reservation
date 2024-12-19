@@ -20,7 +20,6 @@ export default function Query_information_interface() {
             .then((data) => {
                 console.log("後端回傳的資料:", data);
 
-
                 const uniqueBorrowers = Array.from(
                     new Set(
                         data
@@ -32,9 +31,7 @@ export default function Query_information_interface() {
                     value: borrower,
                 }));
 
-
                 setOptions(uniqueBorrowers);
-
 
                 const transformedData = data.map((application) => ({
                     user: application.borrower || "未知借用者",
@@ -64,7 +61,8 @@ export default function Query_information_interface() {
 
     const filteredRentalInfo = Info.filter((item) => {
         if (selectedOption) {
-            return item.user === selectedOption.value;
+            const inputValue = selectedOption.value || selectedOption.label || selectedOption;
+            return item.user.toLowerCase().includes(inputValue.toLowerCase());
         }
         return true;
     });

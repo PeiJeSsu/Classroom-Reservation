@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Typography, Paper, Button, Dialog, DialogTitle, DialogContent, IconButton } from '@mui/material';
+import React, {useState, useEffect} from 'react';
+import {Box, Typography, Paper, Button, Dialog, DialogTitle, DialogContent, IconButton} from '@mui/material';
 import axios from 'axios';
 import CloseIcon from "@mui/icons-material/Close";
 import HistoryDialog from "./historyDialog";
 import Card from '@mui/material/Card';
+
 export default function ApplyList() {
     const [applications, setApplications] = useState([]);
     const [reload, setReload] = useState(false);
@@ -77,14 +78,14 @@ export default function ApplyList() {
 
     const formatTime = (dateTime) => {
         const date = new Date(dateTime);
-        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+        return date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', hour12: false});
     };
 
     const formatDate = (dateTime) => {
         const date = new Date(dateTime);
-        return date.toLocaleDateString([], { year: 'numeric', month: '2-digit', day: '2-digit' });
+        return date.toLocaleDateString([], {year: 'numeric', month: '2-digit', day: '2-digit'});
     };
-    
+
     const formatTimeRange = (startTime, endTime) => {
         const startDate = formatDate(startTime);
         const start = formatTime(startTime);
@@ -94,7 +95,7 @@ export default function ApplyList() {
     };
 
     return (
-        <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>
+        <Paper elevation={3} sx={{padding: '20px', marginTop: '20px'}}>
             {applications.length === 0 ? (
                 <Typography variant="h6">目前沒有待審批的申請</Typography>
             ) : (
@@ -112,10 +113,12 @@ export default function ApplyList() {
                             borderRadius: '20px',
                         }}
                     >
-                        <Box sx={{ display: 'flex', gap: 2 }}>
-                            <Typography variant="body1">借用人: {result.borrower ? result.borrower : "未知使用者"}</Typography>
+                        <Box sx={{display: 'flex', gap: 2}}>
+
                             <Typography variant="body1">教室編號: {result.classroom}</Typography>
                             <Typography variant="body1">樓層: {result.floor}</Typography>
+                            <Typography
+                                variant="body1">借用人: {result.borrower ? result.borrower : "未知使用者"}</Typography>
                             <Typography variant="body1">
                                 借用時間: {formatTimeRange(result.startTime, result.endTime)}
                             </Typography>
@@ -123,13 +126,13 @@ export default function ApplyList() {
                         <Box>
                             <Button
                                 variant="contained"
-                                sx={{ marginRight: 4 }}
+                                sx={{marginRight: 4}}
                                 onClick={() => showHistory(result.borrower)}>
                                 檢視歷史紀錄
                             </Button>
                             <Button
                                 variant="contained"
-                                sx={{ marginRight: 4 }}
+                                sx={{marginRight: 4}}
                                 onClick={() => handleApprove(result.id)}
                             >
                                 同意
@@ -149,17 +152,38 @@ export default function ApplyList() {
                     <Typography>尚無歷史紀錄</Typography>
                 ) : (
                     personalInfo.map((info, index) => (
-                        <Typography key={index}>
-                            <Card sx={{ width: '95%', height: '10%' ,marginLeft:'2%',marginTop:'1%'}}>
-                                <p><strong>出租者:</strong>{info.user}</p>
-                                <p><strong>教室代號:</strong> {info.classroom}</p>
-                                <p><strong>出租日期:</strong> {info.rentalDate}</p>
-                                <p><strong>出租結果:</strong> {info.isRented}</p>
-                            </Card>
-                        </Typography>
+
+                        <Box
+                            key={info.id}
+                            sx={{
+                                display: 'flex',
+                                height: '35px',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                padding: '10px',
+                                marginBottom: '10px',
+                                border: '1px solid #ccc',
+                                borderRadius: '20px',
+                            }}
+                        >
+                            <Box sx={{display: 'flex'}}>
+                                <Typography variant="body1">
+                                    借用者: {info.user}&nbsp;&nbsp;
+                                </Typography>
+                                <Typography variant="body1">
+                                    教室代號: {info.classroom}&nbsp;&nbsp;
+                                </Typography>
+                                <Typography variant="body1">
+                                    出租日期: {info.rentalDate}&nbsp;&nbsp;
+                                </Typography>
+                                <Typography variant="body1">
+                                    出租結果: {info.isRented}&nbsp;&nbsp;
+                                </Typography>
+                            </Box>
+                        </Box>
                     ))
                 )}
             </HistoryDialog>
         </Paper>
-);
+    );
 }
