@@ -85,11 +85,7 @@ public class UserService {
                     "Your account has been unbanned. You can now access all features again.\n\n" +
                     "Best regards,\nSystem Administrator";
 
-            if (Thread.currentThread().getName().contains("scheduling")) {
-                sendEmail(email, "Account Unbanned", emailText);  // 同步發送
-            } else {
-                sendEmailAsync(email, "Account Unbanned", emailText);  // 異步發送
-            }
+            sendEmailAsync(email, "Account Unbanned", emailText);  // 異步發送
             return true;
         }
         return false;
@@ -106,37 +102,6 @@ public class UserService {
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
-    }
-
-    @Scheduled(fixedRate = 10000)
-    public void checkUnbanUsers() {
-        LocalDateTime now = LocalDateTime.now();
-        List<User> bannedUsers = userRepository.findByIsBannedTrue();
-
-        for (User user : bannedUsers) {
-            System.out.println(user.getEmail() + " " + now + " " + (user.getUnbanTime() != null) + " " + (user.getUnbanTime().isBefore(now)));
-            if (user.getUnbanTime() != null && user.getUnbanTime().isBefore(now)) {
-                System.out.println("Starting unban for: " + user.getEmail());
-            }
-        }
-    }
-
-    public void sendEmail(String to, String subject, String text) {
-        try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-
-            helper.setFrom(new InternetAddress(fromEmail));
-            helper.setTo(new InternetAddress(to));
-            helper.setSubject(subject);
-            helper.setText(text, true);
-
-            mailSender.send(message);
-            System.out.println("Email sent to: " + to);
-        } catch (MessagingException e) {
-            System.err.println("Failed to send email to " + to + ": " + e.getMessage());
-            e.printStackTrace();
-        }
     }
 
     @Async
