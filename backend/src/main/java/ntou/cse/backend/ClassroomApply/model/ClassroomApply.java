@@ -2,6 +2,7 @@ package ntou.cse.backend.ClassroomApply.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.time.LocalDateTime;
 
 @Document(collection = "classrooms_apply")
@@ -14,6 +15,7 @@ public class ClassroomApply {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private Boolean isApproved;
+    private String denyReason;
 
     public ClassroomApply() {
     }
@@ -74,6 +76,16 @@ public class ClassroomApply {
         this.borrower = borrower;
     }
 
+
+    public void setDenyReason(String denyReason) {
+
+        this.denyReason = denyReason;
+    }
+
+    public String getDenyReason() {
+        return denyReason;
+    }
+
     @Override
     public String toString() {
         return "ClassroomApply{" +
@@ -83,6 +95,7 @@ public class ClassroomApply {
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", isApproved=" + isApproved +
+                ", denyReason=" + denyReason +
                 '}';
     }
 }

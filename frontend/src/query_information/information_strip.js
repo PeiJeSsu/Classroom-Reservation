@@ -1,12 +1,39 @@
 import React from 'react';
-import Card from '@mui/material/Card';
-export default function Informaion_strip({user, classroomId, rentalDate, isRented }){
-    return(
-        <Card sx={{ width: '95%', height: '10%' ,marginLeft:'2%',marginTop:'1%'}}>
-            <p><strong>出租者:</strong>{user}</p>
-            <p><strong>教室代號:</strong> {classroomId}</p>
-            <p><strong>出租日期:</strong> {rentalDate}</p>
-            <p><strong>出租結果:</strong> {isRented}</p>
-        </Card>
+import { Box, Typography, Paper } from '@mui/material';
+
+export default function Informaion_strip({ user, classroomId, rentalDate, isRented, denyReason }) {
+    return (
+        <Box
+            sx={{
+                display: 'flex',
+                height: '35px',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: '10px',
+                marginBottom: '10px',
+                border: '1px solid #ccc',
+                borderRadius: '20px',
+            }}
+        >
+            <Box sx={{ display: 'flex' }}>
+                <Typography variant="body1">
+                    借用人: {user}&nbsp;&nbsp;
+                </Typography>
+                <Typography variant="body1">
+                    教室代號: {classroomId}&nbsp;&nbsp;
+                </Typography>
+                <Typography variant="body1">
+                    出租日期: {rentalDate}&nbsp;&nbsp;
+                </Typography>
+                <Typography variant="body1">
+                    出租結果: {isRented}&nbsp;&nbsp;
+                </Typography>
+                {isRented === "未出租" && (
+                    <Typography variant="body1">
+                        拒絕原因: {denyReason ? denyReason : "未知的原因"}&nbsp;&nbsp;
+                    </Typography>
+                )}
+            </Box>
+        </Box>
     );
 }
