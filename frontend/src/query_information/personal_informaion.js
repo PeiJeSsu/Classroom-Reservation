@@ -7,11 +7,11 @@ export default function Personal_information() {
     const [personalInfo, setPersonalInfo] = useState([]);
 
     useEffect(() => {
-        const userName = localStorage.getItem('userName'); 
+        const userName = localStorage.getItem('userName');
         console.log("Logged in userName: ", userName);
 
         if (userName) {
-            
+
             fetch(`http://localhost:8080/api/classroom_apply/borrower/${userName}`)
                 .then((response) => {
                     if (!response.ok) {
@@ -20,8 +20,6 @@ export default function Personal_information() {
                     return response.json();
                 })
                 .then((data) => {
-                   
-
                     const transformedData = data.map((item) => {
                         console.log("後端傳回的完整資料: ", data);
                         return {
@@ -30,7 +28,8 @@ export default function Personal_information() {
                             rentalDate: new Date(item.startTime).toLocaleDateString(),
                             isRented: item.isApproved === null || item.isApproved === undefined
                                 ? "尚未審核"
-                                : item.isApproved ? "已出租" : "未出租", 
+                                : item.isApproved ? "已出租" : "未出租",
+                            denyReason: item.denyReason || null,
                         };
                     });
                     setPersonalInfo(transformedData);
@@ -46,9 +45,9 @@ export default function Personal_information() {
         <Box sx={{ width: '100%', height: '95vh' }}>
             <Card sx={{ width: '100%', height: '100%' }}>
                 <Box sx={{
-                    maxHeight: '80vh', 
-                    overflowY: 'auto', 
-                    padding: '1%', 
+                    maxHeight: '80vh',
+                    overflowY: 'auto',
+                    padding: '1%',
                 }}>
                     {personalInfo.map((item, index) => (
                         <Strip
@@ -57,6 +56,7 @@ export default function Personal_information() {
                             classroomId={item.classroom}
                             rentalDate={item.rentalDate}
                             isRented={item.isRented}
+                            denyReason={item.denyReason}
                         />
                     ))}
                 </Box>

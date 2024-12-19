@@ -45,6 +45,7 @@ export default function Query_information_interface() {
                             : application.isApproved
                                 ? "已出租"
                                 : "未出租",
+                    denyReason: application.denyReason || null,
                 }));
 
                 setInfo(transformedData);
@@ -96,6 +97,7 @@ export default function Query_information_interface() {
                             classroomId={item.classroomId}
                             rentalDate={item.rentalDate}
                             isRented={item.isRented}
+                            denyReason={item.denyReason}
                         />
                     ))}
                 </Box>

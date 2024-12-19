@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/classroom_apply")
@@ -53,14 +54,16 @@ public class ClassroomApplyController {
 
     @PutMapping("/{id}/approve")
     public ClassroomApply approveApplication(@PathVariable String id) {
-        return classroomApplyService.updateApplicationApprovalStatus(id, true);
+        return classroomApplyService.updateApplicationApprovalStatus(id, true, null);
     }
 
     @PutMapping("/{id}/deny")
-    public ClassroomApply denyApplication(@PathVariable String id) {
-        return classroomApplyService.updateApplicationApprovalStatus(id, false);
+    public ClassroomApply denyApplication(@PathVariable String id, @RequestBody Map<String, String> requestBody) {
+        String reason = requestBody.get("reason");
+        System.out.println("Controller - Received ID: " + id);
+        System.out.println("Controller - Received Reason: " + reason);
+        return classroomApplyService.updateApplicationApprovalStatus(id, false, reason);
     }
-
     @GetMapping("/search")
     public List<ClassroomApply> searchApplicationsByClassroomAndTime(
             @RequestParam String floor,
