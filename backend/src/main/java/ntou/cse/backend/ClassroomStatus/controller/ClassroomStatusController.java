@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/classroom_status")
@@ -25,16 +26,26 @@ public class ClassroomStatusController {
         try {
             classroomStatusService.updateClassroomStatus(floor, classroomCode, startTime, endTime);
             return new ResponseEntity<>("Classroom status updated successfully", HttpStatus.OK);
-        } catch (IllegalStateException ex) {
+        } catch (IllegalArgumentException | IllegalStateException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception ex) {
             return new ResponseEntity<>("An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping
-    public List<ClassroomStatus> getAllClassroomStatuses() {
-        return classroomStatusService.getAllClassroomStatuses();
+    @GetMapping("/statusNow")
+    public ResponseEntity<Map<String, String>> getAllClassroomStatusNow() {
+        // 從服務層獲取教室狀態
+        Map<String, String> classroomStatusMap = classroomStatusService.getClassroomStatusesNow();
+
+        // 使用 println 顯示結果
+        System.out.println("目前教室狀態：");
+        classroomStatusMap.forEach((key, value) ->
+                System.out.println("教室編號: " + key + " -> 狀態: " + value)
+        );
+
+        // 返回 HTTP 響應
+        return new ResponseEntity<>(classroomStatusMap, HttpStatus.OK);
     }
 
     @GetMapping("/search")

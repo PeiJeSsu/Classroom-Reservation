@@ -8,9 +8,6 @@ import ChangeClassroomStatusButton from "../change_classroom_status/ChangeClassr
 export default function ResultList({ floor, classroomCode, reload, setReload }) {
     const [classrooms, setClassrooms] = useState([]);
     const userRole = localStorage.getItem("userRole");
-    const [openDialog, setOpenDialog] = useState(false);
-    const [selectedClassroom, setSelectedClassroom] = useState(null);
-    const [newStatus, setNewStatus] = useState('');
 
     useEffect(() => {
         const fetchClassrooms = async () => {
@@ -31,68 +28,31 @@ export default function ResultList({ floor, classroomCode, reload, setReload }) 
             }
         };
 
+        const fetchClassroomStatuses = async () => {
+            try {
+                const response = await fetch('http://localhost:8080/api/classroom_status/statusNow');
+                if (!response.ok) throw new Error('Network response was not ok');
+                const statuses = await response.json();
+
+                // Update the classroom data with the status fetched from the API
+                setClassrooms((prevClassrooms) =>
+                    prevClassrooms.map((classroom) => ({
+                        ...classroom,
+                        status: statuses[classroom.roomNumber] || 'AVAILABLE', // Default to 'AVAILABLE' if no status is found
+                    }))
+                );
+            } catch (error) {
+                console.error("Error fetching classroom statuses", error);
+            }
+        };
+
         fetchClassrooms();
+        fetchClassroomStatuses();
 
         if (reload) {
             setReload(false);
         }
     }, [floor, classroomCode, reload, setReload]);
-
-    const handleOpenDialog = (classroom) => {
-        setSelectedClassroom(classroom);
-        setOpenDialog(true);
-    };
-
-    const handleCloseDialog = () => {
-        setOpenDialog(false);
-        setSelectedClassroom(null);
-        setNewStatus('');
-    };
-
-    const statusMap = {
-        '空閒': '空閒',
-        '借用': '借用中',
-        '維修中': '維修中',
-        '未知': '未知',
-    };
-
-    const statusStyles = {
-        '空閒': { color: 'green' },
-        '借用': { color: 'orange' },
-        '維修中': { color: 'red' },
-        '未知': { color: 'black' },
-    };
-
-    const handleStatusChange = async () => {
-        if (!selectedClassroom || !newStatus) {
-            console.log('Invalid operation');
-            return;
-        }
-
-        try {
-            const response = await fetch(`http://localhost:8080/classroom_build/update_status/${selectedClassroom.id}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ status: newStatus }),
-            });
-
-            if (response.ok) {
-                console.log(`Classroom ${selectedClassroom.roomNumber} status updated to ${newStatus}`);
-                handleCloseDialog();
-                // Refresh the classrooms data
-                const updatedClassrooms = classrooms.map((classroom) =>
-                    classroom.id === selectedClassroom.id ? { ...classroom, status: newStatus } : classroom
-                );
-                setClassrooms(updatedClassrooms);
-            } else {
-                console.error('Failed to update classroom status');
-            }
-        } catch (error) {
-            console.error('Error updating status:', error);
-        }
-    };
 
     return (
         <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>
@@ -116,12 +76,10 @@ export default function ResultList({ floor, classroomCode, reload, setReload }) 
                             <Typography variant="body1" sx={{ minWidth: '110px' }}>教室編號: {classroom.roomNumber}</Typography>
                             <Typography variant="body1" sx={{ minWidth: '60px' }}>樓層: {classroom.floor}</Typography>
                             
-                            <Typography
-                                variant="body1"
-                                sx={statusStyles[classroom.status] || statusStyles['未知']}
-                            >
-                                教室狀態: {statusMap[classroom.status] || '未知'}
+                            <Typography variant="body1" sx={{ minWidth: '180px' }}>
+                                教室狀態: {classroom.status === 'BORROWED' ? '不可用' : classroom.status === 'AVAILABLE' ? '可用' : '未知'}
                             </Typography>
+
 
                             {userRole !== "borrower" && (
                                 <>
@@ -162,10 +120,7 @@ export default function ResultList({ floor, classroomCode, reload, setReload }) 
                                     setReload={setReload}
                                 />
                             )}
-                            
                         </Box>
-
-                        
                     </Box>
                 ))
             )}
