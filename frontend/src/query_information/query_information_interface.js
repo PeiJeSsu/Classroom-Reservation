@@ -77,7 +77,7 @@ export default function Query_information_interface() {
                 backgroundColor: "transparent",
             }}
         >
-            <Paper>
+            <Paper elevation={3}>
                 <Box
                     sx={{
                         marginBottom: "20px",
@@ -95,7 +95,7 @@ export default function Query_information_interface() {
                 </Box>
             </Paper>
 
-            <Paper><Box sx={{padding: "20px"}}>
+            <Paper elevation={3}><Box sx={{padding: "20px"}}>
                 <Box
                     sx={{
                         maxHeight: "70vh",
