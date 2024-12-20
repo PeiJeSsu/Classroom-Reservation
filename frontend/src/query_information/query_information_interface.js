@@ -84,9 +84,6 @@ export default function Query_information_interface() {
 
                     }}
                 >
-                    <Typography variant="h6" sx={{marginBottom: "10px"}}>
-                        選擇使用者
-                    </Typography>
                     <ComboBox
                         sx={{width: "100%"}}
                         options={options}
@@ -104,9 +101,6 @@ export default function Query_information_interface() {
 
                 }}
             >
-                <Typography variant="h6" sx={{marginBottom: "10px"}}>
-                    搜尋結果
-                </Typography>
                 <Box
                     sx={{
                         maxHeight: "70vh",
