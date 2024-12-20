@@ -45,7 +45,6 @@ public class UserService {
     }
 
     public List<User> getBorrowers() {
-        // 过滤角色为 borrower 的用户
         return userRepository.findAll().stream()
                 .filter(user -> "borrower".equals(user.getRole()))
                 .collect(Collectors.toList());
@@ -66,7 +65,6 @@ public class UserService {
                     unbanTime.toString()
             );
 
-            // 使用異步發送郵件
             sendEmailAsync(email, "Account Banned", emailText);
             return true;
         }
@@ -85,13 +83,13 @@ public class UserService {
                     "Your account has been unbanned. You can now access all features again.\n\n" +
                     "Best regards,\nSystem Administrator";
 
-            sendEmailAsync(email, "Account Unbanned", emailText);  // 異步發送
+            sendEmailAsync(email, "Account Unbanned", emailText);
             return true;
         }
         return false;
     }
 
-    public void updateAllUsersUnBanned() {  // 用来初始化的
+    public void updateAllUsersUnBanned() {
         List<User> allUsers = userRepository.findAll();
         for (User user : allUsers) {
             user.setIsBanned(false);
@@ -103,7 +101,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    @Scheduled(fixedRate = 1000) // 1秒一次
+    @Scheduled(fixedRate = 1000)
     public void checkUnbanUsers() {
         LocalDateTime now = LocalDateTime.now();
         List<User> bannedUsers = userRepository.findByIsBannedTrue();
