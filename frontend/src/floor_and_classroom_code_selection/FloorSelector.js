@@ -9,7 +9,7 @@ export default function FloorSelector({ floor, setFloor, setClassroomCode }) {
             try {
                 const response = await fetch('http://localhost:8080/classroom_build/floors');
                 const data = await response.json();
-                setFloors(data);
+                setFloors(['全部', ...data]);
             } catch (error) {
                 console.error('Error fetching floors:', error);
             }
@@ -18,7 +18,12 @@ export default function FloorSelector({ floor, setFloor, setClassroomCode }) {
     }, []);
 
     const handleChange = (event) => {
-        setFloor(event.target.value);
+        const value = event.target.value;
+        if (value === '全部') {
+            setFloor(null);
+        } else {
+            setFloor(value);
+        }
         setClassroomCode('');
     };
 
@@ -27,7 +32,7 @@ export default function FloorSelector({ floor, setFloor, setClassroomCode }) {
             <InputLabel id="floor-label">樓層</InputLabel>
             <Select
                 labelId="floor-label"
-                value={floors.includes(floor) ? floor : ''}
+                value={floor === null ? '全部' : floor}
                 onChange={handleChange}
                 label="樓層"
             >

@@ -1,5 +1,5 @@
+import React, { useEffect, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { useEffect, useState } from 'react';
 
 export default function ClassroomCodeSelector({ floor, classroomCode, setClassroomCode }) {
     const [classroomCodes, setClassroomCodes] = useState([]);
@@ -10,16 +10,23 @@ export default function ClassroomCodeSelector({ floor, classroomCode, setClassro
                 .then(response => response.json())
                 .then(data => {
                     const codes = data.map(classroom => classroom.roomNumber);
-                    setClassroomCodes(codes);
+                    setClassroomCodes(['全部', ...codes]);
                 })
                 .catch(error => {
                     console.error("Error fetching classrooms:", error);
                 });
+        } else {
+            setClassroomCodes([]);
         }
-    }, [floor, classroomCode, setClassroomCode]);
+    }, [floor]);
 
     const handleChange = (event) => {
-        setClassroomCode(event.target.value);
+        const value = event.target.value;
+        if (value === '全部') {
+            setClassroomCode(null);
+        } else {
+            setClassroomCode(value);
+        }
     };
 
     return (
@@ -27,9 +34,10 @@ export default function ClassroomCodeSelector({ floor, classroomCode, setClassro
             <InputLabel id="classroom-code-label">教室代號</InputLabel>
             <Select
                 labelId="classroom-code-label"
-                value={classroomCodes.includes(classroomCode) ? classroomCode : ''}
+                value={classroomCode === null ? '全部' : classroomCode}
                 onChange={handleChange}
                 label="教室代號"
+                disabled={classroomCodes.length === 0}
             >
                 {classroomCodes.map((code) => (
                     <MenuItem key={code} value={code}>

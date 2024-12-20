@@ -108,5 +108,4 @@ public class UserController {
             return ResponseEntity.status(500).body(null);
         }
     }
-
 }
