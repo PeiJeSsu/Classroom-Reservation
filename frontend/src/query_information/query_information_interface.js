@@ -73,6 +73,7 @@ export default function Query_information_interface() {
             sx={{
                 width: "100%",
                 height: "95vh",
+                marginTop: "20px",
                 backgroundColor: "transparent",
             }}
         >
@@ -80,12 +81,12 @@ export default function Query_information_interface() {
                 <Box
                     sx={{
                         marginBottom: "20px",
-                        padding: "10px",
+                        padding: "20px",
 
                     }}
                 >
                     <ComboBox
-                        sx={{width: "100%"}}
+                        sx={{width: "20%"}}
                         options={options}
                         label="請選擇想調閱的使用者"
                         value={selectedOption}
@@ -94,13 +95,7 @@ export default function Query_information_interface() {
                 </Box>
             </Paper>
 
-            <Paper><Box
-                sx={{
-                    padding: "10px",
-
-
-                }}
-            >
+            <Paper><Box sx={{padding: "20px"}}>
                 <Box
                     sx={{
                         maxHeight: "70vh",
