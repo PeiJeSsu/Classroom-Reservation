@@ -15,7 +15,7 @@ public class ClassroomApply {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private Boolean isApproved;
-    private String denyReason;
+
 
     public ClassroomApply() {
     }
@@ -77,14 +77,6 @@ public class ClassroomApply {
     }
 
 
-    public void setDenyReason(String denyReason) {
-
-        this.denyReason = denyReason;
-    }
-
-    public String getDenyReason() {
-        return denyReason;
-    }
 
     @Override
     public String toString() {
@@ -95,7 +87,7 @@ public class ClassroomApply {
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", isApproved=" + isApproved +
-                ", denyReason=" + denyReason +
+
                 '}';
     }
 }

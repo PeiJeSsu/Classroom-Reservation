@@ -54,15 +54,12 @@ public class ClassroomApplyController {
 
     @PutMapping("/{id}/approve")
     public ClassroomApply approveApplication(@PathVariable String id) {
-        return classroomApplyService.updateApplicationApprovalStatus(id, true, null);
+        return classroomApplyService.updateApplicationApprovalStatus(id, true);
     }
 
     @PutMapping("/{id}/deny")
     public ClassroomApply denyApplication(@PathVariable String id, @RequestBody Map<String, String> requestBody) {
-        String reason = requestBody.get("reason");
-        System.out.println("Controller - Received ID: " + id);
-        System.out.println("Controller - Received Reason: " + reason);
-        return classroomApplyService.updateApplicationApprovalStatus(id, false, reason);
+        return classroomApplyService.updateApplicationApprovalStatus(id, false);
     }
     @GetMapping("/search")
     public List<ClassroomApply> searchApplicationsByClassroomAndTime(

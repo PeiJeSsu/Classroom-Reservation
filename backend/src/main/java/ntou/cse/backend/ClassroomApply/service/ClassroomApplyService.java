@@ -50,16 +50,12 @@ public class ClassroomApplyService {
         return application.orElse(null);
     }
 
-    public ClassroomApply updateApplicationApprovalStatus(String id, Boolean isApproved, String reason) {
+    public ClassroomApply updateApplicationApprovalStatus(String id, Boolean isApproved) {
         Optional<ClassroomApply> applicationOptional = classroomApplyRepository.findById(id);
         if (applicationOptional.isPresent()) {
             ClassroomApply application = applicationOptional.get();
             application.setApproved(isApproved);
-            if (!isApproved && reason != null && !reason.isEmpty()) {
-                application.setDenyReason(reason); // 設置拒絕理由
-            } else if (isApproved) {
-                application.setDenyReason(null); // 批准時清除拒絕理由
-            }
+
             return classroomApplyRepository.save(application);
         }
         return null;
