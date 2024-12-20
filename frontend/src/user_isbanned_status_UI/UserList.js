@@ -30,6 +30,9 @@ export default function UserList({ user, reload, setReload }) {
 
     return (
         <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>
+            <Typography variant="h6" sx={{marginBottom: "10px"}}>
+                搜尋結果
+            </Typography>
             {usersToDisplay.length === 0 ? (
                 <Typography variant="body1">沒有找到相關的使用者。</Typography>
             ) : (
