@@ -20,7 +20,7 @@ export default function FloorSelector({ floor, setFloor, setClassroomCode }) {
     const handleChange = (event) => {
         const value = event.target.value;
         setFloor(value === '全部' ? null : value);
-        setClassroomCode(null); // 重置教室代號
+        setClassroomCode(null);
     };
 
     return (
