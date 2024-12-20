@@ -91,7 +91,6 @@ public class UserService {
         return false;
     }
 
-
     public void updateAllUsersUnBanned() {  // 用来初始化的
         List<User> allUsers = userRepository.findAll();
         for (User user : allUsers) {
@@ -102,6 +101,21 @@ public class UserService {
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @Scheduled(fixedRate = 1000) // 1秒一次
+    public void checkUnbanUsers() {
+        LocalDateTime now = LocalDateTime.now();
+        List<User> bannedUsers = userRepository.findByIsBannedTrue();
+        System.out.println(now);
+        for (User user : bannedUsers) {
+            System.out.println(user.getEmail() + " " + (user.getUnbanTime() != null) + " " + (user.getUnbanTime().isBefore(now)));
+            if (user.getUnbanTime() != null && user.getUnbanTime().isBefore(now)) {
+                System.out.println("In" + user.getEmail());
+                unbanUser(user.getEmail());
+            }
+        }
+        System.out.println("---");
     }
 
     @Async
