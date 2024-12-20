@@ -15,4 +15,5 @@ public interface ClassroomApplyRepository extends MongoRepository<ClassroomApply
 
     List<ClassroomApply> findByIsApprovedNull();
     List<ClassroomApply> findByBorrower(String borrower);
+    List<ClassroomApply> findByBorrowerAndStartTimeBeforeAndEndTimeAfter(String borrower, LocalDateTime endTime, LocalDateTime startTime);
 }
