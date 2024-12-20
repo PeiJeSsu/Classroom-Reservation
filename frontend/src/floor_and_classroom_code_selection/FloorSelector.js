@@ -18,9 +18,12 @@ export default function FloorSelector({ floor, setFloor, setClassroomCode }) {
     }, []);
 
     const handleChange = (event) => {
-        setFloor(event.target.value);
-        if (event.target.value === '全部')
+        const value = event.target.value;
+        if (value === '全部') {
             setFloor(null);
+        } else {
+            setFloor(value);
+        }
         setClassroomCode('');
     };
 
@@ -29,7 +32,7 @@ export default function FloorSelector({ floor, setFloor, setClassroomCode }) {
             <InputLabel id="floor-label">樓層</InputLabel>
             <Select
                 labelId="floor-label"
-                value={floors.includes(floor) ? floor : ''}
+                value={floor === null ? '全部' : floor}
                 onChange={handleChange}
                 label="樓層"
             >
