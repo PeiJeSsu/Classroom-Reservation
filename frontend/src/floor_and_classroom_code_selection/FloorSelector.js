@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 export default function FloorSelector({ floor, setFloor, setClassroomCode }) {
@@ -19,12 +19,8 @@ export default function FloorSelector({ floor, setFloor, setClassroomCode }) {
 
     const handleChange = (event) => {
         const value = event.target.value;
-        if (value === '全部') {
-            setFloor(null);
-        } else {
-            setFloor(value);
-        }
-        setClassroomCode('');
+        setFloor(value === '全部' ? null : value);
+        setClassroomCode(null);
     };
 
     return (

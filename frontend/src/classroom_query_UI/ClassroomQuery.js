@@ -33,4 +33,3 @@ export default function ClassroomQuery() {
         </Box>
     );
 }
-
