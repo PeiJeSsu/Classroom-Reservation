@@ -25,11 +25,13 @@ export default function Personal_information() {
                         return {
                             user: item.borrower,
                             classroom: item.classroom,
-                            rentalDate: new Date(item.startTime).toLocaleDateString(),
+                            rentalDate: new Date(item.startTime).toLocaleString(),
+                            endtime: new Date(item.endTime).toLocaleString(),
                             isRented: item.isApproved === null || item.isApproved === undefined
                                 ? "尚未審核"
                                 : item.isApproved ? "已出租" : "未出租",
                             denyReason: item.denyReason || null,
+                            floor:item.floor
                         };
                     });
                     setPersonalInfo(transformedData);
@@ -57,6 +59,8 @@ export default function Personal_information() {
                             rentalDate={item.rentalDate}
                             isRented={item.isRented}
                             denyReason={item.denyReason}
+                            floor={item.floor}
+                            endTime={item.endtime}
                         />
                     ))}
                 </Box>

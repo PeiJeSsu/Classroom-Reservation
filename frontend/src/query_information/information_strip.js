@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, Paper } from '@mui/material';
 
-export default function Informaion_strip({ user, classroomId, rentalDate, isRented, denyReason }) {
+export default function Informaion_strip({ user, classroomId, rentalDate, isRented, denyReason ,floor,endTime}) {
     return (
         <Box
             sx={{
@@ -15,17 +15,24 @@ export default function Informaion_strip({ user, classroomId, rentalDate, isRent
                 borderRadius: '20px',
             }}
         >
-            <Box sx={{ display: 'flex' }}>
-                <Typography variant="body1">
+            <Box sx={{ display: 'flex' }} >
+                <Typography variant="body1" sx={{minWidth:"110px"}}>
+                    教室代號: {classroomId}
+                </Typography>
+                <Typography variant="body1" sx={{minWidth:"80px"}}>
+                    樓層: {floor}
+                </Typography>
+                <Typography variant="body1" sx={{minWidth:"150px"}}>
                     借用人: {user}&nbsp;&nbsp;
                 </Typography>
-                <Typography variant="body1">
-                    教室代號: {classroomId}&nbsp;&nbsp;
+
+                <Typography variant="body1" sx={{minWidth:"270px"}}>
+                    出租時間: {rentalDate}&nbsp;&nbsp;
                 </Typography>
-                <Typography variant="body1">
-                    出租日期: {rentalDate}&nbsp;&nbsp;
+                <Typography variant="body1"sx={{minWidth:"270px"}}>
+                    結束時間: {endTime}&nbsp;&nbsp;
                 </Typography>
-                <Typography variant="body1">
+                <Typography variant="body1"sx={{minWidth:"150px"}}>
                     出租結果: {isRented}&nbsp;&nbsp;
                 </Typography>
                 {isRented === "未出租" && (

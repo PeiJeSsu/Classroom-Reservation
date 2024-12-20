@@ -104,8 +104,8 @@ export default function ApplyList() {
                     >
                         <Box sx={{ display: 'flex', gap: 2 }}>
                             <Typography variant="body1">教室編號: {result.classroom}</Typography>
-                            <Typography variant="body1">樓層: {result.floor}</Typography>
-                            <Typography variant="body1">
+                            <Typography variant="body1" sx={{ minWidth: '55px' }}>樓層: {result.floor}</Typography>
+                            <Typography variant="body1" sx={{ minWidth: '150px' }}>
                                 借用人: {result.borrower ? result.borrower : '未知使用者'}
                             </Typography>
                             <Typography variant="body1">
@@ -145,17 +145,16 @@ export default function ApplyList() {
                             key={index}
                             sx={{
                                 display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
+
                                 padding: '10px',
                                 marginBottom: '10px',
                                 border: '1px solid #ccc',
                                 borderRadius: '20px',
                             }}
                         >
-                            <Typography variant="body1">借用者: {info.user}</Typography>
-                            <Typography variant="body1">教室代號: {info.classroom}</Typography>
-                            <Typography variant="body1">出租日期: {info.rentalDate}</Typography>
+                            <Typography variant="body1" sx={{ minWidth: '150px' }}>借用者: {info.user}</Typography>
+                            <Typography variant="body1" sx={{ minWidth: '120px' }}>教室代號: {info.classroom}</Typography>
+                            <Typography variant="body1"sx={{ minWidth: '180px' }}>出租日期: {info.rentalDate}</Typography>
                             <Typography variant="body1">出租結果: {info.isRented}</Typography>
                         </Box>
                     ))
