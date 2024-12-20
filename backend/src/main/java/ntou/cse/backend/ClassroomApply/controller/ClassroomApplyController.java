@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/classroom_apply")
@@ -73,10 +74,9 @@ public class ClassroomApplyController {
     }
 
     @PutMapping("/{id}/deny")
-    public ClassroomApply denyApplication(@PathVariable String id) {
+    public ClassroomApply denyApplication(@PathVariable String id, @RequestBody Map<String, String> requestBody) {
         return classroomApplyService.updateApplicationApprovalStatus(id, false);
     }
-
     @GetMapping("/search")
     public List<ClassroomApply> searchApplicationsByClassroomAndTime(
             @RequestParam String floor,

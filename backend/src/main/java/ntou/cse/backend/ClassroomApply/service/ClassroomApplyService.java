@@ -63,6 +63,7 @@ public class ClassroomApplyService {
         if (applicationOptional.isPresent()) {
             ClassroomApply application = applicationOptional.get();
             application.setApproved(isApproved);
+
             return classroomApplyRepository.save(application);
         }
         return null;

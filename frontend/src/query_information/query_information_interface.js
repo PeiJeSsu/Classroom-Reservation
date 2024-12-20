@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
+import React, {useState, useEffect} from "react";
+import {Box, Card, Typography} from "@mui/material";
 import ComboBox from "./combo_box";
 import Strip from "./information_strip";
+import {Grid2, Paper} from '@mui/material';
 
 export default function Query_information_interface() {
     const [selectedOption, setSelectedOption] = useState(null);
@@ -18,9 +18,6 @@ export default function Query_information_interface() {
                 return response.json();
             })
             .then((data) => {
-                console.log("後端回傳的資料:", data);
-
-
                 const uniqueBorrowers = Array.from(
                     new Set(
                         data
@@ -31,16 +28,13 @@ export default function Query_information_interface() {
                     label: borrower,
                     value: borrower,
                 }));
-
-
                 setOptions(uniqueBorrowers);
-
 
                 const transformedData = data.map((application) => ({
                     user: application.borrower || "未知借用者",
                     classroomId: application.classroom || "未知教室",
                     rentalDate: application.startTime
-                        ? new Date(application.startTime).toLocaleDateString()
+                        ? new Date(application.startTime).toLocaleString()
                         : "未知日期",
                     isRented:
                         application.isApproved === null || application.isApproved === undefined
@@ -48,6 +42,11 @@ export default function Query_information_interface() {
                             : application.isApproved
                                 ? "已出租"
                                 : "未出租",
+                    denyReason: application.denyReason || null,
+                    floor: application.floor,
+                    endTime: application.endTime
+                        ? new Date(application.endTime).toLocaleString()
+                        : "未知結束時間",
                 }));
 
                 setInfo(transformedData);
@@ -59,12 +58,12 @@ export default function Query_information_interface() {
 
     const handleChange = (event, value) => {
         setSelectedOption(value);
-        console.log("選中的值:", value);
     };
 
     const filteredRentalInfo = Info.filter((item) => {
         if (selectedOption) {
-            return item.user === selectedOption.value;
+            const inputValue = selectedOption.value || selectedOption.label || selectedOption;
+            return item.user.toLowerCase().includes(inputValue.toLowerCase());
         }
         return true;
     });
@@ -74,34 +73,67 @@ export default function Query_information_interface() {
             sx={{
                 width: "100%",
                 height: "95vh",
+                backgroundColor: "transparent",
             }}
         >
-            <Card sx={{ width: "100%", height: "100%" }}>
-                <ComboBox
-                    sx={{ width: "95%", marginTop: "1%", marginLeft: "2.5%" }}
-                    options={options}
-                    label="請選擇想調閱的使用者"
-                    value={selectedOption}
-                    onChange={handleChange}
-                />
+            <Paper>
                 <Box
                     sx={{
-                        maxHeight: "80vh",
-                        overflowY: "auto",
-                        padding: "1%",
+                        marginBottom: "20px",
+                        padding: "10px",
+
                     }}
                 >
-                    {filteredRentalInfo.map((item, index) => (
-                        <Strip
-                            key={index}
-                            user={item.user}
-                            classroomId={item.classroomId}
-                            rentalDate={item.rentalDate}
-                            isRented={item.isRented}
-                        />
-                    ))}
+                    <Typography variant="h6" sx={{marginBottom: "10px"}}>
+                        選擇使用者
+                    </Typography>
+                    <ComboBox
+                        sx={{width: "100%"}}
+                        options={options}
+                        label="請選擇想調閱的使用者"
+                        value={selectedOption}
+                        onChange={handleChange}
+                    />
                 </Box>
-            </Card>
+            </Paper>
+
+            <Paper><Box
+                sx={{
+                    padding: "10px",
+
+
+                }}
+            >
+                <Typography variant="h6" sx={{marginBottom: "10px"}}>
+                    搜尋結果
+                </Typography>
+                <Box
+                    sx={{
+                        maxHeight: "70vh",
+                        overflowY: "auto",
+                    }}
+                >
+                    {filteredRentalInfo.length > 0 ? (
+                        filteredRentalInfo.map((item, index) => (
+                            <Strip
+                                key={index}
+                                user={item.user}
+                                classroomId={item.classroomId}
+                                rentalDate={item.rentalDate}
+                                isRented={item.isRented}
+                                denyReason={item.denyReason}
+                                floor={item.floor}
+                                endTime={item.endTime}
+                            />
+                        ))
+                    ) : (
+                        <Typography sx={{textAlign: "center", marginTop: "20px"}}>
+                            沒有符合的使用者
+                        </Typography>
+                    )}
+                </Box>
+            </Box></Paper>
+
         </Box>
     );
 }
