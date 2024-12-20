@@ -7,26 +7,22 @@ export default function ClassroomCodeSelector({ floor, classroomCode, setClassro
     useEffect(() => {
         if (floor) {
             fetch(`http://localhost:8080/classroom_build/floor/${floor}`)
-                .then(response => response.json())
-                .then(data => {
-                    const codes = data.map(classroom => classroom.roomNumber);
+                .then((response) => response.json())
+                .then((data) => {
+                    const codes = data.map((classroom) => classroom.roomNumber);
                     setClassroomCodes(['全部', ...codes]);
                 })
-                .catch(error => {
-                    console.error("Error fetching classrooms:", error);
+                .catch((error) => {
+                    console.error('Error fetching classrooms:', error);
                 });
         } else {
-            setClassroomCodes([]);
+            setClassroomCodes(['全部']);
         }
     }, [floor]);
 
     const handleChange = (event) => {
         const value = event.target.value;
-        if (value === '全部') {
-            setClassroomCode(null);
-        } else {
-            setClassroomCode(value);
-        }
+        setClassroomCode(value === '全部' ? null : value);
     };
 
     return (
@@ -37,7 +33,6 @@ export default function ClassroomCodeSelector({ floor, classroomCode, setClassro
                 value={classroomCode === null ? '全部' : classroomCode}
                 onChange={handleChange}
                 label="教室代號"
-                disabled={classroomCodes.length === 0}
             >
                 {classroomCodes.map((code) => (
                     <MenuItem key={code} value={code}>

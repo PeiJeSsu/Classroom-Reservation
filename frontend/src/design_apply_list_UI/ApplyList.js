@@ -1,26 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Paper, Button } from '@mui/material';
 import axios from 'axios';
+import FloorAndClassroomCodeSelector from "../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector";
 import HistoryDialog from './historyDialog';
-
 
 export default function ApplyList() {
     const [applications, setApplications] = useState([]);
+    const [filteredApplications, setFilteredApplications] = useState([]);
     const [reload, setReload] = useState(false);
     const [personalInfo, setPersonalInfo] = useState([]);
     const [open, setOpen] = useState(false);
-    const [selectedId, setSelectedId] = useState(null); // 儲存當前操作的申請 ID
+    const [floor, setFloor] = useState(null); // 篩選的樓層
+    const [classroomCode, setClassroomCode] = useState(null); // 篩選的教室代號
 
     useEffect(() => {
         axios
             .get('http://localhost:8080/api/classroom_apply/pending')
             .then((response) => {
-                setApplications(response.data);
+                const sortedApplications = response.data.sort((a, b) => {
+                    const floorOrder = ['B1', '1', '2', '3', '4'];
+                    if (a.floor !== b.floor) {
+                        return floorOrder.indexOf(a.floor) - floorOrder.indexOf(b.floor);
+                    }
+                    return a.classroom.localeCompare(b.classroom); // 按教室編號排序
+                });
+                setApplications(sortedApplications);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
             });
     }, [reload]);
+
+    useEffect(() => {
+        // 篩選邏輯
+        const filtered = applications.filter((app) => {
+            const matchesFloor = floor ? app.floor === floor : true;
+            const matchesClassroom = classroomCode ? app.classroom === classroomCode : true;
+            return matchesFloor && matchesClassroom;
+        });
+        setFilteredApplications(filtered);
+    }, [floor, classroomCode, applications]);
 
     const handleClose = () => {
         setOpen(false);
@@ -78,14 +97,22 @@ export default function ApplyList() {
             });
     };
 
-
-
     return (
         <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>
-            {applications.length === 0 ? (
-                <Typography variant="h6">目前沒有待審批的申請</Typography>
+            {/* 樓層與教室篩選器 */}
+            <FloorAndClassroomCodeSelector
+                floor={floor}
+                setFloor={setFloor}
+                classroomCode={classroomCode}
+                setClassroomCode={setClassroomCode}
+            />
+
+            {filteredApplications.length === 0 ? (
+                <Typography variant="h6" sx={{ mt: 2 }}>
+                    目前沒有符合篩選條件的申請
+                </Typography>
             ) : (
-                applications.map((result) => (
+                filteredApplications.map((result) => (
                     <Box
                         key={result.id}
                         sx={{
@@ -141,7 +168,6 @@ export default function ApplyList() {
                             key={index}
                             sx={{
                                 display: 'flex',
-
                                 padding: '10px',
                                 marginBottom: '10px',
                                 border: '1px solid #ccc',
@@ -156,7 +182,6 @@ export default function ApplyList() {
                     ))
                 )}
             </HistoryDialog>
-
         </Paper>
     );
 }
