@@ -39,19 +39,7 @@ export default function ComboBox({
                     }
                     return option.label || "";
                 }}
-                filterOptions={(options, state) => {
-                    // 自由輸入時，將輸入的值加入選項
-                    const filtered = options.filter((option) =>
-                        option.label.toLowerCase().includes(state.inputValue.toLowerCase())
-                    );
-                    if (state.inputValue !== "") {
-                        filtered.push({
-                            inputValue: state.inputValue,
-                            label: `新增選項 "${state.inputValue}"`,
-                        });
-                    }
-                    return filtered;
-                }}
+                
                 freeSolo
                 renderInput={(params) => <TextField {...params} label={label} />}
                 isOptionEqualToValue={(option, value) => option.value === value?.value}
