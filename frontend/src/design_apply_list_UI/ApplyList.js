@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, Paper, Button } from '@mui/material';
 import axios from 'axios';
 import HistoryDialog from './historyDialog';
-import DisagreeInformation from './disagree_infomation';
+
 
 export default function ApplyList() {
-    const [openDisagreeInfo, setDisagreeInfo] = useState(false);
     const [applications, setApplications] = useState([]);
     const [reload, setReload] = useState(false);
     const [personalInfo, setPersonalInfo] = useState([]);
@@ -79,10 +78,7 @@ export default function ApplyList() {
             });
     };
 
-    const openDisagreeDialog = (id) => {
-        setSelectedId(id);
-        setDisagreeInfo(true);
-    };
+
 
     return (
         <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>
@@ -129,7 +125,7 @@ export default function ApplyList() {
                             >
                                 同意
                             </Button>
-                            <Button variant="contained" onClick={() => openDisagreeDialog(result.id)}>
+                            <Button variant="contained" onClick={() => handleDeny(result.id)}>
                                 不同意
                             </Button>
                         </Box>
@@ -160,11 +156,7 @@ export default function ApplyList() {
                     ))
                 )}
             </HistoryDialog>
-            <DisagreeInformation
-                open={openDisagreeInfo}
-                onClose={() => setDisagreeInfo(false)}
-                onSubmit={(reason) => handleDeny(selectedId, reason)}
-            />
+
         </Paper>
     );
 }

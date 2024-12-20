@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, Paper } from '@mui/material';
 
-export default function Informaion_strip({ user, classroomId, rentalDate, isRented, denyReason ,floor,endTime}) {
+export default function Informaion_strip({ user, classroomId, rentalDate, isRented ,floor,endTime}) {
     return (
         <Box
             sx={{
@@ -35,11 +35,7 @@ export default function Informaion_strip({ user, classroomId, rentalDate, isRent
                 <Typography variant="body1"sx={{minWidth:"150px"}}>
                     出租結果: {isRented}&nbsp;&nbsp;
                 </Typography>
-                {isRented === "未出租" && (
-                    <Typography variant="body1">
-                        拒絕原因: {denyReason ? denyReason : "未知的原因"}&nbsp;&nbsp;
-                    </Typography>
-                )}
+                
             </Box>
         </Box>
     );
