@@ -72,7 +72,6 @@ public class UserService {
     }
 
     public boolean unbanUser(String email) {
-        System.out.println("Here");
         User user = userRepository.findByEmail(email);
         if (user != null) {
             user.setIsBanned(false);
@@ -105,15 +104,12 @@ public class UserService {
     public void checkUnbanUsers() {
         LocalDateTime now = LocalDateTime.now();
         List<User> bannedUsers = userRepository.findByIsBannedTrue();
-        System.out.println(now);
         for (User user : bannedUsers) {
-            System.out.println(user.getEmail() + " " + (user.getUnbanTime() != null) + " " + (user.getUnbanTime().isBefore(now)));
             if (user.getUnbanTime() != null && user.getUnbanTime().isBefore(now)) {
-                System.out.println("In" + user.getEmail());
                 unbanUser(user.getEmail());
+                System.out.println("User " + user.getEmail() + " has been unbanned.");
             }
         }
-        System.out.println("---");
     }
 
     @Async
