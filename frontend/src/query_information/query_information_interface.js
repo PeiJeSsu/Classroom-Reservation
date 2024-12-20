@@ -77,7 +77,7 @@ export default function Query_information_interface() {
                 backgroundColor: "transparent",
             }}
         >
-            <Paper>
+            <Paper elevation={3}>
                 <Box
                     sx={{
                         marginBottom: "20px",
@@ -85,9 +85,6 @@ export default function Query_information_interface() {
 
                     }}
                 >
-                    <Typography variant="h6" sx={{marginBottom: "10px"}}>
-                        選擇使用者
-                    </Typography>
                     <ComboBox
                         sx={{width: "20%"}}
                         options={options}
@@ -98,16 +95,7 @@ export default function Query_information_interface() {
                 </Box>
             </Paper>
 
-            <Paper><Box
-                sx={{
-                    padding: "20px",
-
-
-                }}
-            >
-                <Typography variant="h6" sx={{marginBottom: "10px"}}>
-                    搜尋結果
-                </Typography>
+            <Paper elevation={3}><Box sx={{padding: "20px"}}>
                 <Box
                     sx={{
                         maxHeight: "70vh",
