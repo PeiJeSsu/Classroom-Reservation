@@ -10,8 +10,8 @@ export default function ApplyList() {
     const [reload, setReload] = useState(false);
     const [personalInfo, setPersonalInfo] = useState([]);
     const [open, setOpen] = useState(false);
-    const [floor, setFloor] = useState(null);
-    const [classroomCode, setClassroomCode] = useState(null);
+    const [floor, setFloor] = useState('');  // Changed from null to empty string
+    const [classroomCode, setClassroomCode] = useState('');  // Changed from null to empty string
 
     useEffect(() => {
         axios
@@ -33,8 +33,8 @@ export default function ApplyList() {
 
     useEffect(() => {
         const filtered = applications.filter((app) => {
-            const matchesFloor = floor ? app.floor === floor : true;
-            const matchesClassroom = classroomCode ? app.classroom === classroomCode : true;
+            const matchesFloor = !floor || app.floor === floor;
+            const matchesClassroom = !classroomCode || app.classroom === classroomCode;
             return matchesFloor && matchesClassroom;
         });
         setFilteredApplications(filtered);
@@ -106,6 +106,7 @@ export default function ApplyList() {
                             setFloor={setFloor}
                             classroomCode={classroomCode}
                             setClassroomCode={setClassroomCode}
+                            required  // Add required prop to remove default "全部" option
                         />
                     </Grid2>
                 </Grid2>
@@ -179,10 +180,8 @@ export default function ApplyList() {
                                 }}
                             >
                                 <Typography variant="body1" sx={{minWidth: '150px'}}>借用者: {info.user}</Typography>
-                                <Typography variant="body1"
-                                            sx={{minWidth: '120px'}}>教室代號: {info.classroom}</Typography>
-                                <Typography variant="body1"
-                                            sx={{minWidth: '180px'}}>出租日期: {info.rentalDate}</Typography>
+                                <Typography variant="body1" sx={{minWidth: '120px'}}>教室代號: {info.classroom}</Typography>
+                                <Typography variant="body1" sx={{minWidth: '180px'}}>出租日期: {info.rentalDate}</Typography>
                                 <Typography variant="body1">出租結果: {info.isRented}</Typography>
                             </Box>
                         ))
