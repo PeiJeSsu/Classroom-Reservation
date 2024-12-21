@@ -3,6 +3,7 @@ package ntou.cse.backend.UserInformation.service;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import ntou.cse.backend.UserInformation.exception.UserAlreadyBannedLongerException;
 import ntou.cse.backend.UserInformation.model.User;
 import ntou.cse.backend.UserInformation.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -53,6 +55,13 @@ public class UserService {
     public boolean banUser(String email, int lastTimeInSeconds) {
         User user = userRepository.findByEmail(email);
         if (user != null) {
+            if (user.getIsBanned() && user.getUnbanTime().isAfter(LocalDateTime.now().plusSeconds(lastTimeInSeconds))) {
+                throw new UserAlreadyBannedLongerException(
+                        String.format("使用者已被禁用直到 %s，無法禁用更短的時間，若要執行此操作，請先幫使用者解除禁用",
+                                user.getUnbanTime().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
+                );
+            }
+
             user.setIsBanned(true);
             LocalDateTime unbanTime = LocalDateTime.now().plusSeconds(lastTimeInSeconds);
             user.setUnbanTime(unbanTime);

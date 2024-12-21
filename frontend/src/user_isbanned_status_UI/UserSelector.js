@@ -21,15 +21,20 @@ const UserSelector = ({ user, setUser, disabled }) => {
     }, []);
 
     const handleValueUpdate = (value) => {
-        if (typeof value === 'string') {
-            setUser({
-                email: value,
-                role: 'unknown',
-                isBanned: false,
-                unbanTime: null,
-            });
-        } else if (typeof value === 'object') {
+        if (typeof value === 'object' && value !== null) {
             setUser(value);
+        } else if (typeof value === 'string') {
+            const matchedUser = users.find(user => user.email.split('@')[0] === value);
+            if (matchedUser) {
+                setUser(matchedUser);
+            } else {
+                setUser({
+                    email: value,
+                    role: 'unknown',
+                    isBanned: false,
+                    unbanTime: null,
+                });
+            }
         }
     };
 

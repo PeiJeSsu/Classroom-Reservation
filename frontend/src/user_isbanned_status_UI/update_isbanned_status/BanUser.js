@@ -61,7 +61,9 @@ const BanUser = ({ open, onClose, user, setReload }) => {
             }
         } catch (error) {
             console.error('Error banning user:', error);
-            alert('更新使用者狀態失敗');
+            setErrorMessage(error.response.data);
+            setOpenSnackbar(true);
+
         }
     };
 
