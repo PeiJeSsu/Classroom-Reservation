@@ -32,7 +32,12 @@ public class ClassroomApplyService {
         if (floor.isEmpty() || classroomCode.isEmpty()) {
             throw new IllegalArgumentException("Floor and classroom code must not be empty.");
         }
-        
+        List<ClassroomApply> existingApplications = classroomApplyRepository.findByBorrowerAndFloorAndClassroomAndStartTimeBeforeAndEndTimeAfter(
+                borrower, floor, classroomCode, endTime, startTime);
+        if (!existingApplications.isEmpty()) {
+            throw new IllegalStateException("Already booked."); // 回傳"已經借用"的錯誤訊息
+        }
+
         List<ClassroomApply> conflictingApplicationsClassroom = classroomApplyRepository.findByFloorAndClassroomAndIsApprovedTrueAndStartTimeBeforeAndEndTimeAfter(
                 floor, classroomCode, endTime, startTime);
 
