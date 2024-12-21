@@ -41,8 +41,8 @@ const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClas
     }, [open, initialFloor, initialClassroomCode, initialKeyStatus, initialBorrower]);
 
     const handleSubmit = async () => {
-        console.log('inputBorrower', inputBorrower);
-        console.log('tmpBorrower', tmpBorrower);
+        // console.log('inputBorrower', inputBorrower);
+        // console.log('tmpBorrower', tmpBorrower);
         try {
             const url = `/classroom_build/${classroomId}/update-status`;
             const params = {
