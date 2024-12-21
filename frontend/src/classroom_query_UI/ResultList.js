@@ -32,7 +32,7 @@ export default function ResultList({ floor, classroomCode, reload, setReload, is
         if (reload) {
             setReload(false);
         }
-    }, [floor, classroomCode, reload]);
+    }, [floor, classroomCode, reload, setReload]);
 
     return (
         <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>
