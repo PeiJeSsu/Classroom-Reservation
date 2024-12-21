@@ -5,8 +5,10 @@ import ntou.cse.backend.ClassroomBuild.service.ClassroomInitService;
 import ntou.cse.backend.ClassroomBuild.service.ClassroomService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -59,5 +61,29 @@ public class ClassroomController {
         }
         return updatedClassroom;
     }
-}
 
+    @PatchMapping("/{roomNumber}/ban")
+    public Classroom banClassroom(
+            @PathVariable String roomNumber,
+            @RequestParam Integer unbanTime) {
+        Classroom bannedClassroom = classroomService.banClassroomByRoomNumber(roomNumber, unbanTime);
+        if (bannedClassroom == null) {
+            throw new IllegalArgumentException("Classroom not found with room number: " + roomNumber);
+        }
+        return bannedClassroom;
+    }
+
+    @PatchMapping("/{roomNumber}/unban")
+    public Classroom unbanClassroom(@PathVariable String roomNumber) {
+        Classroom unbannedClassroom = classroomService.unbanClassroomByRoomNumber(roomNumber);
+        if (unbannedClassroom == null) {
+            throw new IllegalArgumentException("Classroom not found with room number: " + roomNumber);
+        }
+        return unbannedClassroom;
+    }
+
+    @PatchMapping("/unban-all")
+    public List<Classroom> unbanAllClassrooms() {
+        return classroomService.unbanAllClassrooms();
+    }
+}

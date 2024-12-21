@@ -3,9 +3,12 @@ package ntou.cse.backend.ClassroomBuild.service;
 import ntou.cse.backend.ClassroomApply.model.ClassroomApply;
 import ntou.cse.backend.ClassroomBuild.model.Classroom;
 import ntou.cse.backend.ClassroomBuild.repo.ClassroomRepository;
+import ntou.cse.backend.UserInformation.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -68,5 +71,55 @@ public class ClassroomService {
             return classroomRepository.save(application);
         }
         return null;
+    }
+
+    public Classroom banClassroomByRoomNumber(String roomNumber, Integer unbanTime) {
+        Optional<Classroom> classroomOptional = classroomRepository.findByRoomNumber(roomNumber);
+        if (classroomOptional.isPresent()) {
+            Classroom classroom = classroomOptional.get();
+            classroom.setIsBanned(true);
+            classroom.setUnbanTime(LocalDateTime.now().plusSeconds(unbanTime));
+            return classroomRepository.save(classroom);
+        }
+        return null;
+    }
+
+    public Classroom unbanClassroomByRoomNumber(String roomNumber) {
+        Optional<Classroom> classroomOptional = classroomRepository.findByRoomNumber(roomNumber);
+        if (classroomOptional.isPresent()) {
+            Classroom classroom = classroomOptional.get();
+            classroom.setIsBanned(false);
+            classroom.setUnbanTime(null);
+            return classroomRepository.save(classroom);
+        }
+        return null;
+    }
+
+    public List<Classroom> unbanAllClassrooms() {
+        List<Classroom> classrooms = classroomRepository.findAll();
+        for (Classroom classroom : classrooms) {
+            classroom.setIsBanned(false);
+            classroom.setUnbanTime(null);
+        }
+        return classroomRepository.saveAll(classrooms);
+    }
+
+    @Scheduled(fixedRate = 1000)
+    public void checkUnbanClassrooms() {
+        LocalDateTime now = LocalDateTime.now();
+        List<Classroom> bannedClassrooms = classroomRepository.findByIsBannedTrue();
+        for (Classroom classroom : bannedClassrooms) {
+            if (classroom.getUnbanTime() != null && classroom.getUnbanTime().isBefore(now)) {
+                unbanClassroomByRoomNumber(classroom.getRoomNumber());
+            }
+        }
+    }
+
+    public LocalDateTime getUnbanTimeByRoomNumber(String roomNumber) {
+        Optional<Classroom> classroomOptional = classroomRepository.findByRoomNumber(roomNumber);
+        if (classroomOptional.isPresent()) {
+            return classroomOptional.get().getUnbanTime();
+        }
+        return null; // 若找不到對應教室，回傳 null
     }
 }

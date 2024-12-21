@@ -3,12 +3,16 @@ package ntou.cse.backend.ClassroomBuild.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
 @Document(collection = "classrooms")
 public class Classroom {
     @Id
     private String id;
     private String floor;
     private String roomNumber;
+    private boolean isBanned;
+    private LocalDateTime unbanTime;
     private KeyStatus keyStatus;
     private String borrower ;
 
@@ -32,6 +36,10 @@ public class Classroom {
         return roomNumber;
     }
 
+    public boolean isBanned() { return isBanned; }
+
+    public LocalDateTime getUnbanTime() { return unbanTime; }
+
     public KeyStatus getKeyStatus() {return keyStatus;}
 
     public String getBorrower() {return borrower;}
@@ -46,6 +54,14 @@ public class Classroom {
 
     public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
+    }
+
+    public void setIsBanned(boolean isBanned) {
+        this.isBanned = isBanned;
+    }
+
+    public void setUnbanTime(LocalDateTime unbanTime) {
+        this.unbanTime = unbanTime;
     }
 
     public void setKeyStatus(KeyStatus keyStatus) {this.keyStatus = keyStatus;}
