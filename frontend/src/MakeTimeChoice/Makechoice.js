@@ -41,6 +41,10 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode, setDispl
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!startTime || !endTime) {
+            setSnackbar({ open: true, message: 'Start Time and End Time must not be null!' });
+            return;
+        }
 
         try {
 

@@ -42,7 +42,7 @@ export default function Query_information_interface() {
                             : application.isApproved
                                 ? "已出租"
                                 : "未出租",
-                    denyReason: application.denyReason || null,
+
                     floor: application.floor,
                     endTime: application.endTime
                         ? new Date(application.endTime).toLocaleString()

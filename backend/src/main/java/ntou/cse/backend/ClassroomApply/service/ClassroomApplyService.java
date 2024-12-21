@@ -18,7 +18,9 @@ public class ClassroomApplyService {
 
 
 
+
     public void createApplication(String floor, String classroomCode, LocalDateTime startTime, LocalDateTime endTime, String borrower, User targetUser) {
+
         if (startTime.isAfter(endTime)) {
             throw new IllegalArgumentException("Start time cannot be after end time.");
         }
@@ -27,13 +29,19 @@ public class ClassroomApplyService {
             throw new UserBannedException("User is banned. Should not apply classroom.");
         }
 
-        List<ClassroomApply> conflictingApplications = classroomApplyRepository.findByFloorAndClassroomAndIsApprovedTrueAndStartTimeBeforeAndEndTimeAfter(
+        if (floor.isEmpty() || classroomCode.isEmpty()) {
+            throw new IllegalArgumentException("Floor and classroom code must not be empty.");
+        }
+        List<ClassroomApply> conflictingApplications = findApplicationsByBorrowerAndTime(borrower, startTime, endTime);
+        if (!conflictingApplications.isEmpty()) {
+            throw new IllegalStateException("The borrower already has an application during the requested time.");
+        }
+        List<ClassroomApply> conflictingApplicationsClassroom = classroomApplyRepository.findByFloorAndClassroomAndIsApprovedTrueAndStartTimeBeforeAndEndTimeAfter(
                 floor, classroomCode, endTime, startTime);
 
-        if (!conflictingApplications.isEmpty()) {
+        if (!conflictingApplicationsClassroom.isEmpty()) {
             throw new IllegalStateException("The classroom is already booked and approved during the requested time.");
         }
-
         ClassroomApply application = new ClassroomApply();
         application.setFloor(floor);
         application.setClassroom(classroomCode);
@@ -43,6 +51,10 @@ public class ClassroomApplyService {
         application.setApproved(null);
 
         classroomApplyRepository.save(application);
+    }
+
+    private List<ClassroomApply> findApplicationsByBorrowerAndTime(String borrower, LocalDateTime startTime, LocalDateTime endTime) {
+        return classroomApplyRepository.findByBorrowerAndStartTimeBeforeAndEndTimeAfter(borrower, endTime, startTime);
     }
 
     public List<ClassroomApply> getAllApplications() {
