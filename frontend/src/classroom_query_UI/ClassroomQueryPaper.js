@@ -6,10 +6,7 @@ import DisplayIsBanned from "./DisplayIsBanned";
 const ClassroomQueryPaper = ({ floor, setFloor, classroomCode, setClassroomCode, isBanned, setIsBanned, displayReload, setDisplayReload }) => {
     const userEmail = localStorage.getItem("userEmail");
     // console.log(localStorage);
-    useEffect(() => {
-        if (!floor) setFloor("全部");
-        if (!classroomCode) setClassroomCode("全部");
-    }, [floor, classroomCode, setFloor, setClassroomCode]);
+
     return (
         <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px'}}>
             <Grid2 container justifyContent="space-between" >

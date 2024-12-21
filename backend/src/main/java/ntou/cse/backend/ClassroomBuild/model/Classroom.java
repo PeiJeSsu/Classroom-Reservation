@@ -65,7 +65,7 @@ public class Classroom {
                 ", roomNumber='" + roomNumber + '\'' +
                 ", keyStatus=" + keyStatus + '\'' +
                 ", borrower='" + borrower + '\'' +
-                ", borrowerRole='" + borrowerRole + '\'' +
+                ", borrowerRole='" + borrowerRole +
                 '}';
     }
 }
