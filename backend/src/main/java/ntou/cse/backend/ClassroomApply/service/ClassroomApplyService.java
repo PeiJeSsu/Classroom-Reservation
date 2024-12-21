@@ -32,10 +32,7 @@ public class ClassroomApplyService {
         if (floor.isEmpty() || classroomCode.isEmpty()) {
             throw new IllegalArgumentException("Floor and classroom code must not be empty.");
         }
-        List<ClassroomApply> conflictingApplications = findApplicationsByBorrowerAndTime(borrower, startTime, endTime);
-        if (!conflictingApplications.isEmpty()) {
-            throw new IllegalStateException("The borrower already has an application during the requested time.");
-        }
+        
         List<ClassroomApply> conflictingApplicationsClassroom = classroomApplyRepository.findByFloorAndClassroomAndIsApprovedTrueAndStartTimeBeforeAndEndTimeAfter(
                 floor, classroomCode, endTime, startTime);
 
