@@ -30,7 +30,7 @@ export default function Personal_information() {
                             isRented: item.isApproved === null || item.isApproved === undefined
                                 ? "尚未審核"
                                 : item.isApproved ? "已出租" : "未出租",
-                            denyReason: item.denyReason || null,
+                            
                             floor:item.floor
                         };
                     });
