@@ -3,6 +3,7 @@ package ntou.cse.backend.ClassroomApply.controller;
 import ntou.cse.backend.ClassroomApply.exception.UserBannedException;
 import ntou.cse.backend.ClassroomApply.model.ClassroomApply;
 import ntou.cse.backend.ClassroomApply.service.ClassroomApplyService;
+import ntou.cse.backend.ClassroomBuild.service.ClassroomService;
 import ntou.cse.backend.UserInformation.model.User;
 import ntou.cse.backend.UserInformation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class ClassroomApplyController {
     private ClassroomApplyService classroomApplyService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ClassroomService classroomService;
 
     @PostMapping("/apply")
     public ResponseEntity<String> applyForClassroom(@RequestParam String floor,
@@ -34,15 +37,15 @@ public class ClassroomApplyController {
 
         try {
             User targetUser = userService.getUserByEmail(userEmail);
+            LocalDateTime unbanTime = classroomService.getUnbanTimeByRoomNumber(classroomCode);
             try {
-                classroomApplyService.createApplication(floor, classroomCode, startTime, endTime, borrower, targetUser);
+                classroomApplyService.createApplication(floor, classroomCode, startTime, endTime, borrower, targetUser, unbanTime);
                 return new ResponseEntity<>("Application created successfully", HttpStatus.OK);
             } catch (IllegalArgumentException | IllegalStateException ex) {
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
             } catch (UserBannedException e) {
                 return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 return new ResponseEntity<>("An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (Exception e) {

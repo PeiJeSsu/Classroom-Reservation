@@ -5,6 +5,8 @@ import ntou.cse.backend.ClassroomApply.model.ClassroomApply;
 import ntou.cse.backend.ClassroomApply.repo.ClassroomApplyRepository;
 import ntou.cse.backend.UserInformation.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,14 +21,18 @@ public class ClassroomApplyService {
 
 
 
-    public void createApplication(String floor, String classroomCode, LocalDateTime startTime, LocalDateTime endTime, String borrower, User targetUser) {
+    public void createApplication(String floor, String classroomCode, LocalDateTime startTime, LocalDateTime endTime, String borrower, User targetUser, LocalDateTime unbanTime) {
 
         if (startTime.isAfter(endTime)) {
             throw new IllegalArgumentException("Start time cannot be after end time.");
         }
-        // System.out.println(targetUser.getIsBanned());
+
         if (targetUser.getIsBanned()) {
             throw new UserBannedException("User is banned. Should not apply classroom.");
+        }
+
+        if (unbanTime != null && unbanTime.isAfter(startTime)) {
+            throw new IllegalArgumentException("Classroom is banned until " + unbanTime);
         }
 
         if (floor.isEmpty() || classroomCode.isEmpty()) {
