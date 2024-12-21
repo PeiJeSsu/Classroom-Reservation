@@ -59,7 +59,7 @@ export default function ResultList({ floor, classroomCode, reload, setReload, is
                                 <>
                                     <Typography variant="body1" sx={{ minWidth: '180px' }}>鑰匙狀態: {classroom.keyStatus}</Typography>
                                     {classroom.borrower && (
-                                        <Typography variant="body1">借用人: {classroom.borrower}</Typography>
+                                        <Typography variant="body1">借用人: {classroom.borrower.split('@')[0]}</Typography>
                                     )}
                                 </>
                             )}
@@ -83,6 +83,7 @@ export default function ResultList({ floor, classroomCode, reload, setReload, is
                                     classroomId={classroom.id}
                                     keyStatus={classroom.keyStatus}
                                     borrower={classroom.borrower || ''}
+                                    borrowerRole={classroom.borrowerRole || null}
                                     setReload={setReload}
                                 />
                             )}

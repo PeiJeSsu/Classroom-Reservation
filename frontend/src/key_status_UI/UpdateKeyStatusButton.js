@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
-import {createTheme,ThemeProvider} from "@mui/material";
 import UpdateKeyStatus from "./UpdateKeyStatus";
 
-const UpdateKeyStatusButton = ({initialFloor, initialClassroomCode, classroomId, keyStatus, borrower, setReload}) => {
+const UpdateKeyStatusButton = ({initialFloor, initialClassroomCode, classroomId, keyStatus, borrower, borrowerRole, setReload}) => {
     const [openKeyStatus, setOpenKeyStatus] = useState(false);
+    const [initialBorrower, setInitialBorrower] = useState({email: '', role: null})
 
     const handleOpen = () => {
+        setInitialBorrower({email: borrower, role: borrowerRole});
         setOpenKeyStatus(true);
     };
 
@@ -24,7 +25,7 @@ const UpdateKeyStatusButton = ({initialFloor, initialClassroomCode, classroomId,
                 initialFloor={initialFloor}
                 initialClassroomCode={initialClassroomCode}
                 initialKeyStatus={keyStatus}
-                initialBorrower={borrower}
+                initialBorrower={initialBorrower}
                 setReload={setReload}
             />
         </div>

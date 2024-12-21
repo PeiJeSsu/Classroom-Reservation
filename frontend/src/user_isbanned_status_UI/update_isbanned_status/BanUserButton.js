@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
-import {createTheme,ThemeProvider} from "@mui/material";
 import BanUser from "./BanUser";
 
 const BanUserButton = ({user, setReload}) => {

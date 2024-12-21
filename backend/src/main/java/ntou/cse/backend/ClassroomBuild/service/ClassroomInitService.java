@@ -42,6 +42,7 @@ public class ClassroomInitService {
                 classroom.setRoomNumber(roomNumber);
                 // classroom.setKeyStatus(AVAILABLE);
                 // classroom.setBorrower(null);
+                // classroom.setBorrowerRole(null);
                 classroomRepository.save(classroom);
             }
         }

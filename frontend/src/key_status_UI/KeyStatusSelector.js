@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormControl, InputLabel, Select, MenuItem, TextField, Box, Typography} from '@mui/material';
+import {FormControl, InputLabel, Select, MenuItem, Box, Typography} from '@mui/material';
 import UserSelector from "../user_isbanned_status_UI/UserSelector";
 
 const KeyStatusSelector = ({ inputKeyStatus, setInputKeyStatus, inputBorrower, setInputBorrower }) => {

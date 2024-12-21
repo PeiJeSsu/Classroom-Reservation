@@ -52,8 +52,9 @@ public class ClassroomController {
     public Classroom updateKeyStatusAndBorrower(
             @PathVariable String id,
             @RequestParam Classroom.KeyStatus keyStatus,
-            @RequestParam(required = false) String borrower) {
-        Classroom updatedClassroom = classroomService.updateKeyStatusAndBorrower(id, keyStatus, borrower);
+            @RequestParam(required = false) String borrower,
+            @RequestParam(required = false) String borrowerRole) {
+        Classroom updatedClassroom = classroomService.updateKeyStatusAndBorrower(id, keyStatus, borrower, borrowerRole);
         if (updatedClassroom == null) {
             throw new IllegalArgumentException("Classroom not found with id: " + id);
         }

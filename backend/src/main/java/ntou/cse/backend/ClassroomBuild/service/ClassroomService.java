@@ -59,12 +59,13 @@ public class ClassroomService {
         return classroomRepository.findByFloorContainingOrRoomNumberContaining(keyword, keyword);
     }
 
-    public Classroom updateKeyStatusAndBorrower(String id, Classroom.KeyStatus keyStatus, String borrower) {
+    public Classroom updateKeyStatusAndBorrower(String id, Classroom.KeyStatus keyStatus, String borrower, String borrowerRole) {
         Optional<Classroom> applicationOptional = classroomRepository.findById(id);
         if (applicationOptional.isPresent()) {
             Classroom application = applicationOptional.get();
             application.setKeyStatus(keyStatus);
             application.setBorrower(borrower);
+            application.setBorrowerRole(borrowerRole);
             return classroomRepository.save(application);
         }
         return null;

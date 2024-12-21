@@ -11,6 +11,7 @@ public class Classroom {
     private String roomNumber;
     private KeyStatus keyStatus;
     private String borrower ;
+    private String borrowerRole;
 
     public enum KeyStatus {
         BORROWED,
@@ -36,6 +37,8 @@ public class Classroom {
 
     public String getBorrower() {return borrower;}
 
+    public String getBorrowerRole() {return borrowerRole;}
+
     public void setId(String id) {
         this.id = id;
     }
@@ -52,6 +55,8 @@ public class Classroom {
 
     public void setBorrower(String borrower) {this.borrower = borrower;}
 
+    public void setBorrowerRole(String borrowerRole) {this.borrowerRole = borrowerRole;}
+
     @Override
     public String toString() {
         return "Classroom{" +
@@ -60,6 +65,7 @@ public class Classroom {
                 ", roomNumber='" + roomNumber + '\'' +
                 ", keyStatus=" + keyStatus + '\'' +
                 ", borrower='" + borrower + '\'' +
+                ", borrowerRole='" + borrowerRole + '\'' +
                 '}';
     }
 }
