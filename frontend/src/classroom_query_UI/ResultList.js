@@ -21,7 +21,6 @@ export default function ResultList({ floor, classroomCode, reload, setReload, is
                     url = `/classroom_build/floor/${floor}`;
                 }
                 const response = await axios.get(url);
-                console.log(response);
                 if (response.statusText != "OK") throw new Error('Network response was not ok');
                 const data = await response.data;
                 const classroomData = Array.isArray(data) ? data : [data];
