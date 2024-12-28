@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Alert } from '@mui/material';
-import axios from 'axios';
 import {apiConfig} from "../config/apiConfig";
 
 const DisplayIsBanned = ({ userEmail, isBanned, setIsBanned, displayReload, setDisplayReload }) => {

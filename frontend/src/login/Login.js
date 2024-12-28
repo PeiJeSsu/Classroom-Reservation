@@ -4,7 +4,6 @@ import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { Box, TextField, Button, Typography, Alert, Container, RadioGroup, FormControlLabel, Radio, FormControl } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import {apiConfig} from "../config/apiConfig";
 
 function Login() {

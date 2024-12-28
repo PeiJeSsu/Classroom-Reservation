@@ -6,7 +6,6 @@ import UpdateKeyStatusButton from "../key_status_UI/UpdateKeyStatusButton";
 import ExportScheduleButton from "../export/ExportScheduleButton";
 import ClassroomBanStatusButton from "../classroom_reserve_status/ClassroomBanStatusButton";
 import ClassroomUnbanStatusButton from "../classroom_reserve_status/ClassroomUnbanStatusButton";
-import axios from "axios";
 import {apiConfig} from "../config/apiConfig";
 export default function ResultList({ floor, classroomCode, reload, setReload, isBanned, setDisplayReload }) {
     const [classrooms, setClassrooms] = useState([]);

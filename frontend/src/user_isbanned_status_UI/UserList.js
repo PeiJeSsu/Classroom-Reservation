@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Box, Typography, Paper } from '@mui/material';
 import BanUserButton from "./update_isbanned_status/BanUserButton";
 import UnBanUserButton from "./update_isbanned_status/UnBanUserButton";
-import axios from "axios";
 import {apiConfig} from "../config/apiConfig";
 
 export default function UserList({ user, reload, setReload }) {

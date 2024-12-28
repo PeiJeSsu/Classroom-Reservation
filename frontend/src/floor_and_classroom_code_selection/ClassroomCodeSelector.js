@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import axios from "axios";
 import {apiConfig} from "../config/apiConfig";
 
 export default function ClassroomCodeSelector({ floor, classroomCode, setClassroomCode }) {

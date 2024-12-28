@@ -3,7 +3,6 @@ import { Box, Card, CardContent, Button, CardActions, Modal, Fade, ThemeProvider
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import CloseIcon from '@mui/icons-material/Close';
-import axios from "axios";
 import LastTimeSelector from './LastTimeSelector';
 import ErrorSnackbar from "../../custom_snackbar/ErrorSnackbar";
 import {apiConfig} from "../../config/apiConfig";

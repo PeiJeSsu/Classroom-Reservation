@@ -14,7 +14,6 @@ import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import LastTimeSelector from "../user_isbanned_status_UI/update_isbanned_status/LastTimeSelector";
-import axios from "axios";
 import {apiConfig} from "../config/apiConfig";
 
 dayjs.extend(utc);

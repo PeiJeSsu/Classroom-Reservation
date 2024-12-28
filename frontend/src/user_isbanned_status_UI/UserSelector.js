@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {Autocomplete, TextField, Typography} from '@mui/material';
-import axios from "axios";
 import {apiConfig} from "../config/apiConfig";
 
 const UserSelector = ({ user, setUser, disabled }) => {

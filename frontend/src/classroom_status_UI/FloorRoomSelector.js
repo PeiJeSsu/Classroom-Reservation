@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { FormControl, InputLabel, Select, MenuItem, Grid2} from '@mui/material';
-import axios from 'axios';
 import {apiConfig} from "../config/apiConfig";
 
 function FloorRoomSelector({ floor, setFloor, room, setRoom }) {
@@ -38,7 +37,7 @@ function FloorRoomSelector({ floor, setFloor, room, setRoom }) {
             <Grid2 xs={12} md={3.5} sx={{ ml: 2 }}>
                 <FormControl fullWidth size="small">
                     <InputLabel>樓層</InputLabel>
-                    <Select value={floor} onChange={handleFloorChange} label="樓層" variant={}>
+                    <Select value={floor} onChange={handleFloorChange} label="樓層">
                         {floors.map((floorNumber) => (
                             <MenuItem key={floorNumber} value={floorNumber}>
                                 {floorNumber}樓
@@ -50,7 +49,7 @@ function FloorRoomSelector({ floor, setFloor, room, setRoom }) {
             <Grid2 xs={12} md={3.5} sx={{ ml: 2 }}>
                 <FormControl fullWidth size="small">
                     <InputLabel>教室編號</InputLabel>
-                    <Select value={rooms.includes(room) ? room : ''} onChange={(event) => setRoom(event.target.value)} label="教室編號" disabled={!floor} variant={}>
+                    <Select value={rooms.includes(room) ? room : ''} onChange={(event) => setRoom(event.target.value)} label="教室編號" disabled={!floor}>
                         {rooms.map((roomNumber) => (
                             <MenuItem key={roomNumber} value={roomNumber}>
                                 {roomNumber}

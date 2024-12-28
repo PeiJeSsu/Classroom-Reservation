@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Paper, Table, TableBody, TableContainer, TableHead } from '@mui/material';
-import axios from 'axios';
+
 import TableHeader from './TableHeaderComponent';
 import TableBodyComponent from './TableBodyComponent';
 import { getWeekRange, getWeekDates, formatDateForApi } from './DateHandler';

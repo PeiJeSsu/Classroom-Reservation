@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Paper, Button, Grid2 } from '@mui/material';
-import axios from 'axios';
 import FloorAndClassroomCodeSelector from "../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector";
 import HistoryDialog from './historyDialog';
 import {apiConfig} from "../config/apiConfig";

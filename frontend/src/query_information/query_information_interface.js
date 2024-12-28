@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from "react";
-import {Box, Card, Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 import ComboBox from "./combo_box";
 import Strip from "./information_strip";
-import {Grid2, Paper} from '@mui/material';
-import axios from "axios";
+import {Paper} from '@mui/material';
 import {apiConfig} from "../config/apiConfig";
 
 export default function Query_information_interface() {

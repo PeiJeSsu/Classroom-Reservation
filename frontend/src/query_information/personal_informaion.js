@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Strip from "./information_strip";
-import axios from "axios";
 import {apiConfig} from "../config/apiConfig";
 
 export default function Personal_information() {

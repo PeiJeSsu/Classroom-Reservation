@@ -14,7 +14,6 @@ import ErrorSnackbar from '../custom_snackbar/ErrorSnackbar';
 import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
-import axios from "axios";
 import {apiConfig} from "../config/apiConfig";
 
 dayjs.extend(utc);
