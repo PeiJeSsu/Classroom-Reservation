@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import {Autocomplete, TextField, Typography} from '@mui/material';
 import axios from "axios";
+import {apiConfig} from "../config/apiConfig";
 
 const UserSelector = ({ user, setUser, disabled }) => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        axios.get('/api/users/allUsers')
+        apiConfig.get('/api/users/allUsers')
             .then(response => {
                 const sortedUsers = response.data.sort((a, b) => {
                     if (a.role !== b.role) return a.role > b.role ? 1 : -1;

@@ -1,11 +1,12 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import axios from 'axios';
+import {apiConfig} from "../config/apiConfig";
 
 const UnbanClassroomButton = ({ initialClassroomCode, isBanned, setReload }) => {
     const handleUnban = async () => {
         try {
-            const response = await axios.patch(`/classroom_build/${initialClassroomCode}/unban`);
+            const response = await apiConfig.patch(`/classroom_build/${initialClassroomCode}/unban`);
             if (response.status === 200) {
                 alert('教室解禁成功');
                 setReload(true);

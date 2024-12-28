@@ -15,6 +15,7 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import LastTimeSelector from "../user_isbanned_status_UI/update_isbanned_status/LastTimeSelector";
 import axios from "axios";
+import {apiConfig} from "../config/apiConfig";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -49,7 +50,7 @@ const ClassroomBanStatus = ({ open, onClose, initialFloor, initialClassroomCode,
 
             const unbanTime = calculateBanDuration();
 
-            const response = await axios.patch(`/classroom_build/${classroomCode}/ban?unbanTime=${unbanTime}`);
+            const response = await apiConfig.patch(`/classroom_build/${classroomCode}/ban?unbanTime=${unbanTime}`);
 
             if (response.status === 200) {
                 alert(`教室已成功禁用`);

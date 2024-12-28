@@ -1,7 +1,8 @@
+// src/config/apiConfig.js
 import axios from 'axios';
 
-export const API = axios.create({
-    baseURL: `https://classroom-reservation.onrender.com`,
+export const apiConfig = axios.create({
+    baseURL: `https://classroom-reservation.onrender.com`,  // API 的基礎 URL
     headers: {
         'Content-Type': 'application/json',
     },

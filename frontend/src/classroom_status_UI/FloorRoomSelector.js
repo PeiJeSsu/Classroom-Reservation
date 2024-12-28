@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FormControl, InputLabel, Select, MenuItem, Grid2} from '@mui/material';
 import axios from 'axios';
+import {apiConfig} from "../config/apiConfig";
 
 function FloorRoomSelector({ floor, setFloor, room, setRoom }) {
     const [classrooms, setClassrooms] = useState([]);
@@ -8,7 +9,7 @@ function FloorRoomSelector({ floor, setFloor, room, setRoom }) {
     const [rooms, setRooms] = useState([]);
 
     useEffect(() => {
-        axios.get('/classroom_build/all')
+        apiConfig.get('/classroom_build/all')
             .then((response) => {
                 setClassrooms(response.data);
                 const uniqueFloors = [...new Set(response.data.map(classroom => classroom.floor))];

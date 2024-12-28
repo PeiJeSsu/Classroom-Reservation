@@ -10,6 +10,7 @@ import axios from "axios";
 import FloorAndClassroomCodeSelector from "../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector";
 import KeyStatusSelector from "./KeyStatusSelector";
 import BanUser from "../user_isbanned_status_UI/update_isbanned_status/BanUser";
+import {apiConfig} from "../config/apiConfig";
 
 const theme = createTheme({
     palette: {
@@ -52,7 +53,7 @@ const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClas
                     borrowerRole: inputBorrower.role
                 })
             };
-            const response = await axios.patch(url, null, { params });
+            const response = await apiConfig.patch(url, null, { params });
             if (response.status === 200) {
                 alert('鑰匙狀態更新成功');
                 setReload(true);

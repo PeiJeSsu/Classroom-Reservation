@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Alert } from '@mui/material';
 import axios from 'axios';
+import {apiConfig} from "../config/apiConfig";
 
 const DisplayIsBanned = ({ userEmail, isBanned, setIsBanned, displayReload, setDisplayReload }) => {
     const [unbanTime, setUnbanTime] = useState(null);
@@ -8,7 +9,7 @@ const DisplayIsBanned = ({ userEmail, isBanned, setIsBanned, displayReload, setD
     useEffect(() => {
         const fetchUserStatus = async () => {
             try {
-                const response = await axios.get(`/api/users/${userEmail}`);
+                const response = await apiConfig.get(`/api/users/${userEmail}`);
                 if (response.status === 200) {
                     const { isBanned, unbanTime } = response.data;
                     setIsBanned(isBanned);

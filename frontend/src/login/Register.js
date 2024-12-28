@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {apiConfig} from "../config/apiConfig";
 
 function Register() {
     const [email, setEmail] = useState("");
@@ -53,7 +54,7 @@ function Register() {
             await sendEmailVerification(user);
 
             // 發送註冊資料到後端
-            const response = await axios.post("/api/users/register", {
+            const response = await apiConfig.post("/api/users/register", {
                 email: registrationEmail,
                 role,
             });

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import axios from "axios";
+import {apiConfig} from "../config/apiConfig";
 
 export default function ClassroomCodeSelector({ floor, classroomCode, setClassroomCode }) {
     const [classroomCodes, setClassroomCodes] = useState([]);
 
     useEffect(() => {
         if (floor) {
-            axios.get(`/classroom_build/floor/${floor}`)
+            apiConfig.get(`/classroom_build/floor/${floor}`)
                 .then((response) => response.data)
                 .then((data) => {
                     const codes = data.map((classroom) => classroom.roomNumber);

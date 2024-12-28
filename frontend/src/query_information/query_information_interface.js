@@ -4,6 +4,7 @@ import ComboBox from "./combo_box";
 import Strip from "./information_strip";
 import {Grid2, Paper} from '@mui/material';
 import axios from "axios";
+import {apiConfig} from "../config/apiConfig";
 
 export default function Query_information_interface() {
     const [selectedOption, setSelectedOption] = useState(null);
@@ -11,7 +12,7 @@ export default function Query_information_interface() {
     const [options, setOptions] = useState([]);
 
     useEffect(() => {
-        axios.get("api/classroom_apply")
+        apiConfig.get("api/classroom_apply")
             .then((response) => {
                 if (response.status !== 200) {
                     throw new Error("Network response was not ok");

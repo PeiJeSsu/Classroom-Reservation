@@ -15,6 +15,7 @@ import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import axios from "axios";
+import {apiConfig} from "../config/apiConfig";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -62,7 +63,7 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode, setDispl
         });
 
         try {
-            const response = await axios.post('/api/classroom_apply/apply', {
+            const response = await apiConfig.post('/api/classroom_apply/apply', {
                 floor,
                 classroom: classroomCode,
                 startTime: dayjs(startTime).tz('Asia/Taipei').format('YYYY-MM-DDTHH:mm:ss'),

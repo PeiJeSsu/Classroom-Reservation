@@ -3,6 +3,7 @@ import { Box, Typography, Paper, Button, Grid2 } from '@mui/material';
 import axios from 'axios';
 import FloorAndClassroomCodeSelector from "../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector";
 import HistoryDialog from './historyDialog';
+import {apiConfig} from "../config/apiConfig";
 
 export default function ApplyList() {
     const [applications, setApplications] = useState([]);
@@ -14,7 +15,7 @@ export default function ApplyList() {
     const [classroomCode, setClassroomCode] = useState('');  // Changed from null to empty string
 
     useEffect(() => {
-        axios
+        apiConfig
             .get('/api/classroom_apply/pending')
             .then((response) => {
                 const sortedApplications = response.data.sort((a, b) => {
@@ -45,7 +46,7 @@ export default function ApplyList() {
     };
 
     const showHistory = (borrower) => {
-        axios.get(`/api/classroom_apply/borrower/${borrower}`)
+        apiConfig.get(`/api/classroom_apply/borrower/${borrower}`)
             .then((response) => {
                 if (response.status !== 200) {
                     throw new Error('Network response was not ok');
@@ -71,7 +72,7 @@ export default function ApplyList() {
     };
 
     const handleApprove = (id) => {
-        axios
+        apiConfig
             .put(`/api/classroom_apply/${id}/approve`)
             .then(() => {
                 setReload((prev) => !prev);
@@ -83,7 +84,7 @@ export default function ApplyList() {
 
     const handleDeny = (id, reason) => {
         console.log("Reason:", reason);
-        axios
+        apiConfig
             .put(`/api/classroom_apply/${id}/deny`, { reason })
             .then(() => {
                 setReload((prev) => !prev);

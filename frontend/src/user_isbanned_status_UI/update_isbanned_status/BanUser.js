@@ -6,6 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import axios from "axios";
 import LastTimeSelector from './LastTimeSelector';
 import ErrorSnackbar from "../../custom_snackbar/ErrorSnackbar";
+import {apiConfig} from "../../config/apiConfig";
 
 const theme = createTheme({
     palette: {
@@ -48,7 +49,7 @@ const BanUser = ({ open, onClose, user, setReload }) => {
         try {
             const lastTimeInSeconds = calculateBanDuration();
 
-            const response = await axios.patch(`/api/users/${user.email}/ban`, lastTimeInSeconds, {
+            const response = await apiConfig.patch(`/api/users/${user.email}/ban`, lastTimeInSeconds, {
                 headers: {
                     'Content-Type': 'application/json',
                 }

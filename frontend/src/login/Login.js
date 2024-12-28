@@ -5,6 +5,7 @@ import { GoogleAuthProvider } from "firebase/auth";
 import { Box, TextField, Button, Typography, Alert, Container, RadioGroup, FormControlLabel, Radio, FormControl } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {apiConfig} from "../config/apiConfig";
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -32,7 +33,7 @@ function Login() {
             }
 
             // 修正 body 的使用方式
-            const response = await axios.post("/api/users/role", {
+            const response = await apiConfig.post("/api/users/role", {
                 email: user.email,
             });
 
@@ -74,7 +75,7 @@ function Login() {
             const result = await signInWithPopup(auth, googleProvider);
             const user = result.user;
 
-            const response = await axios.get(`/api/users/${user.email}`);
+            const response = await apiConfig.get(`/api/users/${user.email}`);
 
             if (response.status >= 200 && response.status < 300) {
                 const userData = response.data;
@@ -123,7 +124,7 @@ function Login() {
         }
 
         try {
-            const response = await axios.post("/api/users/register", {
+            const response = await apiConfig.post("/api/users/register", {
                 email: email,
                 role: selectedRole,
             });

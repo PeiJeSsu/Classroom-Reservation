@@ -1,12 +1,13 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import axios from 'axios';
+import {apiConfig} from "../../config/apiConfig";
 
 const UnBanUserButton = ({ user, setReload }) => {
 
     const handleUnban = async () => {
         try {
-            const response = await axios.patch(`/api/users/${user.email}/unban`);
+            const response = await apiConfig.patch(`/api/users/${user.email}/unban`);
             if (response.status === 200) {
                 alert('使用者解禁成功');
                 setReload(true);

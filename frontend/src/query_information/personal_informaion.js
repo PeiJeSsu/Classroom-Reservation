@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Strip from "./information_strip";
 import axios from "axios";
+import {apiConfig} from "../config/apiConfig";
 
 export default function Personal_information() {
     const [personalInfo, setPersonalInfo] = useState([]);
@@ -13,7 +14,7 @@ export default function Personal_information() {
 
         if (userName) {
 
-            axios.get(`/api/classroom_apply/borrower/${userName}`)
+            apiConfig.get(`/api/classroom_apply/borrower/${userName}`)
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");

@@ -8,6 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import axios from "axios";
+import {apiConfig} from "../config/apiConfig";
 
 const ExportScheduleButton = ({ classroom }) => {
     const [open, setOpen] = useState(false);
@@ -39,7 +40,7 @@ const ExportScheduleButton = ({ classroom }) => {
             const startDate = selectedMonday.format('YYYY-MM-DDTHH:mm:ss');
             const endDate = selectedMonday.add(4, 'day').endOf('day').format('YYYY-MM-DDTHH:mm:ss');
 
-            const response = await axios.get(
+            const response = await apiConfig.get(
                 `/api/classroom_apply/search?floor=${classroom.floor}&roomNumber=${classroom.roomNumber}&startTime=${startDate}&endTime=${endDate}`
             );
             const data = await response.data;

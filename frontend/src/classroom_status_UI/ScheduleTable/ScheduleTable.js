@@ -4,6 +4,7 @@ import axios from 'axios';
 import TableHeader from './TableHeaderComponent';
 import TableBodyComponent from './TableBodyComponent';
 import { getWeekRange, getWeekDates, formatDateForApi } from './DateHandler';
+import {apiConfig} from "../../config/apiConfig";
 
 function ScheduleTable({ currentDate, selectedFloor, selectedRoomNumber }) {
     const [unavailableSlots, setUnavailableSlots] = useState([]);
@@ -13,7 +14,7 @@ function ScheduleTable({ currentDate, selectedFloor, selectedRoomNumber }) {
         if (selectedFloor && selectedRoomNumber && currentDate) {
             const { start, end } = getWeekRange(currentDate);
 
-            axios.get('/api/classroom_apply/search', {
+            apiConfig.get('/api/classroom_apply/search', {
                 params: {
                     floor: selectedFloor,
                     roomNumber: selectedRoomNumber,
