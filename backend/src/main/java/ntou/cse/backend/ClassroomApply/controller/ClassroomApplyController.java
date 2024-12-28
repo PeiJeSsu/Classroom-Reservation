@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -27,32 +29,48 @@ public class ClassroomApplyController {
     private ClassroomService classroomService;
 
     @PostMapping("/apply")
-    public ResponseEntity<String> applyForClassroom(@RequestParam String floor,
-                                                    @RequestParam String classroomCode,
-                                                    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
-                                                    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime,
-                                                    @RequestParam String borrower,
-                                                    @RequestParam String userEmail) {
-        // System.out.println("Received borrower: " + borrower);
-
+    public ResponseEntity<String> applyForClassroom(@RequestBody ClassroomApply request) {
         try {
-            User targetUser = userService.getUserByEmail(userEmail);
-            LocalDateTime unbanTime = classroomService.getUnbanTimeByRoomNumber(classroomCode);
-            try {
-                classroomApplyService.createApplication(floor, classroomCode, startTime, endTime, borrower, targetUser, unbanTime);
-                return new ResponseEntity<>("Application created successfully", HttpStatus.OK);
-            } catch (IllegalArgumentException | IllegalStateException ex) {
-                return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-            } catch (UserBannedException e) {
-                return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
-            } catch (Exception ex) {
-                return new ResponseEntity<>("An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR);
+            validateRequest(request);
+
+            User targetUser = userService.getUserByEmail(request.getBorrower());
+            if (targetUser == null) {
+                throw new IllegalArgumentException("無法找到該借用者的電子郵件！");
             }
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(null);
+
+            LocalDateTime unbanTime = classroomService.getUnbanTimeByRoomNumber(request.getClassroom());
+            classroomApplyService.createApplication(
+                    request.getFloor(),
+                    request.getClassroom(),
+                    request.getStartTime(),
+                    request.getEndTime(),
+                    request.getBorrower().split("@")[0],
+                    targetUser,
+                    unbanTime
+            );
+
+            return ResponseEntity.ok("申請成功！");
+        } catch (IllegalArgumentException | IllegalStateException ex) {
+            return ResponseEntity.badRequest().body("申請失敗：" + ex.getMessage());
+        } catch (UserBannedException ex) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("禁用錯誤：" + ex.getMessage());
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("發生未知錯誤：" + ex.getMessage());
+        }
+    }
+
+    private void validateRequest(ClassroomApply request) {
+        if (request.getFloor() == null || request.getClassroom() == null || request.getBorrower() == null) {
+            throw new IllegalArgumentException("缺少必要欄位：樓層、教室代碼或借用者！");
         }
 
+        if (request.getStartTime().isAfter(request.getEndTime())) {
+            throw new IllegalArgumentException("開始時間不能晚於結束時間！");
+        }
     }
+
+
+
 
     @GetMapping
     public List<ClassroomApply> getAllApplications() {

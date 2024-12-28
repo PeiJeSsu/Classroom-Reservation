@@ -6,6 +6,7 @@ import UpdateKeyStatusButton from "../key_status_UI/UpdateKeyStatusButton";
 import ExportScheduleButton from "../export/ExportScheduleButton";
 import ClassroomBanStatusButton from "../classroom_reserve_status/ClassroomBanStatusButton";
 import ClassroomUnbanStatusButton from "../classroom_reserve_status/ClassroomUnbanStatusButton";
+import axios from "axios";
 export default function ResultList({ floor, classroomCode, reload, setReload, isBanned, setDisplayReload }) {
     const [classrooms, setClassrooms] = useState([]);
     const userRole = localStorage.getItem("userRole");
@@ -19,9 +20,10 @@ export default function ResultList({ floor, classroomCode, reload, setReload, is
                 } else if (floor) {
                     url = `/classroom_build/floor/${floor}`;
                 }
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Network response was not ok');
-                const data = await response.json();
+                const response = await axios.get(url);
+                console.log(response);
+                if (response.statusText != "OK") throw new Error('Network response was not ok');
+                const data = await response.data;
                 const classroomData = Array.isArray(data) ? data : [data];
                 setClassrooms(classroomData);
                 console.log(classroomData);

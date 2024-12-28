@@ -14,6 +14,7 @@ import ErrorSnackbar from '../custom_snackbar/ErrorSnackbar';
 import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import axios from "axios";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -42,50 +43,45 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode, setDispl
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!startTime || !endTime) {
-            setSnackbar({ open: true, message: 'Start Time and End Time must not be null!' });
+            setSnackbar({ open: true, message: '請選擇起始時間和結束時間！' });
             return;
         }
 
+        const borrower = localStorage.getItem("userName");
+        if (!borrower) {
+            setSnackbar({ open: true, message: '未找到借用者，請重新登入後再試！' });
+            return;
+        }
+
+        console.log({
+            floor,
+            classroom: classroomCode,
+            startTime: dayjs(startTime).tz('Asia/Taipei').format('YYYY-MM-DDTHH:mm:ss'),
+            endTime: dayjs(endTime).tz('Asia/Taipei').format('YYYY-MM-DDTHH:mm:ss'),
+            borrower: userEmail
+        });
+
         try {
-
-            const startTimeInUTC8 = startTime ? dayjs(startTime).tz('Asia/Taipei').format() : null;
-            const endTimeInUTC8 = endTime ? dayjs(endTime).tz('Asia/Taipei').format() : null;
-
-            const borrower = localStorage.getItem("userName");
-            if (!borrower) {
-                setSnackbar({ open: true, message: '未找到借用者！' });
-                return;
-            }
-            const params = new URLSearchParams({
+            const response = await axios.post('/api/classroom_apply/apply', {
                 floor,
-                classroomCode,
-                startTime: startTimeInUTC8,
-                endTime: endTimeInUTC8,
-                borrower,
-                userEmail
+                classroom: classroomCode,
+                startTime: dayjs(startTime).tz('Asia/Taipei').format('YYYY-MM-DDTHH:mm:ss'),
+                endTime: dayjs(endTime).tz('Asia/Taipei').format('YYYY-MM-DDTHH:mm:ss'),
+                borrower: userEmail
             });
 
-            // console.log("borrower userEmail", userEmail);
-            console.log(startTime.toISOString(), endTime.toISOString());
-
-            const response = await fetch(`http://localhost:8080/api/classroom_apply/apply?${params.toString()}`, {
-                method: 'POST',
-            });
-
-            if (response.ok) {
-                const responseData = await response.text();
-                alert('申請成功: ' + responseData);
+            if (response.status === 200) {
+                alert('申請成功：' + response.data);
             } else {
-                const errorData = await response.text();
-                if (errorData === 'User is banned. Should not apply classroom.') {
-                    setDisplayReload(true);
-                    onClose(true);
-                    alert('您已經被禁用申請權限，系統將自動刷新頁面，禁用訊息顯示於右上角');
-                }
-                setSnackbar({open: true, message: '申請失敗: ' + errorData});
+                const errorData = response.data;
+                setSnackbar({ open: true, message: `申請失敗：${errorData}` });
             }
         } catch (error) {
-            setSnackbar({open: true, message: '申請失敗: ' + error.message});
+            if (error.response && error.response.status === 403) {
+                alert('您的申請已被禁用，請聯絡管理員以取得更多訊息。');
+            } else {
+                setSnackbar({ open: true, message: `提交失敗：${error.message}` });
+            }
         }
     };
 

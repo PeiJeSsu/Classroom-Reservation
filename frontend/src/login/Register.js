@@ -17,6 +17,7 @@ import {
     InputLabel,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Register() {
     const [email, setEmail] = useState("");
@@ -51,30 +52,27 @@ function Register() {
 
             await sendEmailVerification(user);
 
-            const response = await fetch("http://localhost:8080/api/users/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email: registrationEmail, role }),
+            // 發送註冊資料到後端
+            const response = await axios.post("/api/users/register", {
+                email: registrationEmail,
+                role,
             });
 
-            if (response.ok) {
+            if (response.status >= 200 && response.status < 300) {
                 setAlert({
                     type: "success",
                     message: "註冊成功！請檢查電子郵件以完成驗證。",
                 });
             } else {
-                const errorData = await response.json();
                 setAlert({
                     type: "error",
-                    message: `註冊失敗：${errorData.message}`,
+                    message: `註冊失敗：${response.data?.message || "未知錯誤"}`,
                 });
             }
         } catch (error) {
             setAlert({
                 type: "error",
-                message: `註冊失敗：${error.message}`,
+                message: `註冊失敗：${error.response?.data?.message || error.message}`,
             });
         }
     };

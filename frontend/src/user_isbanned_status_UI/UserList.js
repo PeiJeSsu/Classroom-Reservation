@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Typography, Paper } from '@mui/material';
 import BanUserButton from "./update_isbanned_status/BanUserButton";
 import UnBanUserButton from "./update_isbanned_status/UnBanUserButton";
+import axios from "axios";
 
 export default function UserList({ user, reload, setReload }) {
     const [users, setUsers] = useState([]);
@@ -10,9 +11,9 @@ export default function UserList({ user, reload, setReload }) {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch('api/users/allUsers');
-                if (!response.ok) throw new Error('Network response was not ok');
-                const data = await response.json();
+                const response = await axios.get('/api/users/allUsers');
+                if (response.status !== 200) throw new Error('Network response was not ok');
+                const data = await response.data;
                 setUsers(data);
             } catch (error) {
                 console.error("Error fetching user data", error);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import axios from "axios";
 
 export default function FloorSelector({ floor, setFloor, setClassroomCode }) {
     const [floors, setFloors] = useState([]);
@@ -7,8 +8,8 @@ export default function FloorSelector({ floor, setFloor, setClassroomCode }) {
     useEffect(() => {
         const fetchFloors = async () => {
             try {
-                const response = await fetch('http://localhost:8080/classroom_build/floors');
-                const data = await response.json();
+                const response = await axios.get('/classroom_build/floors');
+                const data = await response.data;
                 setFloors(['全部', ...data]);
             } catch (error) {
                 console.error('Error fetching floors:', error);

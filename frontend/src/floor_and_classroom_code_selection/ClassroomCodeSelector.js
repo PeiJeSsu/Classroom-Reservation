@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import axios from "axios";
 
 export default function ClassroomCodeSelector({ floor, classroomCode, setClassroomCode }) {
     const [classroomCodes, setClassroomCodes] = useState([]);
 
     useEffect(() => {
         if (floor) {
-            fetch(`http://localhost:8080/classroom_build/floor/${floor}`)
-                .then((response) => response.json())
+            axios.get(`/classroom_build/floor/${floor}`)
+                .then((response) => response.data)
                 .then((data) => {
                     const codes = data.map((classroom) => classroom.roomNumber);
                     setClassroomCodes(['全部', ...codes]);

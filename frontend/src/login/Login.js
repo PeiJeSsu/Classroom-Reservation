@@ -4,6 +4,7 @@ import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { Box, TextField, Button, Typography, Alert, Container, RadioGroup, FormControlLabel, Radio, FormControl } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -30,16 +31,13 @@ function Login() {
                 return;
             }
 
-            const response = await fetch("http://localhost:8080/api/users/role", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email: user.email }),
+            // 修正 body 的使用方式
+            const response = await axios.post("/api/users/role", {
+                email: user.email,
             });
 
-            if (response.ok) {
-                const role = await response.text();
+            if (response.status >= 200 && response.status < 300) {
+                const role = response.data.role;
                 const name = email.split("@")[0];
                 localStorage.setItem("userRole", role);
                 localStorage.setItem("userName", name);
@@ -51,111 +49,112 @@ function Login() {
                 });
                 navigate("/");
             } else {
-                const errorMessage = await response.text();
                 setAlert({
                     type: "error",
-                    message: `取得角色失敗：${errorMessage}`,
+                    message: `取得角色失敗：${response.data.message || "未知錯誤"}`,
                 });
             }
         } catch (error) {
             setAlert({
                 type: "error",
-                message: `登入失敗：${error.message}`,
+                message: `登入失敗：${error.response?.data?.message || error.message}`,
             });
         }
     };
+
 
     const handleGoogleLogin = async () => {
         setAlert(null);
 
         try {
             googleProvider.setCustomParameters({
-                prompt: 'select_account',  // 強制顯示帳戶選擇框
+                prompt: "select_account", // 強制顯示帳戶選擇框
             });
 
-            // 進行 Google 登入
             const result = await signInWithPopup(auth, googleProvider);
             const user = result.user;
 
-            const response = await fetch(`http://localhost:8080/api/users/${user.email}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
+            const response = await axios.get(`/api/users/${user.email}`);
 
-            if (response.ok) {
-                const responseText = await response.text();
-                const userData = responseText ? JSON.parse(responseText) : null;
+            if (response.status >= 200 && response.status < 300) {
+                const userData = response.data;
                 if (userData && userData.email) {
                     setAlert({
                         type: "success",
                         message: "Google 登入成功！",
                     });
+                    const role = userData.role;
+                    const name = userData.email.split("@")[0];
+                    localStorage.setItem("userRole", role);
+                    localStorage.setItem("userName", name);
+                    localStorage.setItem("userEmail", userData.email);
                     navigate("/");
                 } else {
                     setEmail(user.email); // 設定 email 為後續角色設定使用
                     setIsFirstTimeLogin(true); // 顯示第一次登入 UI
                 }
             } else {
-                const errorMessage = await response.text();
                 setAlert({
                     type: "error",
-                    message: `無法取得用戶資訊：${errorMessage}`,
+                    message: `無法取得用戶資訊：${response.data.message || "未知錯誤"}`,
                 });
             }
         } catch (error) {
             setAlert({
                 type: "error",
-                message: `Google 登入失敗：${error.message}`,
+                message: `Google 登入失敗：${error.response?.data?.message || error.message}`,
             });
         }
     };
 
+
     const handleRoleSubmit = async () => {
-        if (selectedRole === "borrower" && !/^\d{8}@mail\.ntou\.edu\.tw$/.test(email) && !/^\d{8}@email\.ntou\.edu\.tw$/.test(email)) {
+        if (
+            selectedRole === "borrower" &&
+            !/^\d{8}@mail\.ntou\.edu\.tw$/.test(email) &&
+            !/^\d{8}@email\.ntou\.edu\.tw$/.test(email)
+        ) {
             setAlert({
                 type: "error",
                 message: "只有符合特定 email 格式的借用人可以註冊。",
             });
             setIsFirstTimeLogin(false);
-            return; // 停止繼續執行
+            return;
         }
 
         try {
-            const response = await fetch("http://localhost:8080/api/users/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email: email,
-                    role: selectedRole,
-                }),
+            const response = await axios.post("/api/users/register", {
+                email: email,
+                role: selectedRole,
             });
 
-            if (response.ok) {
+            if (response.status >= 200 && response.status < 300) {
                 setAlert({
                     type: "success",
                     message: "角色設定成功，註冊完成！",
                 });
+                const role = response.data.role;
+                const name = email.split("@")[0];
+                localStorage.setItem("userRole", role);
+                localStorage.setItem("userName", name);
+                localStorage.setItem("userEmail", email);
                 navigate("/");
             } else {
-                const errorMessage = await response.text();
                 setAlert({
                     type: "error",
-                    message: `註冊失敗：${errorMessage}`,
+                    message: `註冊失敗：${response.data.message || "未知錯誤"}`,
                 });
                 setIsFirstTimeLogin(false);
             }
         } catch (error) {
             setAlert({
                 type: "error",
-                message: `註冊請求失敗：${error.message}`,
+                message: `註冊請求失敗：${error.response?.data?.message || error.message}`,
             });
             setIsFirstTimeLogin(false);
         }
     };
+
 
     return (
         <Container maxWidth="sm">

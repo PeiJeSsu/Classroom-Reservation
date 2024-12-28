@@ -3,6 +3,7 @@ import {Box, Card, Typography} from "@mui/material";
 import ComboBox from "./combo_box";
 import Strip from "./information_strip";
 import {Grid2, Paper} from '@mui/material';
+import axios from "axios";
 
 export default function Query_information_interface() {
     const [selectedOption, setSelectedOption] = useState(null);
@@ -10,12 +11,12 @@ export default function Query_information_interface() {
     const [options, setOptions] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/classroom_apply")
+        axios.get("api/classroom_apply")
             .then((response) => {
-                if (!response.ok) {
+                if (response.status !== 200) {
                     throw new Error("Network response was not ok");
                 }
-                return response.json();
+                return response.data;
             })
             .then((data) => {
                 const uniqueBorrowers = Array.from(
