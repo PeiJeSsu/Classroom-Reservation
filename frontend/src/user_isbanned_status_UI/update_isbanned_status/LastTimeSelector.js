@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { TextField, Box } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const LastTimeSelector = ({ onTimeChange }) => {
+    const { t } = useTranslation();
     const [inputMonth, setInputMonth] = useState(0);
     const [inputDay, setInputDay] = useState(0);
     const [inputHour, setInputHour] = useState(0);
@@ -27,21 +29,21 @@ const LastTimeSelector = ({ onTimeChange }) => {
     return (
         <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
             <TextField
-                label="月"
+                label={t('月')}
                 type="number"
                 value={inputMonth}
                 onChange={handleMonthChange}
                 fullWidth
             />
             <TextField
-                label="日"
+                label={t('日')}
                 type="number"
                 value={inputDay}
                 onChange={handleDayChange}
                 fullWidth
             />
             <TextField
-                label="時"
+                label={t('時')}
                 type="number"
                 value={inputHour}
                 onChange={handleHourChange}

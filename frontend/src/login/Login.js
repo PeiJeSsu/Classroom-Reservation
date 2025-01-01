@@ -2,15 +2,31 @@ import React, { useState } from "react";
 import { auth } from "../config/firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
-import { Box, TextField, Button, Typography, Alert, Container, RadioGroup, FormControlLabel, Radio, FormControl } from "@mui/material";
+import {
+    Box,
+    TextField,
+    Button,
+    Typography,
+    Alert,
+    Container,
+    RadioGroup,
+    FormControlLabel,
+    Radio,
+    FormControl,
+    Select,
+    MenuItem,
+    InputLabel
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 function Login() {
+    const { t, i18n } = useTranslation();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [alert, setAlert] = useState(null);
     const [isFirstTimeLogin, setIsFirstTimeLogin] = useState(false);
-    const [selectedRole, setSelectedRole] = useState(""); // 用戶選擇的角色
+    const [selectedRole, setSelectedRole] = useState("");
     const navigate = useNavigate();
     const googleProvider = new GoogleAuthProvider();
 
@@ -25,7 +41,7 @@ function Login() {
             if (!user.emailVerified) {
                 setAlert({
                     type: "error",
-                    message: "請檢查您的電子郵件並完成驗證。",
+                    message: t('請檢查您的電子郵件並完成驗證。'),
                 });
                 return;
             }
@@ -47,20 +63,20 @@ function Login() {
 
                 setAlert({
                     type: "success",
-                    message: "登入成功！",
+                    message: t('登入成功！'),
                 });
                 navigate("/");
             } else {
                 const errorMessage = await response.text();
                 setAlert({
                     type: "error",
-                    message: `取得角色失敗：${errorMessage}`,
+                    message: `${t('取得角色失敗')}：${errorMessage}`,
                 });
             }
         } catch (error) {
             setAlert({
                 type: "error",
-                message: `登入失敗：${error.message}`,
+                message: `${t('登入失敗')}：${error.message}`,
             });
         }
     };
@@ -70,10 +86,9 @@ function Login() {
 
         try {
             googleProvider.setCustomParameters({
-                prompt: 'select_account',  // 強制顯示帳戶選擇框
+                prompt: 'select_account',
             });
 
-            // 進行 Google 登入
             const result = await signInWithPopup(auth, googleProvider);
             const user = result.user;
 
@@ -90,24 +105,24 @@ function Login() {
                 if (userData && userData.email) {
                     setAlert({
                         type: "success",
-                        message: "Google 登入成功！",
+                        message: t('Google 登入成功！'),
                     });
                     navigate("/");
                 } else {
-                    setEmail(user.email); // 設定 email 為後續角色設定使用
-                    setIsFirstTimeLogin(true); // 顯示第一次登入 UI
+                    setEmail(user.email);
+                    setIsFirstTimeLogin(true);
                 }
             } else {
                 const errorMessage = await response.text();
                 setAlert({
                     type: "error",
-                    message: `無法取得用戶資訊：${errorMessage}`,
+                    message: `${t('無法取得用戶資訊')}：${errorMessage}`,
                 });
             }
         } catch (error) {
             setAlert({
                 type: "error",
-                message: `Google 登入失敗：${error.message}`,
+                message: `${t('Google 登入失敗')}：${error.message}`,
             });
         }
     };
@@ -116,10 +131,10 @@ function Login() {
         if (selectedRole === "borrower" && !/^\d{8}@mail\.ntou\.edu\.tw$/.test(email) && !/^\d{8}@email\.ntou\.edu\.tw$/.test(email)) {
             setAlert({
                 type: "error",
-                message: "只有符合特定 email 格式的借用人可以註冊。",
+                message: t('只有符合特定 email 格式的借用人可以註冊。'),
             });
             setIsFirstTimeLogin(false);
-            return; // 停止繼續執行
+            return;
         }
 
         try {
@@ -137,24 +152,31 @@ function Login() {
             if (response.ok) {
                 setAlert({
                     type: "success",
-                    message: "角色設定成功，註冊完成！",
+                    message: t('角色設定成功，註冊完成！'),
                 });
                 navigate("/");
             } else {
                 const errorMessage = await response.text();
                 setAlert({
                     type: "error",
-                    message: `註冊失敗：${errorMessage}`,
+                    message: `${t('註冊失敗')}：${errorMessage}`,
                 });
                 setIsFirstTimeLogin(false);
             }
         } catch (error) {
             setAlert({
                 type: "error",
-                message: `註冊請求失敗：${error.message}`,
+                message: `${t('註冊請求失敗')}：${error.message}`,
             });
             setIsFirstTimeLogin(false);
         }
+    };
+
+    const toggleLanguage = (event) => {
+        const currentLang = i18n.language;
+        const newLang = currentLang === "en" ? "zh_tw" : "en";
+        i18n.changeLanguage(newLang);
+        localStorage.setItem("language", newLang);
     };
 
     return (
@@ -175,35 +197,49 @@ function Login() {
                 }}
             >
                 <Typography variant="h4" component="h1" gutterBottom>
-                    登入
+                    {t('登入')}
                 </Typography>
+                <FormControl fullWidth variant="outlined" >
+                    <InputLabel id="language-label">{t('選擇系統語言（進入系統後仍可更改）')}</InputLabel>
+                    <Select
+                        labelId="language-label"
+                        value={i18n.language}
+                        onChange={toggleLanguage}
+                        label={t('選擇系統語言（進入系統後仍可更改）')}
+                     >
+                        <MenuItem value="en">{t('English')}</MenuItem>
+                        <MenuItem value="zh_tw">{t('繁體中文')}</MenuItem>
+                    </Select>
+                </FormControl>
+
                 {isFirstTimeLogin ? (
                     <>
                         <Typography variant="h5" component="h1" gutterBottom>
-                            第一次登入，請選擇您的角色
+                            {t('第一次登入，請選擇您的角色')}
                         </Typography>
                         <FormControl component="fieldset">
                             <RadioGroup
                                 value={selectedRole}
                                 onChange={(e) => setSelectedRole(e.target.value)}
                             >
-                                <FormControlLabel value="borrower" control={<Radio />} label="借用人" />
-                                <FormControlLabel value="admin" control={<Radio />} label="管理員" />
+                                <FormControlLabel value="borrower" control={<Radio />} label={t('借用人')} />
+                                <FormControlLabel value="admin" control={<Radio />} label={t('管理員')} />
                             </RadioGroup>
                         </FormControl>
                         <Button
                             variant="contained"
                             color="primary"
                             onClick={handleRoleSubmit}
-                            disabled={!selectedRole} // 沒選角色時禁用按鈕
+                            disabled={!selectedRole}
+                            sx={{ textTransform: "none" }}
                         >
-                            確認角色
+                            {t('確認角色')}
                         </Button>
                     </>
                 ) : (
                     <>
                         <TextField
-                            label="Email"
+                            label={t('Email')}
                             type="email"
                             fullWidth
                             value={email}
@@ -214,7 +250,7 @@ function Login() {
                             }}
                         />
                         <TextField
-                            label="密碼"
+                            label={t('密碼')}
                             type="password"
                             fullWidth
                             value={password}
@@ -224,16 +260,16 @@ function Login() {
                                 shrink: true,
                             }}
                         />
-                        <Button variant="contained" color="primary" type="submit" fullWidth>
-                            登入
+                        <Button variant="contained" color="primary" type="submit" fullWidth sx={{ textTransform: "none" }}>
+                            {t('登入')}
                         </Button>
                         <Button
                             variant="contained"
-                            color="secondary"
                             fullWidth
                             onClick={handleGoogleLogin}
+                            sx={{ textTransform: "none" }}
                         >
-                            使用 Google 登入
+                            {t('使用 Google 登入')}
                         </Button>
                         {alert && <Alert severity={alert.type}>{alert.message}</Alert>}
                         <Button
@@ -241,8 +277,9 @@ function Login() {
                             color="secondary"
                             fullWidth
                             onClick={() => navigate("/register")}
+                            sx={{ textTransform: "none" }}
                         >
-                            還沒有帳號？點此註冊
+                            {t('還沒有帳號？點此註冊')}
                         </Button>
                     </>
                 )}

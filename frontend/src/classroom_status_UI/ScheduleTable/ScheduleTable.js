@@ -21,7 +21,7 @@ function ScheduleTable({ currentDate, selectedFloor, selectedRoomNumber }) {
                     endTime: formatDateForApi(end)
                 }
             }).then(response => {
-                console.log("Response Data:", response.data);
+                // console.log("Response Data:", response.data);
                 setUnavailableSlots(response.data);
             }).catch(error => {
                 console.error('Error fetching schedule:', error);

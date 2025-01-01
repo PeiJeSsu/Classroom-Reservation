@@ -1,7 +1,10 @@
 import React from 'react';
-import { Box, Typography, Paper } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
-export default function Informaion_strip({ user, classroomId, rentalDate, isRented ,floor,endTime}) {
+export default function Informaion_strip({ user, classroomId, rentalDate, isRented, floor, endTime }) {
+    const { t } = useTranslation();
+
     return (
         <Box
             sx={{
@@ -15,27 +18,22 @@ export default function Informaion_strip({ user, classroomId, rentalDate, isRent
                 borderRadius: '20px',
             }}
         >
-            <Box sx={{ display: 'flex' }} >
-                <Typography variant="body1" sx={{minWidth:"110px"}}>
-                    教室代號: {classroomId}
+            <Box sx={{ display: 'flex' }}>
+                <Typography variant="body1" sx={{ minWidth: "160px" }}>
+                    {t('教室編號')}: {classroomId}
                 </Typography>
-                <Typography variant="body1" sx={{minWidth:"80px"}}>
-                    樓層: {floor}
+                <Typography variant="body1" sx={{ minWidth: "90px" }}>
+                    {t('樓層')}: {floor}
                 </Typography>
-                <Typography variant="body1" sx={{minWidth:"150px"}}>
-                    借用人: {user}&nbsp;&nbsp;
+                <Typography variant="body1" sx={{ minWidth: "200px" }}>
+                    {t('借用人')}: {t(user)}&nbsp;&nbsp;
                 </Typography>
-
-                <Typography variant="body1" sx={{minWidth:"270px"}}>
-                    出租時間: {rentalDate}&nbsp;&nbsp;
+                <Typography variant="body1" sx={{ minWidth: "470px" }}>
+                    {t('借用時間')}: {rentalDate}&nbsp; {t('到')} &nbsp;{endTime}&nbsp;&nbsp;
                 </Typography>
-                <Typography variant="body1"sx={{minWidth:"270px"}}>
-                    結束時間: {endTime}&nbsp;&nbsp;
+                <Typography variant="body1" sx={{ minWidth: "160px" }}>
+                    {t('審查結果')}: {isRented}&nbsp;&nbsp;
                 </Typography>
-                <Typography variant="body1"sx={{minWidth:"150px"}}>
-                    出租結果: {isRented}&nbsp;&nbsp;
-                </Typography>
-                
             </Box>
         </Box>
     );

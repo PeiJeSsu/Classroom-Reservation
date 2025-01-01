@@ -3,8 +3,11 @@ import TextField from '@mui/material/TextField';
 import { DateTimeField } from '@mui/x-date-pickers/DateTimeField';
 import { renderTimeViewClock } from '@mui/x-date-pickers';
 import { Box } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const DateTimeSelection = ({ startDateTime, setStartDateTime, endDateTime, setEndDateTime }) => {
+    const { t } = useTranslation();
+
     return (
         <Box sx={{ display: 'flex', gap: 2, flexDirection: 'row', width: '100%' }}>
             <DateTimeField
@@ -12,7 +15,7 @@ const DateTimeSelection = ({ startDateTime, setStartDateTime, endDateTime, setEn
                     width: '15rem',
                     height: '3rem'
                 }}
-                label="選擇開始時間"
+                label={t("選擇開始時間")}
                 value={startDateTime}
                 onChange={(newValue) => setStartDateTime(newValue)}
                 renderInput={(params) => <TextField {...params} fullWidth />}
@@ -27,7 +30,7 @@ const DateTimeSelection = ({ startDateTime, setStartDateTime, endDateTime, setEn
                     width: '15rem',
                     height: '3rem'
                 }}
-                label="選擇結束時間"
+                label={t("選擇結束時間")}
                 value={endDateTime}
                 onChange={(newValue) => setEndDateTime(newValue)}
                 renderInput={(params) => <TextField {...params} fullWidth />}
