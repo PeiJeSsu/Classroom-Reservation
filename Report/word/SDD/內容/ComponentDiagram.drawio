@@ -1,1 +1,495 @@
-<mxGraphModel><root><mxCell id="0"/><mxCell id="1" parent="0"/></root></mxGraphModel>
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0" version="26.0.2">
+  <diagram id="_4zc94jQPd7x7gLjrJAS" name="第 1 页">
+    <mxGraphModel dx="372" dy="681" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <object placeholders="1" c4Name="註冊登入頁面" c4Type="Component" c4Technology="React" c4Description="註冊登入&#xa;第三方登入&#xa;學生證號碼驗證" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%:&amp;nbsp;%c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-4">
+          <mxCell style="shape=mxgraph.c4.webBrowserContainer2;whiteSpace=wrap;html=1;boundedLbl=1;rounded=0;labelBackgroundColor=none;strokeColor=#118ACD;fillColor=#23A2D9;strokeColor=#118ACD;strokeColor2=#0E7DAD;fontSize=12;fontColor=#ffffff;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.5,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];resizable=0;" vertex="1" parent="1">
+            <mxGeometry x="2280" y="160" width="240" height="160" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="使用者狀態管理頁面" c4Type="Component" c4Technology="React" c4Description="管理使用者狀態" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%:&amp;nbsp;%c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-7">
+          <mxCell style="shape=mxgraph.c4.webBrowserContainer2;whiteSpace=wrap;html=1;boundedLbl=1;rounded=0;labelBackgroundColor=none;strokeColor=#118ACD;fillColor=#23A2D9;strokeColor=#118ACD;strokeColor2=#0E7DAD;fontSize=12;fontColor=#ffffff;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.5,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];resizable=0;" vertex="1" parent="1">
+            <mxGeometry x="2560" y="160" width="240" height="160" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="使用者管理 Controller" c4Type="Component" c4Technology="SpringBoot" c4Description="提供 API" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%: %c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-9">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;labelBackgroundColor=none;fillColor=#23A2D9;fontColor=#ffffff;align=center;arcSize=10;strokeColor=#0E7DAD;metaEdit=1;resizable=0;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];" vertex="1" parent="1">
+            <mxGeometry x="2420" y="440" width="240" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="使用者管理 Service" c4Type="Component" c4Technology="SpringBoot" c4Description="處裡邏輯" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%: %c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-10">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;labelBackgroundColor=none;fillColor=#23A2D9;fontColor=#ffffff;align=center;arcSize=10;strokeColor=#0E7DAD;metaEdit=1;resizable=0;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];" vertex="1" parent="1">
+            <mxGeometry x="2420" y="640" width="240" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="使用者管理 Repo" c4Type="Component" c4Technology="SpringBoot" c4Description="與資料庫溝通" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%: %c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-11">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;labelBackgroundColor=none;fillColor=#23A2D9;fontColor=#ffffff;align=center;arcSize=10;strokeColor=#0E7DAD;metaEdit=1;resizable=0;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];" vertex="1" parent="1">
+            <mxGeometry x="2420" y="840" width="240" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="使用者管理 DB" c4Type="Component" c4Technology="MongoDB" c4Description="儲存資料" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%:&amp;nbsp;%c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-12">
+          <mxCell style="shape=cylinder3;size=15;whiteSpace=wrap;html=1;boundedLbl=1;rounded=0;labelBackgroundColor=none;fillColor=#23A2D9;fontSize=12;fontColor=#ffffff;align=center;strokeColor=#0E7DAD;metaEdit=1;points=[[0.5,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.5,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];resizable=0;" vertex="1" parent="1">
+            <mxGeometry x="2420" y="1080" width="240" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-15">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-4" target="f29Tp4u0VYhPBYOOj1z5-9">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="2270" y="400" as="sourcePoint" />
+              <mxPoint x="2550" y="590" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="2400" y="400" />
+                <mxPoint x="2540" y="400" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-26">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-7" target="f29Tp4u0VYhPBYOOj1z5-9">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="2799.58" y="470" as="sourcePoint" />
+              <mxPoint x="2799.58" y="550" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="2680" y="400" />
+                <mxPoint x="2600" y="400" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-27" value="管理使用者狀態" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-26">
+          <mxGeometry x="-0.104" relative="1" as="geometry">
+            <mxPoint x="10" y="-40" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-30">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="2540" y="560" as="sourcePoint" />
+              <mxPoint x="2540" y="640" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="2540" y="600" />
+                <mxPoint x="2540" y="600" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-31" value="註冊&lt;div&gt;登入&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-30">
+          <mxGeometry x="0.5838" y="-1" relative="1" as="geometry">
+            <mxPoint x="2" y="-33" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-32">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0.75;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.75;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-9" target="f29Tp4u0VYhPBYOOj1z5-10">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="2470" y="730" as="sourcePoint" />
+              <mxPoint x="2470" y="810" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="2600" y="560" />
+                <mxPoint x="2600" y="640" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-33" value="管理使用者狀態" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-32">
+          <mxGeometry x="0.5838" y="-1" relative="1" as="geometry">
+            <mxPoint x="1" y="-33" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-34">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-10" target="f29Tp4u0VYhPBYOOj1z5-11">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="2590" y="730" as="sourcePoint" />
+              <mxPoint x="2590" y="810" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="2540" y="760" />
+                <mxPoint x="2540" y="1000" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-35" value="讀寫帳戶" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-34">
+          <mxGeometry x="0.5838" y="-1" relative="1" as="geometry">
+            <mxPoint x="1" y="-33" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-36">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-11" target="f29Tp4u0VYhPBYOOj1z5-12">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="2280" y="1150" as="sourcePoint" />
+              <mxPoint x="2280" y="1230" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="2540" y="1070" />
+                <mxPoint x="2540" y="1070" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-37" value="讀寫帳戶" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-36">
+          <mxGeometry x="0.5838" y="-1" relative="1" as="geometry">
+            <mxPoint x="1" y="-25" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-52" value="註冊&lt;div&gt;登入&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="2400" y="360" as="geometry" />
+        </mxCell>
+        <object placeholders="1" c4Name="查詢教室頁面" c4Type="Component" c4Technology="React" c4Description="查詢教室、申請教室&#xa;匯出教室&#xa;管理教室狀態&#xa;管理鑰匙狀態" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%:&amp;nbsp;%c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-54">
+          <mxCell style="shape=mxgraph.c4.webBrowserContainer2;whiteSpace=wrap;html=1;boundedLbl=1;rounded=0;labelBackgroundColor=none;strokeColor=#118ACD;fillColor=#23A2D9;strokeColor=#118ACD;strokeColor2=#0E7DAD;fontSize=12;fontColor=#ffffff;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.5,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];resizable=0;" vertex="1" parent="1">
+            <mxGeometry x="1200" y="160" width="240" height="160" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="申請管理頁面" c4Type="Component" c4Technology="React" c4Description="同意/不同意申請&#xa;查看借用人紀錄" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%:&amp;nbsp;%c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-55">
+          <mxCell style="shape=mxgraph.c4.webBrowserContainer2;whiteSpace=wrap;html=1;boundedLbl=1;rounded=0;labelBackgroundColor=none;strokeColor=#118ACD;fillColor=#23A2D9;strokeColor=#118ACD;strokeColor2=#0E7DAD;fontSize=12;fontColor=#ffffff;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.5,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];resizable=0;" vertex="1" parent="1">
+            <mxGeometry x="1560" y="160" width="240" height="160" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="教室管理 Controller" c4Type="Component" c4Technology="SpringBoot" c4Description="提供 API" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%: %c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-56">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;labelBackgroundColor=none;fillColor=#23A2D9;fontColor=#ffffff;align=center;arcSize=10;strokeColor=#0E7DAD;metaEdit=1;resizable=0;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];" vertex="1" parent="1">
+            <mxGeometry x="1200" y="440" width="240" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-57">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.247;exitY=1.004;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-54" target="f29Tp4u0VYhPBYOOj1z5-56">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="1190" y="360" as="sourcePoint" />
+              <mxPoint x="1190" y="440" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="1259" y="400" />
+                <mxPoint x="1260" y="410" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-58" value="查詢教室" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-57">
+          <mxGeometry x="-0.104" relative="1" as="geometry">
+            <mxPoint x="1" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-59">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-54">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="1190" y="331" as="sourcePoint" />
+              <mxPoint x="1320" y="440" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="1320" y="410" />
+                <mxPoint x="1320" y="410" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-60" value="管理教室狀態" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-59">
+          <mxGeometry x="-0.104" relative="1" as="geometry">
+            <mxPoint y="-24" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-61">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0.75;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.753;exitY=1.006;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-54" target="f29Tp4u0VYhPBYOOj1z5-56">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="1300" y="330" as="sourcePoint" />
+              <mxPoint x="1330" y="450" as="targetPoint" />
+              <Array as="points" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-62" value="管理鑰匙狀態" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-61">
+          <mxGeometry x="-0.104" relative="1" as="geometry">
+            <mxPoint x="9" y="-4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Name="教室管理 Service" c4Type="Component" c4Technology="SpringBoot" c4Description="處裡邏輯" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%: %c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-65">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;labelBackgroundColor=none;fillColor=#23A2D9;fontColor=#ffffff;align=center;arcSize=10;strokeColor=#0E7DAD;metaEdit=1;resizable=0;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];" vertex="1" parent="1">
+            <mxGeometry x="1200" y="640" width="240" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="教室管理 Repo" c4Type="Component" c4Technology="SpringBoot" c4Description="與資料庫溝通" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%: %c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-66">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;labelBackgroundColor=none;fillColor=#23A2D9;fontColor=#ffffff;align=center;arcSize=10;strokeColor=#0E7DAD;metaEdit=1;resizable=0;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];" vertex="1" parent="1">
+            <mxGeometry x="1200" y="840" width="240" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-67">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.25;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-56" target="f29Tp4u0VYhPBYOOj1z5-65">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="1190" y="331" as="sourcePoint" />
+              <mxPoint x="1317" y="451" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="1260" y="560" />
+                <mxPoint x="1260" y="640" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-68" value="查詢教室" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-67">
+          <mxGeometry x="-0.104" relative="1" as="geometry">
+            <mxPoint y="4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-69">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-56">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="1408" y="570" as="sourcePoint" />
+              <mxPoint x="1380" y="640" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="1380" y="620" />
+                <mxPoint x="1380" y="620" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-70" value="&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;管理鑰匙狀態&lt;/span&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-69">
+          <mxGeometry x="-0.104" relative="1" as="geometry">
+            <mxPoint y="38" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-74">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-65" target="f29Tp4u0VYhPBYOOj1z5-66">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="1440" y="790" as="sourcePoint" />
+              <mxPoint x="1440" y="870" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="1320" y="760" />
+                <mxPoint x="1320" y="840" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-75" value="讀寫教室" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-74">
+          <mxGeometry x="-0.104" relative="1" as="geometry">
+            <mxPoint y="-6" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-77">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-56" target="f29Tp4u0VYhPBYOOj1z5-65">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="1330" y="570" as="sourcePoint" />
+              <mxPoint x="1390" y="650" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="1320" y="600" />
+                <mxPoint x="1320" y="600" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-78" value="管理教室狀態" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-77">
+          <mxGeometry x="-0.104" relative="1" as="geometry">
+            <mxPoint y="-11" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Name="使用者管理 DB" c4Type="Component" c4Technology="MongoDB" c4Description="儲存資料" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%:&amp;nbsp;%c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-80">
+          <mxCell style="shape=cylinder3;size=15;whiteSpace=wrap;html=1;boundedLbl=1;rounded=0;labelBackgroundColor=none;fillColor=#23A2D9;fontSize=12;fontColor=#ffffff;align=center;strokeColor=#0E7DAD;metaEdit=1;points=[[0.5,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.5,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];resizable=0;" vertex="1" parent="1">
+            <mxGeometry x="1200" y="1080" width="240" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-81">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-66" target="f29Tp4u0VYhPBYOOj1z5-80">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="1320" y="980" as="sourcePoint" />
+              <mxPoint x="1320" y="1060" as="targetPoint" />
+              <Array as="points" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-82" value="讀寫教室" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-81">
+          <mxGeometry x="-0.104" relative="1" as="geometry">
+            <mxPoint y="16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Name="申請管理 Controller" c4Type="Component" c4Technology="SpringBoot" c4Description="提供 API" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%: %c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-83">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;labelBackgroundColor=none;fillColor=#23A2D9;fontColor=#ffffff;align=center;arcSize=10;strokeColor=#0E7DAD;metaEdit=1;resizable=0;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];" vertex="1" parent="1">
+            <mxGeometry x="1560" y="440" width="240" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-84">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0.25;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="1440" y="280" as="sourcePoint" />
+              <mxPoint x="1620" y="440" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="1480" y="280" />
+                <mxPoint x="1480" y="400" />
+                <mxPoint x="1620" y="400" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-85" value="&lt;div&gt;查詢教室&lt;/div&gt;申請教室&lt;div&gt;匯出教室&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-84">
+          <mxGeometry x="-0.104" relative="1" as="geometry">
+            <mxPoint y="-33" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-86">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-55" target="f29Tp4u0VYhPBYOOj1z5-83">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="1450" y="290" as="sourcePoint" />
+              <mxPoint x="1630" y="450" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="1680" y="380" />
+                <mxPoint x="1680" y="380" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-87" value="管理申請&lt;div&gt;查詢借用紀錄&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-86">
+          <mxGeometry x="-0.104" relative="1" as="geometry">
+            <mxPoint y="-15" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Name="申請管理 Service" c4Type="Component" c4Technology="SpringBoot" c4Description="處裡邏輯" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%: %c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-88">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;labelBackgroundColor=none;fillColor=#23A2D9;fontColor=#ffffff;align=center;arcSize=10;strokeColor=#0E7DAD;metaEdit=1;resizable=0;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];" vertex="1" parent="1">
+            <mxGeometry x="1560" y="640" width="240" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="申請管理 Repo" c4Type="Component" c4Technology="SpringBoot" c4Description="與資料庫溝通" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%: %c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-89">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;labelBackgroundColor=none;fillColor=#23A2D9;fontColor=#ffffff;align=center;arcSize=10;strokeColor=#0E7DAD;metaEdit=1;resizable=0;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];" vertex="1" parent="1">
+            <mxGeometry x="1560" y="840" width="240" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-90">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0.25;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.25;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-83" target="f29Tp4u0VYhPBYOOj1z5-88">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="1590" y="570" as="sourcePoint" />
+              <mxPoint x="1770" y="730" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="1620" y="630" />
+                <mxPoint x="1620" y="630" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-91" value="&lt;div&gt;查詢教室&lt;/div&gt;申請教室&lt;div&gt;匯出教室&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-90">
+          <mxGeometry x="-0.104" relative="1" as="geometry">
+            <mxPoint y="-6" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-92">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.75;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-83">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="1740" y="570" as="sourcePoint" />
+              <mxPoint x="1740" y="640" as="targetPoint" />
+              <Array as="points" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-93" value="管理申請&lt;div&gt;查詢借用紀錄&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-92">
+          <mxGeometry x="-0.104" relative="1" as="geometry">
+            <mxPoint y="-6" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-94">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-88" target="f29Tp4u0VYhPBYOOj1z5-89">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="1730" y="780" as="sourcePoint" />
+              <mxPoint x="1730" y="860" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="1680" y="810" />
+                <mxPoint x="1680" y="810" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-95" value="讀寫申請" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-94">
+          <mxGeometry x="-0.104" relative="1" as="geometry">
+            <mxPoint y="-6" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Name="申請管理 DB" c4Type="Component" c4Technology="MongoDB" c4Description="儲存資料" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%:&amp;nbsp;%c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-96">
+          <mxCell style="shape=cylinder3;size=15;whiteSpace=wrap;html=1;boundedLbl=1;rounded=0;labelBackgroundColor=none;fillColor=#23A2D9;fontSize=12;fontColor=#ffffff;align=center;strokeColor=#0E7DAD;metaEdit=1;points=[[0.5,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.5,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];resizable=0;" vertex="1" parent="1">
+            <mxGeometry x="1560" y="1080" width="240" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-97">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-89" target="f29Tp4u0VYhPBYOOj1z5-96">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="1679.67" y="970" as="sourcePoint" />
+              <mxPoint x="1679.67" y="1050" as="targetPoint" />
+              <Array as="points" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-98" value="讀寫申請" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-97">
+          <mxGeometry x="-0.104" relative="1" as="geometry">
+            <mxPoint y="16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Name="資訊查詢頁面" c4Type="Component" c4Technology="React" c4Description="查詢歷史資訊" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%:&amp;nbsp;%c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-100">
+          <mxCell style="shape=mxgraph.c4.webBrowserContainer2;whiteSpace=wrap;html=1;boundedLbl=1;rounded=0;labelBackgroundColor=none;strokeColor=#118ACD;fillColor=#23A2D9;strokeColor=#118ACD;strokeColor2=#0E7DAD;fontSize=12;fontColor=#ffffff;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.5,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];resizable=0;" vertex="1" parent="1">
+            <mxGeometry x="1920" y="160" width="240" height="160" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-101">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0.75;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.334;exitY=1.002;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-100" target="f29Tp4u0VYhPBYOOj1z5-83">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="2040" y="330" as="sourcePoint" />
+              <mxPoint x="1690" y="450" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="2000" y="322" />
+                <mxPoint x="2000" y="322" />
+                <mxPoint x="2000" y="400" />
+                <mxPoint x="1740" y="400" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-102" value="&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;查詢借用紀錄&lt;/span&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-101">
+          <mxGeometry x="-0.104" relative="1" as="geometry">
+            <mxPoint x="90" y="-40" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Name="校園地圖頁面" c4Type="Component" c4Technology="React" c4Description="校園/系所地圖" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%:&amp;nbsp;%c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-103">
+          <mxCell style="shape=mxgraph.c4.webBrowserContainer2;whiteSpace=wrap;html=1;boundedLbl=1;rounded=0;labelBackgroundColor=none;strokeColor=#118ACD;fillColor=#23A2D9;strokeColor=#118ACD;strokeColor2=#0E7DAD;fontSize=12;fontColor=#ffffff;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.5,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];resizable=0;" vertex="1" parent="1">
+            <mxGeometry x="2920" y="160" width="240" height="160" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-104">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0.25;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.659;exitY=1.008;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-100" target="f29Tp4u0VYhPBYOOj1z5-9">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="2240" y="380" as="sourcePoint" />
+              <mxPoint x="1980" y="500" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="2078" y="410" />
+                <mxPoint x="2480" y="410" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-105" value="&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;查詢使用者&lt;/span&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-104">
+          <mxGeometry x="-0.104" relative="1" as="geometry">
+            <mxPoint x="-143" y="-50" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Type="Relationship" id="f29Tp4u0VYhPBYOOj1z5-106">
+          <mxCell style="endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.25;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="f29Tp4u0VYhPBYOOj1z5-9" target="f29Tp4u0VYhPBYOOj1z5-10">
+            <mxGeometry width="240" relative="1" as="geometry">
+              <mxPoint x="2088" y="331" as="sourcePoint" />
+              <mxPoint x="2490" y="450" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="2480" y="590" />
+                <mxPoint x="2480" y="590" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="f29Tp4u0VYhPBYOOj1z5-107" value="&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;查詢使用者&lt;/span&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="f29Tp4u0VYhPBYOOj1z5-106">
+          <mxGeometry x="-0.104" relative="1" as="geometry">
+            <mxPoint x="1" y="-6" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object placeholders="1" c4Name="Frontend Application" c4Type="ContainerScopeBoundary" c4Application="Container" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;&lt;div style=&quot;text-align: left&quot;&gt;%c4Name%&lt;/div&gt;&lt;/b&gt;&lt;/font&gt;&lt;div style=&quot;text-align: left&quot;&gt;[%c4Application%]&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-108">
+          <mxCell style="rounded=1;fontSize=11;whiteSpace=wrap;html=1;dashed=1;arcSize=20;fillColor=none;strokeColor=#666666;fontColor=#333333;labelBackgroundColor=none;align=left;verticalAlign=bottom;labelBorderColor=none;spacingTop=0;spacing=10;dashPattern=8 4;metaEdit=1;rotatable=0;perimeter=rectanglePerimeter;noLabel=0;labelPadding=0;allowArrows=0;connectable=0;expand=0;recursiveResize=0;editable=1;pointerEvents=0;absoluteArcSize=1;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];" vertex="1" parent="1">
+            <mxGeometry x="1050" y="150" width="2120" height="270" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="Backend Application" c4Type="ContainerScopeBoundary" c4Application="Container" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;&lt;div style=&quot;text-align: left&quot;&gt;%c4Name%&lt;/div&gt;&lt;/b&gt;&lt;/font&gt;&lt;div style=&quot;text-align: left&quot;&gt;[%c4Application%]&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-109">
+          <mxCell style="rounded=1;fontSize=11;whiteSpace=wrap;html=1;dashed=1;arcSize=20;fillColor=none;strokeColor=#666666;fontColor=#333333;labelBackgroundColor=none;align=left;verticalAlign=bottom;labelBorderColor=none;spacingTop=0;spacing=10;dashPattern=8 4;metaEdit=1;rotatable=0;perimeter=rectanglePerimeter;noLabel=0;labelPadding=0;allowArrows=0;connectable=0;expand=0;recursiveResize=0;editable=1;pointerEvents=0;absoluteArcSize=1;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];" vertex="1" parent="1">
+            <mxGeometry x="1050" y="430" width="1770" height="580" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="Batabase Application" c4Type="ContainerScopeBoundary" c4Application="Container" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;&lt;div style=&quot;text-align: left&quot;&gt;%c4Name%&lt;/div&gt;&lt;/b&gt;&lt;/font&gt;&lt;div style=&quot;text-align: left&quot;&gt;[%c4Application%]&lt;/div&gt;" id="f29Tp4u0VYhPBYOOj1z5-110">
+          <mxCell style="rounded=1;fontSize=11;whiteSpace=wrap;html=1;dashed=1;arcSize=20;fillColor=none;strokeColor=#666666;fontColor=#333333;labelBackgroundColor=none;align=left;verticalAlign=bottom;labelBorderColor=none;spacingTop=0;spacing=10;dashPattern=8 4;metaEdit=1;rotatable=0;perimeter=rectanglePerimeter;noLabel=0;labelPadding=0;allowArrows=0;connectable=0;expand=0;recursiveResize=0;editable=1;pointerEvents=0;absoluteArcSize=1;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];" vertex="1" parent="1">
+            <mxGeometry x="1050" y="1050" width="1770" height="200" as="geometry" />
+          </mxCell>
+        </object>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
