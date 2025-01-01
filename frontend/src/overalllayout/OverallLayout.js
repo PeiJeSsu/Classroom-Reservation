@@ -9,12 +9,13 @@ import { useTranslation } from 'react-i18next';
 import CustomTabPanel from './CustomTabPanel';
 import ClassroomQuery from "../classroom_query_UI/ClassroomQuery";
 import ApplyList from "../design_apply_list_UI/ApplyList";
-import ClassroomMap from "../classroom_map_UI/Classroom_map";
 import Logout from "../login/Logout";
 import Information from "../query_information/query_information_interface";
 import Personal_Info from "../query_information/personal_informaion";
 import UserIsBannedStatus from "../user_isbanned_status_UI/UserIsBannedStatus";
 import {FormControl, InputLabel} from "@mui/material";
+import MapSelectionPanel from "../classroom_map_UI/MapSelectionPanel";
+import ClassroomMap from "../classroom_map_UI/ClassroomMap";
 
 export default function BasicTabs() {
     const [value, setValue] = React.useState(0);

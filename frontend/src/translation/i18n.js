@@ -141,8 +141,13 @@ const resources = {
             "解禁時間": "Unban Time",
             "請選擇使用者（輸入關鍵字查詢）": "Select a user (Search by keyword)",
             "選擇系統語言（進入系統後仍可更改）": "Select System Language (You Can change it after logging in)",
-            "選擇系統語言": "Select System Language"
-
+            "選擇系統語言": "Select System Language",
+            "請選擇樓層以查看地圖": "Please select a floor to view the map",
+            "1樓": "1st Floor",
+            "2樓": "2nd Floor",
+            "3樓": "3rd Floor",
+            "4樓": "4th Floor",
+            "樓層選擇": "Floor Selection"
         }
     },
 
