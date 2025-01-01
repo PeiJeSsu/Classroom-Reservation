@@ -17,8 +17,10 @@ import {
     InputLabel,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function Register() {
+    const { t } = useTranslation();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("");
@@ -33,7 +35,7 @@ function Register() {
         if (role === "borrower" && studentId.length !== 8) {
             setAlert({
                 type: "error",
-                message: "學號必須為 8 位數字！",
+                message: t("學號必須為 8 位數字！"),
             });
             return;
         }
@@ -62,19 +64,19 @@ function Register() {
             if (response.ok) {
                 setAlert({
                     type: "success",
-                    message: "註冊成功！請檢查電子郵件以完成驗證。",
+                    message: t("註冊成功！請檢查電子郵件以完成驗證。"),
                 });
             } else {
                 const errorData = await response.json();
                 setAlert({
                     type: "error",
-                    message: `註冊失敗：${errorData.message}`,
+                    message: `${t("註冊失敗：")}${errorData.message}`,
                 });
             }
         } catch (error) {
             setAlert({
                 type: "error",
-                message: `註冊失敗：${error.message}`,
+                message: `${t("註冊失敗：")}${error.message}`,
             });
         }
     };
@@ -97,31 +99,31 @@ function Register() {
                 }}
             >
                 <Typography variant="h4" component="h1" gutterBottom>
-                    註冊
+                    {t("註冊")}
                 </Typography>
 
                 <FormControl fullWidth sx={{ minWidth: 200 }}>
                     <InputLabel id="role-label" sx={{ fontSize: 16 }}>
-                        選擇角色
+                        {t("選擇角色")}
                     </InputLabel>
                     <Select
                         labelId="role-label"
                         value={role}
                         onChange={(e) => setRole(e.target.value)}
-                        label="選擇角色"
+                        label={t("選擇角色")}
                         sx={{
                             fontSize: 16,
                             height: 56,
                         }}
                     >
-                        <MenuItem value="borrower">借用人</MenuItem>
-                        <MenuItem value="admin">管理員</MenuItem>
+                        <MenuItem value="borrower">{t("借用人")}</MenuItem>
+                        <MenuItem value="admin">{t("管理員")}</MenuItem>
                     </Select>
                 </FormControl>
 
                 {role === "borrower" && (
                     <TextField
-                        label="學號 (8 位數字)"
+                        label={t("學號 (8 位數字)")}
                         type="text"
                         fullWidth
                         value={studentId}
@@ -130,13 +132,13 @@ function Register() {
                         InputLabelProps={{
                             shrink: true,
                         }}
-                        helperText="輸入的學號將組合為 @mail.ntou.edu.tw 電子郵件地址"
+                        helperText={t("輸入的學號將組合為 @mail.ntou.edu.tw 電子郵件地址")}
                     />
                 )}
 
                 {role === "admin" && (
                     <TextField
-                        label="Email"
+                        label={t("Email")}
                         type="email"
                         fullWidth
                         value={email}
@@ -149,7 +151,7 @@ function Register() {
                 )}
 
                 <TextField
-                    label="密碼"
+                    label={t("密碼")}
                     type="password"
                     fullWidth
                     value={password}
@@ -160,8 +162,8 @@ function Register() {
                     }}
                 />
 
-                <Button variant="contained" color="primary" type="submit" fullWidth>
-                    註冊
+                <Button variant="contained" color="primary" type="submit" fullWidth sx={{ textTransform: "none" }}>
+                    {t("註冊")}
                 </Button>
 
                 {alert && (
@@ -173,8 +175,9 @@ function Register() {
                     color="secondary"
                     fullWidth
                     onClick={() => navigate("/login")}
+                    sx={{ textTransform: "none" }}
                 >
-                    已有帳號？點此登入
+                    {t("已有帳號？點此登入")}
                 </Button>
             </Box>
         </Container>

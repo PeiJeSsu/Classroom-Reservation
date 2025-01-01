@@ -1,16 +1,14 @@
 import React from 'react';
-import Card from '@mui/material/Card';
 import { Dialog, DialogTitle, DialogContent, IconButton, Box } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-export  default function HistoryDialog({ open, onClose, title, children }){
+export default function HistoryDialog({ open, onClose, title, children }){
     return (
         <Dialog
             open={open}
             onClose={onClose}
-            maxWidth="md" // 設定寬度比例
-            fullWidth // 讓 maxWidth 有效
+            maxWidth="md"
+            fullWidth
         >
-            {/* 視窗標題 */}
             <DialogTitle>
                 {title || "標題"}
                 <IconButton
@@ -27,7 +25,6 @@ export  default function HistoryDialog({ open, onClose, title, children }){
                 </IconButton>
             </DialogTitle>
 
-            {/* 視窗內容 */}
             <DialogContent dividers>
                 <Box>{children}</Box>
             </DialogContent>

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {Autocomplete, TextField, Typography} from '@mui/material';
+import { Autocomplete, TextField, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const UserSelector = ({ user, setUser, disabled }) => {
+    const { t } = useTranslation();
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
@@ -39,7 +41,6 @@ const UserSelector = ({ user, setUser, disabled }) => {
     };
 
     const handleUserChange = (event, value) => {
-        // console.log('UserSelector', value);
         handleValueUpdate(value);
     };
 
@@ -51,7 +52,7 @@ const UserSelector = ({ user, setUser, disabled }) => {
         <Autocomplete
             options={users}
             getOptionLabel={(option) => {
-                if (typeof option === 'string') 
+                if (typeof option === 'string')
                     return option;
                 return option.email.split('@')[0];
             }}
@@ -69,7 +70,7 @@ const UserSelector = ({ user, setUser, disabled }) => {
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    label="請選擇使用者（輸入關鍵字查詢）"
+                    label={t("請選擇使用者（輸入關鍵字查詢）")}
                     variant="outlined"
                     onBlur={handleInputBlur}
                 />
