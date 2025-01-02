@@ -18,6 +18,7 @@ import {
     InputLabel
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import {apiConfig} from "../config/apiConfig";
 import { useTranslation } from 'react-i18next';
 
 function Login() {
@@ -46,16 +47,13 @@ function Login() {
                 return;
             }
 
-            const response = await fetch("http://localhost:8080/api/users/role", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email: user.email }),
+            // 修正 body 的使用方式
+            const response = await apiConfig.post("/api/users/role", {
+                email: user.email,
             });
 
-            if (response.ok) {
-                const role = await response.text();
+            if (response.status >= 200 && response.status < 300) {
+                const role = response.data.role;
                 const name = email.split("@")[0];
                 localStorage.setItem("userRole", role);
                 localStorage.setItem("userName", name);
@@ -67,10 +65,9 @@ function Login() {
                 });
                 navigate("/");
             } else {
-                const errorMessage = await response.text();
                 setAlert({
                     type: "error",
-                    message: `${t('取得角色失敗')}：${errorMessage}`,
+                    message: `${t('取得角色失敗')}：${response.data.message}`,
                 });
             }
         } catch (error) {
@@ -80,6 +77,7 @@ function Login() {
             });
         }
     };
+
 
     const handleGoogleLogin = async () => {
         setAlert(null);
@@ -92,31 +90,29 @@ function Login() {
             const result = await signInWithPopup(auth, googleProvider);
             const user = result.user;
 
-            const response = await fetch(`http://localhost:8080/api/users/${user.email}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
+            const response = await apiConfig.get(`/api/users/${user.email}`);
 
-            if (response.ok) {
-                const responseText = await response.text();
-                const userData = responseText ? JSON.parse(responseText) : null;
+            if (response.status >= 200 && response.status < 300) {
+                const userData = response.data;
                 if (userData && userData.email) {
                     setAlert({
                         type: "success",
                         message: t('Google 登入成功！'),
                     });
+                    const role = userData.role;
+                    const name = userData.email.split("@")[0];
+                    localStorage.setItem("userRole", role);
+                    localStorage.setItem("userName", name);
+                    localStorage.setItem("userEmail", userData.email);
                     navigate("/");
                 } else {
                     setEmail(user.email);
                     setIsFirstTimeLogin(true);
                 }
             } else {
-                const errorMessage = await response.text();
                 setAlert({
                     type: "error",
-                    message: `${t('無法取得用戶資訊')}：${errorMessage}`,
+                    message: `${t('無法取得用戶資訊')}：${response.data.message}`,
                 });
             }
         } catch (error) {
@@ -127,8 +123,13 @@ function Login() {
         }
     };
 
+
     const handleRoleSubmit = async () => {
-        if (selectedRole === "borrower" && !/^\d{8}@mail\.ntou\.edu\.tw$/.test(email) && !/^\d{8}@email\.ntou\.edu\.tw$/.test(email)) {
+        if (
+            selectedRole === "borrower" &&
+            !/^\d{8}@mail\.ntou\.edu\.tw$/.test(email) &&
+            !/^\d{8}@email\.ntou\.edu\.tw$/.test(email)
+        ) {
             setAlert({
                 type: "error",
                 message: t('只有符合特定 email 格式的借用人可以註冊。'),
@@ -138,28 +139,26 @@ function Login() {
         }
 
         try {
-            const response = await fetch("http://localhost:8080/api/users/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email: email,
-                    role: selectedRole,
-                }),
+            const response = await apiConfig.post("/api/users/register", {
+                email: email,
+                role: selectedRole,
             });
 
-            if (response.ok) {
+            if (response.status >= 200 && response.status < 300) {
                 setAlert({
                     type: "success",
                     message: t('角色設定成功，註冊完成！'),
                 });
+                const role = response.data.role;
+                const name = email.split("@")[0];
+                localStorage.setItem("userRole", role);
+                localStorage.setItem("userName", name);
+                localStorage.setItem("userEmail", email);
                 navigate("/");
             } else {
-                const errorMessage = await response.text();
                 setAlert({
                     type: "error",
-                    message: `${t('註冊失敗')}：${errorMessage}`,
+                    message: `${t('註冊失敗')}：${response.data.message}`,
                 });
                 setIsFirstTimeLogin(false);
             }

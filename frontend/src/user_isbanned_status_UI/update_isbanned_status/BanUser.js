@@ -3,9 +3,9 @@ import { Box, Card, CardContent, Button, CardActions, Modal, Fade, ThemeProvider
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import CloseIcon from '@mui/icons-material/Close';
-import axios from "axios";
 import LastTimeSelector from './LastTimeSelector';
 import ErrorSnackbar from "../../custom_snackbar/ErrorSnackbar";
+import {apiConfig} from "../../config/apiConfig";
 import { useTranslation } from 'react-i18next';
 
 const theme = createTheme({
@@ -50,7 +50,7 @@ const BanUser = ({ open, onClose, user, setReload }) => {
         try {
             const lastTimeInSeconds = calculateBanDuration();
 
-            const response = await axios.patch(`api/users/${user.email}/ban`, lastTimeInSeconds, {
+            const response = await apiConfig.patch(`/api/users/${user.email}/ban`, lastTimeInSeconds, {
                 headers: {
                     'Content-Type': 'application/json',
                 }

@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import {Box, Typography, Paper, Button, Grid2} from '@mui/material';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { Box, Typography, Paper, Button, Grid2 } from '@mui/material';
 import FloorAndClassroomCodeSelector from "../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector";
 import HistoryDialog from './historyDialog';
+import {apiConfig} from "../config/apiConfig";
 import { useTranslation } from 'react-i18next';
 
 export default function ApplyList() {
@@ -16,8 +16,8 @@ export default function ApplyList() {
     const { t } = useTranslation();
 
     useEffect(() => {
-        axios
-            .get('http://localhost:8080/api/classroom_apply/pending')
+        apiConfig
+            .get('/api/classroom_apply/pending')
             .then((response) => {
                 const sortedApplications = response.data.sort((a, b) => {
                     const floorOrder = ['B1', '1', '2', '3', '4'];
@@ -47,15 +47,12 @@ export default function ApplyList() {
     };
 
     const showHistory = (borrower) => {
-        fetch(`http://localhost:8080/api/classroom_apply/borrower/${borrower}`)
+        apiConfig.get(`/api/classroom_apply/borrower/${borrower}`)
             .then((response) => {
-                if (!response.ok) {
+                if (response.status !== 200) {
                     throw new Error('Network response was not ok');
                 }
-                return response.json();
-            })
-            .then((data) => {
-                const transformedData = data.map((item) => ({
+                const transformedData = response.data.map((item) => ({
                     user: item.borrower,
                     classroom: item.classroom,
                     rentalDate: new Date(item.startTime).toLocaleDateString(),
@@ -76,8 +73,8 @@ export default function ApplyList() {
     };
 
     const handleApprove = (id) => {
-        axios
-            .put(`http://localhost:8080/api/classroom_apply/${id}/approve`)
+        apiConfig
+            .put(`/api/classroom_apply/${id}/approve`)
             .then(() => {
                 setReload((prev) => !prev);
             })
@@ -88,8 +85,8 @@ export default function ApplyList() {
 
     const handleDeny = (id, reason) => {
         console.log("Reason:", reason);
-        axios
-            .put(`http://localhost:8080/api/classroom_apply/${id}/deny`, {reason})
+        apiConfig
+            .put(`/api/classroom_apply/${id}/deny`, { reason })
             .then(() => {
                 setReload((prev) => !prev);
             })
@@ -98,9 +95,21 @@ export default function ApplyList() {
             });
     };
 
+    const formatTime = (date) => {
+        return new Date(date).toLocaleString('zh-TW', {
+            hour12: true, // 設定 12 小時制 (AM/PM)
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    };
+
     return (
         <Box>
-            <Paper elevation={3} sx={{padding: '20px', marginTop: '20px'}}>
+            <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>
                 <Grid2 container justifyContent="space-between">
                     <Grid2 item xs={3}>
                         <FloorAndClassroomCodeSelector
@@ -113,7 +122,7 @@ export default function ApplyList() {
                     </Grid2>
                 </Grid2>
             </Paper>
-            <Paper elevation={3} sx={{padding: '20px', marginTop: '20px'}}>
+            <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>
                 {filteredApplications.length === 0 ? (
                     <Typography variant="h6" sx={{mt: 2}} sx={{ textTransform: "none" }}>
                         {t('目前沒有符合篩選條件的申請')}

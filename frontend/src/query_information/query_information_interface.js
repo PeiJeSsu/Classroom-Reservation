@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Box, Typography } from "@mui/material";
+import React, {useState, useEffect} from "react";
+import {Box, Typography} from "@mui/material";
 import ComboBox from "./combo_box";
 import Strip from "./information_strip";
-import { Paper } from '@mui/material';
+import {Paper} from '@mui/material';
+import {apiConfig} from "../config/apiConfig";
 import { useTranslation } from 'react-i18next';
 
 export default function Query_information_interface() {
@@ -12,12 +13,12 @@ export default function Query_information_interface() {
     const [options, setOptions] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/classroom_apply")
+        apiConfig.get("api/classroom_apply")
             .then((response) => {
-                if (!response.ok) {
+                if (response.status !== 200) {
                     throw new Error("Network response was not ok");
                 }
-                return response.json();
+                return response.data;
             })
             .then((data) => {
                 const uniqueBorrowers = Array.from(

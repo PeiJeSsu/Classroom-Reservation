@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import {apiConfig} from "../config/apiConfig";
 import { useTranslation } from 'react-i18next';
 
 export default function ClassroomCodeSelector({ floor, classroomCode, setClassroomCode }) {
@@ -8,8 +9,8 @@ export default function ClassroomCodeSelector({ floor, classroomCode, setClassro
 
     useEffect(() => {
         if (floor) {
-            fetch(`http://localhost:8080/classroom_build/floor/${floor}`)
-                .then((response) => response.json())
+            apiConfig.get(`/classroom_build/floor/${floor}`)
+                .then((response) => response.data)
                 .then((data) => {
                     const codes = data.map((classroom) => classroom.roomNumber);
                     setClassroomCodes(['全部', ...codes]);

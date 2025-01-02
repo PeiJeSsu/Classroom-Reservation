@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Strip from "./information_strip";
+import {apiConfig} from "../config/apiConfig";
 import { useTranslation } from 'react-i18next';
 
 export default function Personal_information() {
@@ -12,7 +13,7 @@ export default function Personal_information() {
         const userName = localStorage.getItem('userName');
 
         if (userName) {
-            fetch(`http://localhost:8080/api/classroom_apply/borrower/${userName}`)
+            apiConfig.get(`/api/classroom_apply/borrower/${userName}`)
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");

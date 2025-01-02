@@ -14,6 +14,7 @@ import ErrorSnackbar from '../custom_snackbar/ErrorSnackbar';
 import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import {apiConfig} from "../config/apiConfig";
 import { useTranslation } from 'react-i18next';
 
 dayjs.extend(utc);
@@ -48,36 +49,40 @@ const Makechoice = ({ open, onClose, initialFloor, initialClassroomCode, setDisp
             return;
         }
 
+        const borrower = localStorage.getItem("userName");
+        if (!borrower) {
+            setSnackbar({ open: true, message: '未找到借用者，請重新登入後再試！' });
+            return;
+        }
+
+        console.log({
+            floor,
+            classroom: classroomCode,
+            startTime: dayjs(startTime).tz('Asia/Taipei').format('YYYY-MM-DDTHH:mm:ss'),
+            endTime: dayjs(endTime).tz('Asia/Taipei').format('YYYY-MM-DDTHH:mm:ss'),
+            borrower: userEmail
+        });
+
         try {
-
-            const startTimeInUTC8 = startTime ? dayjs(startTime).tz('Asia/Taipei').format() : null;
-            const endTimeInUTC8 = endTime ? dayjs(endTime).tz('Asia/Taipei').format() : null;
-
             const borrower = localStorage.getItem("userName");
             if (!borrower) {
                 setSnackbar({ open: true, message: t('未找到借用者！') });
                 return;
             }
-            const params = new URLSearchParams({
+
+            const response = await apiConfig.post('/api/classroom_apply/apply', {
                 floor,
-                classroomCode,
-                startTime: startTimeInUTC8,
-                endTime: endTimeInUTC8,
-                borrower,
-                userEmail
+                classroom: classroomCode,
+                startTime: dayjs(startTime).tz('Asia/Taipei').format('YYYY-MM-DDTHH:mm:ss'),
+                endTime: dayjs(endTime).tz('Asia/Taipei').format('YYYY-MM-DDTHH:mm:ss'),
+                borrower: userEmail
             });
 
-            console.log(startTime.toISOString(), endTime.toISOString());
-
-            const response = await fetch(`http://localhost:8080/api/classroom_apply/apply?${params.toString()}`, {
-                method: 'POST',
-            });
-
-            if (response.ok) {
-                const responseData = await response.text();
+            if (response.status === 200) {
+                const responseData = await response.data;
                 alert(t('申請成功: ') + responseData);
             } else {
-                const errorData = await response.text();
+                const errorData = await response.data;
                 if (errorData === 'User is banned. Should not apply classroom.') {
                     setDisplayReload(true);
                     onClose(true);

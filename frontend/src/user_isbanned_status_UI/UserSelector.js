@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Autocomplete, TextField, Typography } from '@mui/material';
+import {Autocomplete, TextField, Typography} from '@mui/material';
+import {apiConfig} from "../config/apiConfig";
 import { useTranslation } from 'react-i18next';
 
 const UserSelector = ({ user, setUser, disabled }) => {
@@ -7,12 +8,10 @@ const UserSelector = ({ user, setUser, disabled }) => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/users/allUsers')
-            .then(response => response.json())
-            .then(data => {
-                const sortedUsers = data.sort((a, b) => {
-                    if (a.role !== b.role)
-                        return a.role > b.role ? 1 : -1;
+        apiConfig.get('/api/users/allUsers')
+            .then(response => {
+                const sortedUsers = response.data.sort((a, b) => {
+                    if (a.role !== b.role) return a.role > b.role ? 1 : -1;
                     return a.email.localeCompare(b.email);
                 });
                 setUsers(sortedUsers);

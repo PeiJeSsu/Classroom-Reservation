@@ -14,6 +14,7 @@ import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import LastTimeSelector from "../user_isbanned_status_UI/update_isbanned_status/LastTimeSelector";
+import {apiConfig} from "../config/apiConfig";
 import { useTranslation } from 'react-i18next';
 
 dayjs.extend(utc);
@@ -50,16 +51,14 @@ const ClassroomBanStatus = ({ open, onClose, initialFloor, initialClassroomCode,
 
             const unbanTime = calculateBanDuration();
 
-            const response = await fetch(`http://localhost:8080/classroom_build/${classroomCode}/ban?unbanTime=${unbanTime}`, {
-                method: 'PATCH',
-            });
+            const response = await apiConfig.patch(`/classroom_build/${classroomCode}/ban?unbanTime=${unbanTime}`);
 
-            if (response.ok) {
+            if (response.status === 200) {
                 alert(t('教室已成功禁用'));
                 setReload(true);
                 onClose();
             } else {
-                const errorData = await response.text();
+                const errorData = await response.data;
                 setSnackbar({ open: true, message: `${t('禁用失敗')}: ${errorData}` });
             }
         } catch (error) {
