@@ -74,7 +74,7 @@ public class UserService {
                     unbanTime.toString()
             );
 
-            sendEmailAsync(email, "Account Banned", emailText);
+            //sendEmailAsync(email, "Account Banned", emailText);
             return true;
         }
         return false;
@@ -91,7 +91,7 @@ public class UserService {
                     "Your account has been unbanned. You can now access all features again.\n\n" +
                     "Best regards,\nSystem Administrator";
 
-            sendEmailAsync(email, "Account Unbanned", emailText);
+            //sendEmailAsync(email, "Account Unbanned", emailText);
             return true;
         }
         return false;
