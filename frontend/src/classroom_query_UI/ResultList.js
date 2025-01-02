@@ -6,9 +6,12 @@ import UpdateKeyStatusButton from "../key_status_UI/UpdateKeyStatusButton";
 import ExportScheduleButton from "../export/ExportScheduleButton";
 import ClassroomBanStatusButton from "../classroom_reserve_status/ClassroomBanStatusButton";
 import ClassroomUnbanStatusButton from "../classroom_reserve_status/ClassroomUnbanStatusButton";
+import {apiConfig} from "../config/apiConfig";
+import { useTranslation } from 'react-i18next';
 export default function ResultList({ floor, classroomCode, reload, setReload, isBanned, setDisplayReload }) {
     const [classrooms, setClassrooms] = useState([]);
     const userRole = localStorage.getItem("userRole");
+    const { t } = useTranslation();
 
     useEffect(() => {
         const fetchClassrooms = async () => {
@@ -19,9 +22,9 @@ export default function ResultList({ floor, classroomCode, reload, setReload, is
                 } else if (floor) {
                     url = `/classroom_build/floor/${floor}`;
                 }
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Network response was not ok');
-                const data = await response.json();
+                const response = await apiConfig.get(url);
+                if (response.status !== 200 ) throw new Error('Network response was not ok');
+                const data = await response.data;
                 const classroomData = Array.isArray(data) ? data : [data];
                 setClassrooms(classroomData);
                 console.log(classroomData);
@@ -40,7 +43,7 @@ export default function ResultList({ floor, classroomCode, reload, setReload, is
     return (
         <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>
             {classrooms.length === 0 ? (
-                <Typography variant="body1">沒有找到相關的教室。</Typography>
+                <Typography variant="body1">{t("沒有找到相關的教室")}</Typography>
             ) : (
                 classrooms.map((classroom) => (
                     <Box
@@ -56,35 +59,35 @@ export default function ResultList({ floor, classroomCode, reload, setReload, is
                         }}
                     >
                         <Box sx={{ display: 'flex', gap: 2 }}>
-                            <Typography variant="body1" sx={{ minWidth: '110px' }}>教室編號: {classroom.roomNumber}</Typography>
-                            <Typography variant="body1" sx={{ minWidth: '60px' }}>樓層: {classroom.floor}</Typography>
-                            <Typography variant="body1" sx={{ minWidth: '120px' }}>
-                                教室狀態: {classroom.banned ? '不可用' : '可用'}
+                            <Typography variant="body1" sx={{ minWidth: '110px' }}>
+                                {t("教室編號")}: {classroom.roomNumber}
+                            </Typography>
+                            <Typography variant="body1" sx={{ minWidth: '70px' }}>
+                                {t("樓層")}: {classroom.floor}
+                            </Typography>
+                            <Typography variant="body1" sx={{ minWidth: '125px' }}>
+                                {t("教室狀態")}: {classroom.banned ? t('不可用') : t('可用')}
                             </Typography>
                             {userRole !== "borrower" && (
                                 <>
-                                    <Typography variant="body1" sx={{ minWidth: '160px' }}>鑰匙狀態: {classroom.keyStatus}</Typography>
+                                    <Typography variant="body1" sx={{ minWidth: '192px' }}>
+                                        {t("鑰匙狀態")}: {classroom.keyStatus}
+                                    </Typography>
                                     {classroom.borrower && (
-                                        <Typography variant="body1">借用人: {classroom.borrower.split('@')[0]}</Typography>
+                                        <Typography variant="body1">{t("借用人")}: {classroom.borrower.split('@')[0]}</Typography>
                                     )}
                                 </>
                             )}
-
                         </Box>
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                gap: 2
-                            }}
-                        >
+                        <Box sx={{ display: 'flex', gap: 2 }}>
                             {userRole !== "borrower" && (
                                 <ExportScheduleButton variant="contained" classroom={classroom} />
                             )}
                             <ClassroomStatusButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
-                            <MakeChoiceButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} isBanned={isBanned || classroom.banned} setDisplayReload={setDisplayReload}/>
+                            <MakeChoiceButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} isBanned={isBanned || classroom.banned} setDisplayReload={setDisplayReload} />
                             {userRole !== "borrower" && (
                                 <>
-                                    <ClassroomBanStatusButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} setReload={setReload}/>
+                                    <ClassroomBanStatusButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} setReload={setReload} />
                                     <ClassroomUnbanStatusButton variant="contained" initialClassroomCode={classroom.roomNumber} isBanned={classroom.banned} setReload={setReload} />
                                 </>
                             )}

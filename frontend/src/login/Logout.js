@@ -3,9 +3,11 @@ import { auth } from "../config/firebase";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
+import { useTranslation } from 'react-i18next';
 
 function Logout() {
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const handleLogout = async () => {
         try {
@@ -24,8 +26,9 @@ function Logout() {
             variant="contained"
             color="primary"
             size="small"
+            sx={{ textTransform: "none", marginRight: 2}}
         >
-            登出
+            {t("登出")}
         </Button>
     );
 }

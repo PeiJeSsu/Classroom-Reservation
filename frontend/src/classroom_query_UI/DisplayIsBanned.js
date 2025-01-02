@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Alert } from '@mui/material';
-import axios from 'axios';
+import {apiConfig} from "../config/apiConfig";
+import { useTranslation } from 'react-i18next';
 
 const DisplayIsBanned = ({ userEmail, isBanned, setIsBanned, displayReload, setDisplayReload }) => {
     const [unbanTime, setUnbanTime] = useState(null);
+    const { t } = useTranslation();
 
     useEffect(() => {
         const fetchUserStatus = async () => {
             try {
-                const response = await axios.get(`/api/users/${userEmail}`);
+                const response = await apiConfig.get(`/api/users/${userEmail}`);
                 if (response.status === 200) {
                     const { isBanned, unbanTime } = response.data;
                     setIsBanned(isBanned);
@@ -45,10 +47,11 @@ const DisplayIsBanned = ({ userEmail, isBanned, setIsBanned, displayReload, setD
     }
 
     return (
-        <Alert severity={isBanned ? 'error' : 'success'}>
+        <Alert severity={isBanned ? 'error' : 'success'} sx={{ textTransform: "none" }}>
             {isBanned
-                ? `帳號禁用中，無法使用申請功能。 解禁時間：${formatUnbanTime(unbanTime)}`
-                : '帳號未被禁用，可以使用申請功能'}
+                ? t('帳號禁用中，無法使用申請功能。 解禁時間：{{unbanTime}}', { unbanTime: formatUnbanTime(unbanTime) })
+                : t('帳號未被禁用，可以使用申請功能')
+            }
         </Alert>
     );
 };

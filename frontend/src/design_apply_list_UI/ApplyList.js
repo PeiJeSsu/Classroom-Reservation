@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import {Box, Typography, Paper, Button, Grid2} from '@mui/material';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { Box, Typography, Paper, Button, Grid2 } from '@mui/material';
 import FloorAndClassroomCodeSelector from "../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector";
 import HistoryDialog from './historyDialog';
+import {apiConfig} from "../config/apiConfig";
+import { useTranslation } from 'react-i18next';
 
 export default function ApplyList() {
     const [applications, setApplications] = useState([]);
@@ -10,12 +11,13 @@ export default function ApplyList() {
     const [reload, setReload] = useState(false);
     const [personalInfo, setPersonalInfo] = useState([]);
     const [open, setOpen] = useState(false);
-    const [floor, setFloor] = useState('');  // Changed from null to empty string
-    const [classroomCode, setClassroomCode] = useState('');  // Changed from null to empty string
+    const [floor, setFloor] = useState('');
+    const [classroomCode, setClassroomCode] = useState('');
+    const { t } = useTranslation();
 
     useEffect(() => {
-        axios
-            .get('http://localhost:8080/api/classroom_apply/pending')
+        apiConfig
+            .get('/api/classroom_apply/pending')
             .then((response) => {
                 const sortedApplications = response.data.sort((a, b) => {
                     const floorOrder = ['B1', '1', '2', '3', '4'];
@@ -45,37 +47,34 @@ export default function ApplyList() {
     };
 
     const showHistory = (borrower) => {
-        fetch(`http://localhost:8080/api/classroom_apply/borrower/${borrower}`)
+        apiConfig.get(`/api/classroom_apply/borrower/${borrower}`)
             .then((response) => {
-                if (!response.ok) {
+                if (response.status !== 200) {
                     throw new Error('Network response was not ok');
                 }
-                return response.json();
-            })
-            .then((data) => {
-                const transformedData = data.map((item) => ({
+                const transformedData = response.data.map((item) => ({
                     user: item.borrower,
                     classroom: item.classroom,
                     rentalDate: new Date(item.startTime).toLocaleDateString(),
                     isRented:
                         item.isApproved === null || item.isApproved === undefined
-                            ? '尚未審核'
+                            ? t('尚未審核')
                             : item.isApproved
-                                ? '已出租'
-                                : '未出租',
+                                ? t('同意')
+                                : t('不同意'),
                 }));
                 setPersonalInfo(transformedData);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
-                alert('無法加載資料，請稍後再試。');
+                alert(t('無法加載資料，請稍後再試。'));
             });
         setOpen(true);
     };
 
     const handleApprove = (id) => {
-        axios
-            .put(`http://localhost:8080/api/classroom_apply/${id}/approve`)
+        apiConfig
+            .put(`/api/classroom_apply/${id}/approve`)
             .then(() => {
                 setReload((prev) => !prev);
             })
@@ -86,8 +85,8 @@ export default function ApplyList() {
 
     const handleDeny = (id, reason) => {
         console.log("Reason:", reason);
-        axios
-            .put(`http://localhost:8080/api/classroom_apply/${id}/deny`, {reason})
+        apiConfig
+            .put(`/api/classroom_apply/${id}/deny`, { reason })
             .then(() => {
                 setReload((prev) => !prev);
             })
@@ -96,9 +95,21 @@ export default function ApplyList() {
             });
     };
 
+    const formatTime = (date) => {
+        return new Date(date).toLocaleString('zh-TW', {
+            hour12: true, // 設定 12 小時制 (AM/PM)
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    };
+
     return (
         <Box>
-            <Paper elevation={3} sx={{padding: '20px', marginTop: '20px'}}>
+            <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>
                 <Grid2 container justifyContent="space-between">
                     <Grid2 item xs={3}>
                         <FloorAndClassroomCodeSelector
@@ -106,15 +117,15 @@ export default function ApplyList() {
                             setFloor={setFloor}
                             classroomCode={classroomCode}
                             setClassroomCode={setClassroomCode}
-                            required  // Add required prop to remove default "全部" option
+                            required
                         />
                     </Grid2>
                 </Grid2>
             </Paper>
-            <Paper elevation={3} sx={{padding: '20px', marginTop: '20px'}}>
+            <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>
                 {filteredApplications.length === 0 ? (
-                    <Typography variant="h6" sx={{mt: 2}}>
-                        目前沒有符合篩選條件的申請
+                    <Typography variant="h6" sx={{mt: 2}} sx={{ textTransform: "none" }}>
+                        {t('目前沒有符合篩選條件的申請')}
                     </Typography>
                 ) : (
                     filteredApplications.map((result) => (
@@ -131,42 +142,40 @@ export default function ApplyList() {
                             }}
                         >
                             <Box sx={{display: 'flex', gap: 2}}>
-                                <Typography variant="body1">教室編號: {result.classroom}</Typography>
-                                <Typography variant="body1" sx={{minWidth: '55px'}}>樓層: {result.floor}</Typography>
-                                <Typography variant="body1" sx={{minWidth: '150px'}}>
-                                    借用人: {result.borrower ? result.borrower : '未知使用者'}
+                                <Typography variant="body1" sx={{minWidth: '125px'}}>{t('教室編號')}: {result.classroom}</Typography>
+                                <Typography variant="body1" sx={{minWidth: '80px'}}>{t('樓層')}: {result.floor}</Typography>
+                                <Typography variant="body1" sx={{minWidth: '185px'}}>
+                                    {t('借用人')}: {result.borrower ? result.borrower : t('未知使用者')}
                                 </Typography>
                                 <Typography variant="body1">
-                                    借用時間: {`${new Date(result.startTime).toLocaleString()} - ${new Date(
-                                    result.endTime
-                                ).toLocaleString()}`}
+                                    {t('借用時間')}: {`${new Date(result.startTime).toLocaleString('zh-TW', { hour12: false })} ${t('到')} ${new Date(result.endTime).toLocaleString('zh-TW', { hour12: false })}`}
                                 </Typography>
                             </Box>
                             <Box>
                                 <Button
                                     variant="contained"
-                                    sx={{marginRight: 4}}
+                                    sx={{marginRight: 4, textTransform: "none"}}
                                     onClick={() => showHistory(result.borrower)}
                                 >
-                                    檢視歷史紀錄
+                                    {t('檢視歷史紀錄')}
                                 </Button>
                                 <Button
                                     variant="contained"
-                                    sx={{marginRight: 4}}
+                                    sx={{marginRight: 4, textTransform: "none"}}
                                     onClick={() => handleApprove(result.id)}
                                 >
-                                    同意
+                                    {t('同意')}
                                 </Button>
-                                <Button variant="contained" onClick={() => handleDeny(result.id)}>
-                                    不同意
+                                <Button variant="contained" onClick={() => handleDeny(result.id)} sx={{ textTransform: "none" }}>
+                                    {t('不同意')}
                                 </Button>
                             </Box>
                         </Box>
                     ))
                 )}
-                <HistoryDialog open={open} onClose={handleClose} title="歷史紀錄">
+                <HistoryDialog open={open} onClose={handleClose} title={t("歷史紀錄")}>
                     {personalInfo.length === 0 ? (
-                        <Typography>尚無歷史紀錄</Typography>
+                        <Typography>{t('尚無歷史紀錄')}</Typography>
                     ) : (
                         personalInfo.map((info, index) => (
                             <Box
@@ -179,10 +188,10 @@ export default function ApplyList() {
                                     borderRadius: '20px',
                                 }}
                             >
-                                <Typography variant="body1" sx={{minWidth: '150px'}}>借用者: {info.user}</Typography>
-                                <Typography variant="body1" sx={{minWidth: '120px'}}>教室代號: {info.classroom}</Typography>
-                                <Typography variant="body1" sx={{minWidth: '180px'}}>出租日期: {info.rentalDate}</Typography>
-                                <Typography variant="body1">出租結果: {info.isRented}</Typography>
+                                <Typography variant="body1" sx={{minWidth: '170px'}}> {t('借用人')}: {info.user}</Typography>
+                                <Typography variant="body1" sx={{minWidth: '170px'}}> {t('教室編號')}: {info.classroom}</Typography>
+                                <Typography variant="body1" sx={{minWidth: '195px'}}> {t('借用日期')}: {info.rentalDate}</Typography>
+                                <Typography variant="body1">{t('審查結果')}: {info.isRented}</Typography>
                             </Box>
                         ))
                     )}

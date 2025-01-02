@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Paper, Table, TableBody, TableContainer, TableHead } from '@mui/material';
-import axios from 'axios';
+
 import TableHeader from './TableHeaderComponent';
 import TableBodyComponent from './TableBodyComponent';
 import { getWeekRange, getWeekDates, formatDateForApi } from './DateHandler';
+import {apiConfig} from "../../config/apiConfig";
 
 function ScheduleTable({ currentDate, selectedFloor, selectedRoomNumber }) {
     const [unavailableSlots, setUnavailableSlots] = useState([]);
@@ -13,7 +14,7 @@ function ScheduleTable({ currentDate, selectedFloor, selectedRoomNumber }) {
         if (selectedFloor && selectedRoomNumber && currentDate) {
             const { start, end } = getWeekRange(currentDate);
 
-            axios.get('/api/classroom_apply/search', {
+            apiConfig.get('/api/classroom_apply/search', {
                 params: {
                     floor: selectedFloor,
                     roomNumber: selectedRoomNumber,
@@ -21,7 +22,7 @@ function ScheduleTable({ currentDate, selectedFloor, selectedRoomNumber }) {
                     endTime: formatDateForApi(end)
                 }
             }).then(response => {
-                console.log("Response Data:", response.data);
+                // console.log("Response Data:", response.data);
                 setUnavailableSlots(response.data);
             }).catch(error => {
                 console.error('Error fetching schedule:', error);

@@ -14,6 +14,8 @@ import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import LastTimeSelector from "../user_isbanned_status_UI/update_isbanned_status/LastTimeSelector";
+import {apiConfig} from "../config/apiConfig";
+import { useTranslation } from 'react-i18next';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -28,6 +30,7 @@ const theme = createTheme({
 });
 
 const ClassroomBanStatus = ({ open, onClose, initialFloor, initialClassroomCode, setReload }) => {
+    const { t } = useTranslation();
     const [floor, setFloor] = useState(initialFloor);
     const [classroomCode, setClassroomCode] = useState(initialClassroomCode);
     const [snackbar, setSnackbar] = useState({ open: false, message: '' });
@@ -42,26 +45,24 @@ const ClassroomBanStatus = ({ open, onClose, initialFloor, initialClassroomCode,
     const handleSubmit = async () => {
         try {
             if (inputMonth === 0 && inputDay === 0 && inputHour === 0) {
-                setSnackbar({ open: true, message: '請至少輸入一個非零的時間' });
+                setSnackbar({ open: true, message: t('請至少輸入一個非零的時間') });
                 return;
             }
 
             const unbanTime = calculateBanDuration();
 
-            const response = await fetch(`http://localhost:8080/classroom_build/${classroomCode}/ban?unbanTime=${unbanTime}`, {
-                method: 'PATCH',
-            });
+            const response = await apiConfig.patch(`/classroom_build/${classroomCode}/ban?unbanTime=${unbanTime}`);
 
-            if (response.ok) {
-                alert(`教室已成功禁用`);
+            if (response.status === 200) {
+                alert(t('教室已成功禁用'));
                 setReload(true);
                 onClose();
             } else {
-                const errorData = await response.text();
-                setSnackbar({ open: true, message: `禁用失敗: ${errorData}` });
+                const errorData = await response.data;
+                setSnackbar({ open: true, message: `${t('禁用失敗')}: ${errorData}` });
             }
         } catch (error) {
-            setSnackbar({ open: true, message: `禁用失敗: ${error.message}` });
+            setSnackbar({ open: true, message: `${t('禁用失敗')}: ${error.message}` });
         }
     };
 
@@ -102,7 +103,7 @@ const ClassroomBanStatus = ({ open, onClose, initialFloor, initialClassroomCode,
                         >
                             <Card variant="outlined" sx={{ width: '30%', height: '17em' }}>
                                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', }}>
-                                    <IconButton aria-label="close" onClick={onClose}>
+                                    <IconButton aria-label={t("關閉")} onClick={onClose}>
                                         <CloseIcon />
                                     </IconButton>
                                 </Box>
@@ -116,8 +117,8 @@ const ClassroomBanStatus = ({ open, onClose, initialFloor, initialClassroomCode,
                                     <LastTimeSelector onTimeChange={handleTimeChange} />
                                 </CardContent>
                                 <CardActions sx={{ justifyContent: 'center' }}>
-                                    <Button variant="contained" color="primary" onClick={handleSubmit}>
-                                        提交
+                                    <Button variant="contained" color="primary" onClick={handleSubmit} sx={{ textTransform: "none" }}>
+                                        {t("提交")}
                                     </Button>
                                 </CardActions>
                             </Card>

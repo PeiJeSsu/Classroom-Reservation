@@ -7,8 +7,11 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import {apiConfig} from "../config/apiConfig";
+import { useTranslation } from 'react-i18next';
 
 const ExportScheduleButton = ({ classroom }) => {
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false);
     const [selectedMonday, setSelectedMonday] = useState(dayjs().startOf('week').add(1, 'day'));
     const [weekRange, setWeekRange] = useState("");
@@ -38,10 +41,10 @@ const ExportScheduleButton = ({ classroom }) => {
             const startDate = selectedMonday.format('YYYY-MM-DDTHH:mm:ss');
             const endDate = selectedMonday.add(4, 'day').endOf('day').format('YYYY-MM-DDTHH:mm:ss');
 
-            const response = await fetch(
+            const response = await apiConfig.get(
                 `/api/classroom_apply/search?floor=${classroom.floor}&roomNumber=${classroom.roomNumber}&startTime=${startDate}&endTime=${endDate}`
             );
-            const data = await response.json();
+            const data = await response.data;
             const approvedReservations = data.filter(app => app.isApproved);
             setReservations(approvedReservations);
         } catch (error) {
@@ -88,10 +91,10 @@ const ExportScheduleButton = ({ classroom }) => {
         });
 
         doc.setFontSize(16);
-        doc.text(`Classroom Schedule - ${classroom.roomNumber}`, 14, 10);
-        doc.text(`Week: ${weekRange}`, 14, 20);
+        doc.text(`${t('教室編號')}: ${classroom.roomNumber}`, 14, 10);
+        doc.text(`${t('週次')}: ${weekRange}`, 14, 20);
 
-        const tableColumns = ["Time Slot", ...weekDates];
+        const tableColumns = [t('時間範圍'), ...weekDates];
         const tableRows = timeSlots.map(timeSlot => {
             const row = [timeSlot];
             weekDates.forEach(date => {
@@ -123,8 +126,8 @@ const ExportScheduleButton = ({ classroom }) => {
 
     return (
         <div>
-            <Button variant="contained" onClick={handleOpen}>
-                匯出
+            <Button variant="contained" onClick={handleOpen} sx={{ textTransform: "none" }}>
+                {t('匯出')}
             </Button>
             <Modal open={open} onClose={handleClose} closeAfterTransition>
                 <Fade in={open}>
@@ -136,23 +139,23 @@ const ExportScheduleButton = ({ classroom }) => {
                                 </IconButton>
                             </Box>
                             <CardContent sx={{ textAlign: 'center' }}>
-                                <Typography variant="h5" sx={{ mb: 3 }}>教室編號: {classroom.roomNumber}</Typography>
-                                <Typography variant="h5" sx={{ mb: 4 }}>選擇要匯出的週</Typography>
+                                <Typography variant="h5" sx={{ mb: 3 }}>{t('教室編號')}: {classroom.roomNumber}</Typography>
+                                <Typography variant="h5" sx={{ mb: 4 }}>{t('選擇要匯出的週')}</Typography>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                     <DatePicker
-                                        label="Select Monday"
+                                        label={t('選擇星期一')}
                                         value={selectedMonday}
                                         onChange={handleDateChange}
                                         shouldDisableDate={(date) => date.day() !== 1}
                                     />
                                 </LocalizationProvider>
                                 {weekRange && (
-                                    <Typography sx={{ mt: 3 }}>選擇的日期範圍：{weekRange}</Typography>
+                                    <Typography sx={{ mt: 3 }}>{t('選擇的日期範圍')}: {weekRange}</Typography>
                                 )}
                             </CardContent>
-                            <CardActions sx={{ justifyContent: 'center' }}>
-                                <Button variant="contained" color="primary" onClick={handleExport}>
-                                    匯出 PDF
+                            <CardActions sx={{ justifyContent: 'center' }} >
+                                <Button variant="contained" color="primary" onClick={handleExport} sx={{ textTransform: "none" }}>
+                                    {t('匯出') + ' PDF'}
                                 </Button>
                             </CardActions>
                         </Card>

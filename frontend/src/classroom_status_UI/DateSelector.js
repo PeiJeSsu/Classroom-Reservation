@@ -2,8 +2,11 @@ import React from 'react'
 import { IconButton, Typography, Grid2 } from '@mui/material'
 import { ChevronLeft, ChevronRight } from '@mui/icons-material'
 import Box from "@mui/material/Box";
+import { useTranslation } from 'react-i18next'
 
 function DateSelector({ currentDate, setCurrentDate, setYear, setMonth, setDay }) {
+    const { t } = useTranslation();
+
     const handlePrev = () => {
         setCurrentDate(prevDate => {
             const newDate = new Date(prevDate)
@@ -35,7 +38,7 @@ function DateSelector({ currentDate, setCurrentDate, setYear, setMonth, setDay }
                     <ChevronLeft />
                 </IconButton>
                 <Typography variant="h6" sx={{ mx: 2 }}>
-                    {`${currentDate.getFullYear()}年${currentDate.getMonth() + 1}月`}
+                    {`${currentDate.getFullYear()}${t('dateSelector.年')}${currentDate.getMonth() + 1}${t('dateSelector.月')}`}
                 </Typography>
                 <IconButton onClick={handleNext} size="small">
                     <ChevronRight />

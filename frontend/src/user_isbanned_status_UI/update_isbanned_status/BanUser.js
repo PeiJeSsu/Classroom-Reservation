@@ -3,9 +3,10 @@ import { Box, Card, CardContent, Button, CardActions, Modal, Fade, ThemeProvider
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import CloseIcon from '@mui/icons-material/Close';
-import axios from "axios";
 import LastTimeSelector from './LastTimeSelector';
 import ErrorSnackbar from "../../custom_snackbar/ErrorSnackbar";
+import {apiConfig} from "../../config/apiConfig";
+import { useTranslation } from 'react-i18next';
 
 const theme = createTheme({
     palette: {
@@ -17,6 +18,7 @@ const theme = createTheme({
 });
 
 const BanUser = ({ open, onClose, user, setReload }) => {
+    const { t } = useTranslation();
     const [inputMonth, setInputMonth] = useState(0);
     const [inputDay, setInputDay] = useState(0);
     const [inputHour, setInputHour] = useState(0);
@@ -37,10 +39,10 @@ const BanUser = ({ open, onClose, user, setReload }) => {
 
     const handleSubmit = async () => {
         if (inputMonth === 0 && inputDay === 0 && inputHour === 0) {
-            setErrorMessage('請至少輸入一個非零的時間');
+            setErrorMessage(t('請至少輸入一個非零的時間'));
             setOpenSnackbar(true);
             setTimeout(() => {
-                setErrorMessage('請至少輸入一個非零的時間');
+                setErrorMessage(t('請至少輸入一個非零的時間'));
                 setOpenSnackbar(true);
             }, 100);
             return;
@@ -48,22 +50,21 @@ const BanUser = ({ open, onClose, user, setReload }) => {
         try {
             const lastTimeInSeconds = calculateBanDuration();
 
-            const response = await axios.patch(`api/users/${user.email}/ban`, lastTimeInSeconds, {
+            const response = await apiConfig.patch(`/api/users/${user.email}/ban`, lastTimeInSeconds, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
             });
 
             if (response.status === 200) {
-                alert('使用者狀態更新成功');
+                alert(t('使用者狀態更新成功'));
                 setReload(true);
                 onClose();
             }
         } catch (error) {
-            console.error('Error banning user:', error);
+            console.error(t('Error banning user:'), error);
             setErrorMessage(error.response.data);
             setOpenSnackbar(true);
-
         }
     };
 
@@ -99,7 +100,7 @@ const BanUser = ({ open, onClose, user, setReload }) => {
                                 </Box>
                                 <Box sx={{ paddingTop: 1.5, paddingBottom: 1.5, paddingLeft: 4, paddingRight: 4 }}>
                                     <TextField
-                                        label="使用者"
+                                        label={t('使用者')}
                                         value={user.email.split('@')[0]}
                                         fullWidth
                                         disabled
@@ -109,8 +110,8 @@ const BanUser = ({ open, onClose, user, setReload }) => {
                                     <LastTimeSelector onTimeChange={handleTimeChange} />
                                 </CardContent>
                                 <CardActions sx={{ justifyContent: 'center' }}>
-                                    <Button variant="contained" color="primary" onClick={handleSubmit}>
-                                        禁用
+                                    <Button variant="contained" color="primary" onClick={handleSubmit} sx={{ textTransform: "none" }}>
+                                        {t('禁用')}
                                     </Button>
                                 </CardActions>
                             </Card>

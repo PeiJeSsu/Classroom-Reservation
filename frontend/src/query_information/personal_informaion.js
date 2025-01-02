@@ -2,17 +2,18 @@ import React, { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Strip from "./information_strip";
+import {apiConfig} from "../config/apiConfig";
+import { useTranslation } from 'react-i18next';
 
 export default function Personal_information() {
+    const { t } = useTranslation();
     const [personalInfo, setPersonalInfo] = useState([]);
 
     useEffect(() => {
         const userName = localStorage.getItem('userName');
-        console.log("Logged in userName: ", userName);
 
         if (userName) {
-
-            fetch(`http://localhost:8080/api/classroom_apply/borrower/${userName}`)
+            apiConfig.get(`/api/classroom_apply/borrower/${userName}`)
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -21,27 +22,25 @@ export default function Personal_information() {
                 })
                 .then((data) => {
                     const transformedData = data.map((item) => {
-                        console.log("後端傳回的完整資料: ", data);
                         return {
                             user: item.borrower,
                             classroom: item.classroom,
                             rentalDate: new Date(item.startTime).toLocaleString(),
                             endtime: new Date(item.endTime).toLocaleString(),
                             isRented: item.isApproved === null || item.isApproved === undefined
-                                ? "尚未審核"
-                                : item.isApproved ? "已出租" : "未出租",
-                            
-                            floor:item.floor
+                                ? t("尚未審核")
+                                : item.isApproved ? t("同意") : t("不同意"),
+                            floor: item.floor
                         };
                     });
                     setPersonalInfo(transformedData);
                 })
                 .catch((error) => {
                     console.error("Error fetching data:", error);
-                    alert("無法加載資料，請稍後再試。");
+                    alert(t("無法加載資料，請稍後再試。"));
                 });
         }
-    }, []);
+    }, [t]);
 
     return (
         <Box sx={{ width: '100%', height: '95vh' }}>
