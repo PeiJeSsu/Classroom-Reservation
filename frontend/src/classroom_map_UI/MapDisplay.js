@@ -15,7 +15,7 @@ const MapDisplay = ({ floor }) => {
 
     return (
         <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>
-            <Box sx={{ textAlign: 'center', marginTop: 2 }}>
+            <Box sx={{ textAlign: 'center' }}>
                 {floor && imageMap[floor] ? (
                     <img src={imageMap[floor]} alt={`${floor} floor map`} style={{ width: '80%' }} />
                 ) : (

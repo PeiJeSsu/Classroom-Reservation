@@ -104,8 +104,7 @@ const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClas
                                 </Box>
                                 <Box sx={{ paddingTop: 1.5, paddingBottom: 1.5, paddingLeft: 4, paddingRight: 4 }}>
                                     <FloorAndClassroomCodeSelector
-                                        floor={floor} setFloor={setFloor}
-                                        classroomCode={classroomCode} setClassroomCode={setClassroomCode}
+                                        floor={floor} setFloor={setFloor} classroomCode={classroomCode} setClassroomCode={setClassroomCode} disabled={true}
                                     />
                                 </Box>
                                 <CardContent sx={{ paddingTop: 1.5, paddingBottom: 2, paddingLeft: 4, paddingRight: 4 }}>

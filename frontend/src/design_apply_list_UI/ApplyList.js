@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, Paper, Button, Grid2 } from '@mui/material';
 import FloorAndClassroomCodeSelector from "../floor_and_classroom_code_selection/FloorAndClassroomCodeSelector";
 import HistoryDialog from './historyDialog';
-import {apiConfig} from "../config/apiConfig";
+import { apiConfig } from "../config/apiConfig";
 import { useTranslation } from 'react-i18next';
 
 export default function ApplyList() {
@@ -13,7 +13,17 @@ export default function ApplyList() {
     const [open, setOpen] = useState(false);
     const [floor, setFloor] = useState('');
     const [classroomCode, setClassroomCode] = useState('');
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+
+    // Check the language for dynamic styling
+    const isChinese = i18n.language === 'zh_tw';
+    const styles = {
+        classroomIdWidth: isChinese ? "160px" : "180px",
+        floorWidth: isChinese ? "110px" : "110px",
+        userWidth: isChinese ? "180px" : "200px",
+        rentalTimeWidth: isChinese ? "450px" : "460px",
+        isRentedWidth: isChinese ? "160px" : "160px",
+    };
 
     useEffect(() => {
         apiConfig
@@ -95,18 +105,6 @@ export default function ApplyList() {
             });
     };
 
-    const formatTime = (date) => {
-        return new Date(date).toLocaleString('zh-TW', {
-            hour12: true, // 設定 12 小時制 (AM/PM)
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-    };
-
     return (
         <Box>
             <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>
@@ -117,6 +115,7 @@ export default function ApplyList() {
                             setFloor={setFloor}
                             classroomCode={classroomCode}
                             setClassroomCode={setClassroomCode}
+                            showAllOption={true}
                             required
                         />
                     </Grid2>
@@ -124,8 +123,8 @@ export default function ApplyList() {
             </Paper>
             <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>
                 {filteredApplications.length === 0 ? (
-                    <Typography variant="h6" sx={{mt: 2}} sx={{ textTransform: "none" }}>
-                        {t('目前沒有符合篩選條件的申請')}
+                    <Typography variant="body1" sx={{ textAlign: 'center', marginTop: 2, marginBottom: 2 }}>
+                        {t("沒有找到相關的申請，請檢查後端是否已經啟動，並且資料庫中確實存在資料")}
                     </Typography>
                 ) : (
                     filteredApplications.map((result) => (
@@ -142,12 +141,12 @@ export default function ApplyList() {
                             }}
                         >
                             <Box sx={{display: 'flex', gap: 2}}>
-                                <Typography variant="body1" sx={{minWidth: '125px'}}>{t('教室編號')}: {result.classroom}</Typography>
-                                <Typography variant="body1" sx={{minWidth: '80px'}}>{t('樓層')}: {result.floor}</Typography>
-                                <Typography variant="body1" sx={{minWidth: '185px'}}>
+                                <Typography variant="body1" sx={{minWidth: styles.classroomIdWidth}}>{t('教室編號')}: {result.classroom}</Typography>
+                                <Typography variant="body1" sx={{minWidth: styles.floorWidth}}>{t('樓層')}: {result.floor}</Typography>
+                                <Typography variant="body1" sx={{minWidth: styles.userWidth}}>
                                     {t('借用人')}: {result.borrower ? result.borrower : t('未知使用者')}
                                 </Typography>
-                                <Typography variant="body1">
+                                <Typography variant="body1" sx={{minWidth: styles.rentalTimeWidth}}>
                                     {t('借用時間')}: {`${new Date(result.startTime).toLocaleString('zh-TW', { hour12: false })} ${t('到')} ${new Date(result.endTime).toLocaleString('zh-TW', { hour12: false })}`}
                                 </Typography>
                             </Box>
@@ -188,9 +187,9 @@ export default function ApplyList() {
                                     borderRadius: '20px',
                                 }}
                             >
-                                <Typography variant="body1" sx={{minWidth: '170px'}}> {t('借用人')}: {info.user}</Typography>
-                                <Typography variant="body1" sx={{minWidth: '170px'}}> {t('教室編號')}: {info.classroom}</Typography>
-                                <Typography variant="body1" sx={{minWidth: '195px'}}> {t('借用日期')}: {info.rentalDate}</Typography>
+                                <Typography variant="body1" sx={{minWidth: styles.userWidth}}> {t('借用人')}: {info.user}</Typography>
+                                <Typography variant="body1" sx={{minWidth: styles.classroomIdWidth}}> {t('教室編號')}: {info.classroom}</Typography>
+                                <Typography variant="body1" sx={{minWidth: '210px'}}> {t('借用日期')}: {info.rentalDate}</Typography>
                                 <Typography variant="body1">{t('審查結果')}: {info.isRented}</Typography>
                             </Box>
                         ))

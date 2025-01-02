@@ -120,8 +120,8 @@ export default function Query_information_interface() {
                                 />
                             ))
                         ) : (
-                            <Typography sx={{ textAlign: "center", marginTop: "20px" }}>
-                                {t("沒有符合的使用者")}
+                            <Typography variant="body1" sx={{ textAlign: 'center', marginTop: 2, marginBottom: 2 }}>
+                                {t("沒有找到相關的使用者資訊，請檢查後端是否已經啟動，並且資料庫中確實存在資料")}
                             </Typography>
                         )}
                     </Box>
