@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import BanUser from "./BanUser";
+import { useTranslation } from 'react-i18next';
 
 const BanUserButton = ({user, setReload}) => {
+    const { t } = useTranslation();
     const [openWindow, setOpenWindow] = useState(false);
 
     const handleOpen = () => {
@@ -15,7 +17,7 @@ const BanUserButton = ({user, setReload}) => {
 
     return (
         <div>
-            <Button variant="contained" onClick={handleOpen}>禁用使用者</Button>
+            <Button variant="contained" onClick={handleOpen} sx={{ textTransform: "none" }}>{t('禁用使用者')}</Button>
             <BanUser
                 open={openWindow}
                 onClose={handleClose}

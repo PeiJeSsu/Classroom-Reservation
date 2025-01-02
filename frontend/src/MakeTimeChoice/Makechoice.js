@@ -1,11 +1,11 @@
-import React, {useLayoutEffect, useState} from "react";
+import React, { useLayoutEffect, useState } from "react";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
-import {CardActions, createTheme, Fade, Modal, ThemeProvider} from '@mui/material';
-import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
-import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
+import { CardActions, createTheme, Fade, Modal, ThemeProvider } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import DateTimeSelection from './DateTimeSelection';
@@ -15,6 +15,7 @@ import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import {apiConfig} from "../config/apiConfig";
+import { useTranslation } from 'react-i18next';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -22,28 +23,29 @@ dayjs.extend(timezone);
 const theme = createTheme({
     palette: {
         mode: 'light',
-        primary: {main: '#1976d2'},
-        secondary: {main: '#dc004e'},
-        background: {default: '#ffffff', paper: '#ffffff'}
+        primary: { main: '#1976d2' },
+        secondary: { main: '#dc004e' },
+        background: { default: '#ffffff', paper: '#ffffff' }
     }
 });
 
-const Makechoice = ({open, onClose, initialFloor, initialClassroomCode, setDisplayReload}) => {
+const Makechoice = ({ open, onClose, initialFloor, initialClassroomCode, setDisplayReload }) => {
+    const { t } = useTranslation();
     const [floor, setFloor] = useState(initialFloor);
     const [classroomCode, setClassroomCode] = useState(initialClassroomCode);
     const [startTime, setStartTime] = useState(null);
     const [endTime, setEndTime] = useState(null);
-    const [snackbar, setSnackbar] = useState({open: false, message: ''});
+    const [snackbar, setSnackbar] = useState({ open: false, message: '' });
     const userEmail = localStorage.getItem("userEmail");
 
     const handleSnackbarClose = () => {
-        setSnackbar({open: false, message: ''});
+        setSnackbar({ open: false, message: '' });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!startTime || !endTime) {
-            setSnackbar({ open: true, message: '請選擇起始時間和結束時間！' });
+            setSnackbar({ open: true, message: t('開始時間和結束時間不能為空！') });
             return;
         }
 
@@ -62,6 +64,12 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode, setDispl
         });
 
         try {
+            const borrower = localStorage.getItem("userName");
+            if (!borrower) {
+                setSnackbar({ open: true, message: t('未找到借用者！') });
+                return;
+            }
+
             const response = await apiConfig.post('/api/classroom_apply/apply', {
                 floor,
                 classroom: classroomCode,
@@ -71,17 +79,19 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode, setDispl
             });
 
             if (response.status === 200) {
-                alert('申請成功：' + response.data);
+                const responseData = await response.data;
+                alert(t('申請成功: ') + responseData);
             } else {
-                const errorData = response.data;
-                setSnackbar({ open: true, message: `申請失敗：${errorData}` });
+                const errorData = await response.data;
+                if (errorData === 'User is banned. Should not apply classroom.') {
+                    setDisplayReload(true);
+                    onClose(true);
+                    alert(t('您已經被禁用申請權限，系統將自動刷新頁面，禁用訊息顯示於右上角'));
+                }
+                setSnackbar({ open: true, message: t('申請失敗: ') + errorData });
             }
         } catch (error) {
-            if (error.response && error.response.status === 403) {
-                alert('您的申請已被禁用，請聯絡管理員以取得更多訊息。');
-            } else {
-                setSnackbar({ open: true, message: `提交失敗：${error.message}` });
-            }
+            setSnackbar({ open: true, message: t('申請失敗: ') + error.message });
         }
     };
 
@@ -110,26 +120,26 @@ const Makechoice = ({open, onClose, initialFloor, initialClassroomCode, setDispl
                                 bottom: 0,
                             }}
                         >
-                            <Card variant="outlined" sx={{width: '%', height: '17em'}}>
-                                <Box sx={{display: 'flex', justifyContent: 'flex-end',}}>
+                            <Card variant="outlined" sx={{ width: '%', height: '17em' }}>
+                                <Box sx={{ display: 'flex', justifyContent: 'flex-end', }}>
                                     <IconButton aria-label="close" onClick={onClose}>
-                                        <CloseIcon/>
+                                        <CloseIcon />
                                     </IconButton>
                                 </Box>
-                                <Box sx={{paddingTop: 1.5, paddingBottom: 1.5, paddingLeft: 4, paddingRight: 4}}>
+                                <Box sx={{ paddingTop: 1.5, paddingBottom: 1.5, paddingLeft: 4, paddingRight: 4 }}>
                                     <FloorAndClassroomCodeSelector
                                         floor={floor} setFloor={setFloor}
                                         classroomCode={classroomCode} setClassroomCode={setClassroomCode}
                                     />
                                 </Box>
-                                <CardContent sx={{paddingTop: 1.5, paddingBottom: 2, paddingLeft: 4, paddingRight: 4}}>
+                                <CardContent sx={{ paddingTop: 1.5, paddingBottom: 2, paddingLeft: 4, paddingRight: 4 }}>
                                     <DateTimeSelection startDateTime={startTime} setStartDateTime={setStartTime}
                                                        endDateTime={endTime} setEndDateTime={setEndTime}
                                     />
                                 </CardContent>
-                                <CardActions sx={{justifyContent: 'center'}}>
-                                    <Button variant="contained" color="primary" onClick={handleSubmit}>
-                                        提交
+                                <CardActions sx={{ justifyContent: 'center' }}>
+                                    <Button variant="contained" color="primary" onClick={handleSubmit} sx={{ textTransform: "none" }}>
+                                        {t('提交')}
                                     </Button>
                                 </CardActions>
                             </Card>

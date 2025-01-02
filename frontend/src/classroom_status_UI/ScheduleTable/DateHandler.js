@@ -7,8 +7,8 @@ export const getWeekRange = (currentDate) => {
     endDate.setDate(startDate.getDate() + 4);
     endDate.setHours(23, 59, 59, 999);
 
-    console.log('Start Date:', startDate);
-    console.log('End Date:', endDate);
+    // console.log('Start Date:', startDate);
+    // console.log('End Date:', endDate);
 
     return { start: startDate, end: endDate };
 };

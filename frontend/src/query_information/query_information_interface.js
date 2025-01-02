@@ -4,8 +4,10 @@ import ComboBox from "./combo_box";
 import Strip from "./information_strip";
 import {Paper} from '@mui/material';
 import {apiConfig} from "../config/apiConfig";
+import { useTranslation } from 'react-i18next';
 
 export default function Query_information_interface() {
+    const { t } = useTranslation();
     const [selectedOption, setSelectedOption] = useState(null);
     const [Info, setInfo] = useState([]);
     const [options, setOptions] = useState([]);
@@ -32,22 +34,22 @@ export default function Query_information_interface() {
                 setOptions(uniqueBorrowers);
 
                 const transformedData = data.map((application) => ({
-                    user: application.borrower || "未知借用者",
-                    classroomId: application.classroom || "未知教室",
+                    user: application.borrower || t("未知使用者"),
+                    classroomId: application.classroom || t("未知教室"),
                     rentalDate: application.startTime
-                        ? new Date(application.startTime).toLocaleString()
-                        : "未知日期",
+                        ? new Date(application.startTime).toLocaleString('zh-TW', { hour12: false })
+                        : t("未知日期"),
                     isRented:
                         application.isApproved === null || application.isApproved === undefined
-                            ? "尚未審核"
+                            ? t("尚未審核")
                             : application.isApproved
-                                ? "已出租"
-                                : "未出租",
-
+                                ? t("同意")
+                                : t("不同意"),
                     floor: application.floor,
                     endTime: application.endTime
-                        ? new Date(application.endTime).toLocaleString()
-                        : "未知結束時間",
+                        ? new Date(application.endTime).toLocaleString('zh-TW', { hour12: false })
+                        : t("未知結束時間"),
+
                 }));
 
                 setInfo(transformedData);
@@ -55,7 +57,7 @@ export default function Query_information_interface() {
             .catch((error) => {
                 console.error("Error fetching data:", error);
             });
-    }, []);
+    }, [t]);
 
     const handleChange = (event, value) => {
         setSelectedOption(value);
@@ -87,43 +89,44 @@ export default function Query_information_interface() {
                     }}
                 >
                     <ComboBox
-                        sx={{width: "20%"}}
+                        sx={{ width: "20%" }}
                         options={options}
-                        label="請選擇想調閱的使用者"
+                        label={t("請選擇使用者（輸入關鍵字查詢）")}
                         value={selectedOption}
                         onChange={handleChange}
                     />
                 </Box>
             </Paper>
 
-            <Paper elevation={3}><Box sx={{padding: "20px"}}>
-                <Box
-                    sx={{
-                        maxHeight: "70vh",
-                        overflowY: "auto",
-                    }}
-                >
-                    {filteredRentalInfo.length > 0 ? (
-                        filteredRentalInfo.map((item, index) => (
-                            <Strip
-                                key={index}
-                                user={item.user}
-                                classroomId={item.classroomId}
-                                rentalDate={item.rentalDate}
-                                isRented={item.isRented}
-                                denyReason={item.denyReason}
-                                floor={item.floor}
-                                endTime={item.endTime}
-                            />
-                        ))
-                    ) : (
-                        <Typography sx={{textAlign: "center", marginTop: "20px"}}>
-                            沒有符合的使用者
-                        </Typography>
-                    )}
+            <Paper elevation={3}>
+                <Box sx={{ padding: "20px" }}>
+                    <Box
+                        sx={{
+                            maxHeight: "70vh",
+                            overflowY: "auto",
+                        }}
+                    >
+                        {filteredRentalInfo.length > 0 ? (
+                            filteredRentalInfo.map((item, index) => (
+                                <Strip
+                                    key={index}
+                                    user={item.user}
+                                    classroomId={item.classroomId}
+                                    rentalDate={item.rentalDate}
+                                    isRented={item.isRented}
+                                    denyReason={item.denyReason}
+                                    floor={item.floor}
+                                    endTime={item.endTime}
+                                />
+                            ))
+                        ) : (
+                            <Typography sx={{ textAlign: "center", marginTop: "20px" }}>
+                                {t("沒有符合的使用者")}
+                            </Typography>
+                        )}
+                    </Box>
                 </Box>
-            </Box></Paper>
-
+            </Paper>
         </Box>
     );
 }

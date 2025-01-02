@@ -10,6 +10,7 @@ import FloorAndClassroomCodeSelector from "../floor_and_classroom_code_selection
 import KeyStatusSelector from "./KeyStatusSelector";
 import BanUser from "../user_isbanned_status_UI/update_isbanned_status/BanUser";
 import {apiConfig} from "../config/apiConfig";
+import { useTranslation } from 'react-i18next';
 
 const theme = createTheme({
     palette: {
@@ -21,6 +22,8 @@ const theme = createTheme({
 });
 
 const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClassroomCode, initialKeyStatus, initialBorrower, setReload }) => {
+    const { t } = useTranslation();
+
     const [floor, setFloor] = useState(initialFloor);
     const [classroomCode, setClassroomCode] = useState(initialClassroomCode);
     const [inputKeyStatus, setInputKeyStatus] = useState(initialKeyStatus);
@@ -41,8 +44,6 @@ const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClas
     }, [open, initialFloor, initialClassroomCode, initialKeyStatus, initialBorrower]);
 
     const handleSubmit = async () => {
-        // console.log('inputBorrower', inputBorrower);
-        // console.log('tmpBorrower', tmpBorrower);
         try {
             const url = `/classroom_build/${classroomId}/update-status`;
             const params = {
@@ -54,7 +55,7 @@ const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClas
             };
             const response = await apiConfig.patch(url, null, { params });
             if (response.status === 200) {
-                alert('鑰匙狀態更新成功');
+                alert(t('鑰匙狀態更新成功'));
                 setReload(true);
                 onClose();
                 if (isCheckBoxChecked) {
@@ -63,15 +64,15 @@ const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClas
             }
         } catch (error) {
             console.error('Error updating key status:', error);
-            alert('更新鑰匙狀態失敗');
+            alert(t('更新鑰匙狀態失敗'));
         }
     };
 
     const determineLabel = () => {
         if (tmpBorrower.role === 'admin' || tmpBorrower.role === 'borrower') {
-            return "禁用鑰匙借用者";
+            return t('禁用鑰匙借用者');
         } else if (tmpBorrower.role === 'unknown') {
-            return "借用人不是系統使用者，請自行處理";
+            return t('借用人不是系統使用者，請自行處理');
         } else {
             return "";
         }
@@ -133,11 +134,10 @@ const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClas
                                     )}
                                 </CardContent>
                                 <CardActions sx={{justifyContent: 'center', mt: tmpBorrower.role === null ? 2 : -2}}>
-                                    <Button variant="contained" color="primary" onClick={handleSubmit}>
-                                        更改
+                                    <Button variant="contained" color="primary" onClick={handleSubmit} sx={{ textTransform: "none" }}>
+                                        {t('更改')}
                                     </Button>
                                 </CardActions>
-
                             </Card>
                         </Box>
                     </Fade>
