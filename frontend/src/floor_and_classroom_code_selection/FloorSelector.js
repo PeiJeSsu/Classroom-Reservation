@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import {apiConfig} from "../config/apiConfig";
-import { useTranslation } from 'react-i18next';  // 引入 useTranslation
+import { useTranslation } from 'react-i18next';
 
-export default function FloorSelector({ floor, setFloor, setClassroomCode }) {
+export default function FloorSelector({ floor, setFloor, setClassroomCode, showAllOption = false, disabled = false }) {
     const [floors, setFloors] = useState([]);
-    const { t } = useTranslation();  // 宣告 t 以便使用翻譯
+    const { t } = useTranslation();
 
     useEffect(() => {
         const fetchFloors = async () => {
@@ -18,7 +18,7 @@ export default function FloorSelector({ floor, setFloor, setClassroomCode }) {
             }
         };
         fetchFloors();
-    }, []);
+    }, [showAllOption]);
 
     const handleChange = (event) => {
         const value = event.target.value;
@@ -34,6 +34,7 @@ export default function FloorSelector({ floor, setFloor, setClassroomCode }) {
                 value={floor === null ? '全部' : floor}
                 onChange={handleChange}
                 label={t('樓層')}
+                disabled={disabled}
             >
                 {floors.map((floorValue) => (
                     <MenuItem key={floorValue} value={floorValue}>

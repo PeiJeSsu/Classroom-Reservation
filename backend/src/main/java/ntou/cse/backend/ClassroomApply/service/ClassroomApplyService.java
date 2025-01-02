@@ -92,7 +92,15 @@ public class ClassroomApplyService {
     public List<ClassroomApply> findApplicationsByClassroomAndTime(String floor, String classroom, LocalDateTime startTime, LocalDateTime endTime) {
         return classroomApplyRepository.findByFloorAndClassroomAndStartTimeBetweenAndIsApprovedTrue(floor, classroom, startTime, endTime);
     }
+
     public List<ClassroomApply> findApplicationsByBorrower(String borrower) {
         return classroomApplyRepository.findByBorrower(borrower);
+    }
+
+    public void deleteApplicationsWithNullBorrower() {
+        List<ClassroomApply> applications = classroomApplyRepository.findByBorrowerIsNull();
+        if (!applications.isEmpty()) {
+            classroomApplyRepository.deleteAll(applications);
+        }
     }
 }

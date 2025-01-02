@@ -3,7 +3,7 @@ import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import {apiConfig} from "../config/apiConfig";
 import { useTranslation } from 'react-i18next';
 
-export default function ClassroomCodeSelector({ floor, classroomCode, setClassroomCode }) {
+export default function ClassroomCodeSelector({ floor, classroomCode, setClassroomCode, showAllOption = false, disabled = false }) {
     const [classroomCodes, setClassroomCodes] = useState([]);
     const { t } = useTranslation();
 
@@ -12,16 +12,16 @@ export default function ClassroomCodeSelector({ floor, classroomCode, setClassro
             apiConfig.get(`/classroom_build/floor/${floor}`)
                 .then((response) => response.data)
                 .then((data) => {
-                    const codes = data.map((classroom) => classroom.roomNumber);
-                    setClassroomCodes(['全部', ...codes]);
+                    const codes = showAllOption ? ['全部', ...data.map((classroom) => classroom.roomNumber)] : data.map((classroom) => classroom.roomNumber);
+                    setClassroomCodes(codes);
                 })
                 .catch((error) => {
                     console.error('Error fetching classrooms:', error);
                 });
         } else {
-            setClassroomCodes(['全部']);
+            setClassroomCodes(showAllOption ? ['全部'] : []);
         }
-    }, [floor]);
+    }, [floor, showAllOption]);
 
     const handleChange = (event) => {
         const value = event.target.value;
@@ -36,6 +36,7 @@ export default function ClassroomCodeSelector({ floor, classroomCode, setClassro
                 value={classroomCode === null ? '全部' : classroomCode}
                 onChange={handleChange}
                 label={t('classroomCodeSelector.教室編號')}
+                disabled={disabled}
             >
                 {classroomCodes.map((code) => (
                     <MenuItem key={code} value={code}>

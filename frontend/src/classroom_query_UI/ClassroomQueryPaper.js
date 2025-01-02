@@ -11,7 +11,7 @@ const ClassroomQueryPaper = ({ floor, setFloor, classroomCode, setClassroomCode,
         <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px'}}>
             <Grid2 container justifyContent="space-between" >
                 <Grid2 item xs={3} >
-                    <FloorAndClassroomCodeSelector floor={floor} setFloor={setFloor} classroomCode={classroomCode} setClassroomCode={setClassroomCode} />
+                    <FloorAndClassroomCodeSelector floor={floor} setFloor={setFloor} classroomCode={classroomCode} setClassroomCode={setClassroomCode} showAllOption={true}/>
                 </Grid2>
                 <Grid2 item xs={3} sx={{ display: 'flex', alignItems: 'center'}}>
                     <DisplayIsBanned

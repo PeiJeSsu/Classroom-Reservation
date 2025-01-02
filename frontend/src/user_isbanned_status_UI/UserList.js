@@ -33,7 +33,9 @@ export default function UserList({ user, reload, setReload }) {
     return (
         <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>
             {usersToDisplay.length === 0 ? (
-                <Typography variant="body1">{t('沒有找到相關的使用者。')}</Typography>
+                <Typography variant="body1" sx={{ textAlign: 'center', marginTop: 2, marginBottom: 2 }}>
+                    {t("沒有找到相關的使用者，請檢查後端是否已經啟動，並且資料庫中確實存在資料")}
+                </Typography>
             ) : (
                 usersToDisplay.map((user) => (
                     <Box

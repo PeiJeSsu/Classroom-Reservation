@@ -6,12 +6,21 @@ import UpdateKeyStatusButton from "../key_status_UI/UpdateKeyStatusButton";
 import ExportScheduleButton from "../export/ExportScheduleButton";
 import ClassroomBanStatusButton from "../classroom_reserve_status/ClassroomBanStatusButton";
 import ClassroomUnbanStatusButton from "../classroom_reserve_status/ClassroomUnbanStatusButton";
-import {apiConfig} from "../config/apiConfig";
+import { apiConfig } from "../config/apiConfig";
 import { useTranslation } from 'react-i18next';
+
 export default function ResultList({ floor, classroomCode, reload, setReload, isBanned, setDisplayReload }) {
     const [classrooms, setClassrooms] = useState([]);
     const userRole = localStorage.getItem("userRole");
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    const isChinese = i18n.language === 'zh_tw';
+
+    const styles = {
+        roomNumberWidth: isChinese ? "130px" : "150px",
+        floorWidth: isChinese ? "90px" : "85px",
+        statusWidth: isChinese ? "145px" : "245px",
+        keyStatusWidth: isChinese ? "210px" : "210px",
+    };
 
     useEffect(() => {
         const fetchClassrooms = async () => {
@@ -23,11 +32,10 @@ export default function ResultList({ floor, classroomCode, reload, setReload, is
                     url = `/classroom_build/floor/${floor}`;
                 }
                 const response = await apiConfig.get(url);
-                if (response.status !== 200 ) throw new Error('Network response was not ok');
+                if (response.status !== 200) throw new Error('Network response was not ok');
                 const data = await response.data;
                 const classroomData = Array.isArray(data) ? data : [data];
                 setClassrooms(classroomData);
-                console.log(classroomData);
             } catch (error) {
                 console.error("Error fetching classroom data", error);
             }
@@ -43,7 +51,9 @@ export default function ResultList({ floor, classroomCode, reload, setReload, is
     return (
         <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>
             {classrooms.length === 0 ? (
-                <Typography variant="body1">{t("沒有找到相關的教室")}</Typography>
+                <Typography variant="body1" sx={{ textAlign: 'center', marginTop: 2, marginBottom: 2 }}>
+                    {t("沒有找到相關的教室，請檢查後端是否已經啟動，並且資料庫中確實存在資料")}
+                </Typography>
             ) : (
                 classrooms.map((classroom) => (
                     <Box
@@ -59,18 +69,18 @@ export default function ResultList({ floor, classroomCode, reload, setReload, is
                         }}
                     >
                         <Box sx={{ display: 'flex', gap: 2 }}>
-                            <Typography variant="body1" sx={{ minWidth: '110px' }}>
+                            <Typography variant="body1" sx={{ minWidth: styles.roomNumberWidth }}>
                                 {t("教室編號")}: {classroom.roomNumber}
                             </Typography>
-                            <Typography variant="body1" sx={{ minWidth: '70px' }}>
+                            <Typography variant="body1" sx={{ minWidth: styles.floorWidth }}>
                                 {t("樓層")}: {classroom.floor}
                             </Typography>
-                            <Typography variant="body1" sx={{ minWidth: '125px' }}>
+                            <Typography variant="body1" sx={{ minWidth: styles.statusWidth }}>
                                 {t("教室狀態")}: {classroom.banned ? t('不可用') : t('可用')}
                             </Typography>
                             {userRole !== "borrower" && (
                                 <>
-                                    <Typography variant="body1" sx={{ minWidth: '192px' }}>
+                                    <Typography variant="body1" sx={{ minWidth: styles.keyStatusWidth }}>
                                         {t("鑰匙狀態")}: {classroom.keyStatus}
                                     </Typography>
                                     {classroom.borrower && (

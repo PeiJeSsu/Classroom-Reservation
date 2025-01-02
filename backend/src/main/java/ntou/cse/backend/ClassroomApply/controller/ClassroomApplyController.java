@@ -112,4 +112,15 @@ public class ClassroomApplyController {
         return classroomApplyService.findApplicationsByBorrower(borrower);
     }
 
+    @DeleteMapping("/delete-null-borrower")
+    public ResponseEntity<String> deleteApplicationsWithNullBorrower() {
+        try {
+            classroomApplyService.deleteApplicationsWithNullBorrower();
+            return new ResponseEntity<>("Applications with null borrower deleted successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("An error occurred while deleting applications", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 }

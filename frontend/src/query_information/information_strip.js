@@ -3,7 +3,16 @@ import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 export default function Informaion_strip({ user, classroomId, rentalDate, isRented, floor, endTime }) {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+
+    const isChinese = i18n.language === 'zh_tw';
+    const styles = {
+        classroomIdWidth: isChinese ? "160px" : "180px",
+        floorWidth: isChinese ? "110px" : "110px",
+        userWidth: isChinese ? "180px" : "200px",
+        rentalTimeWidth: isChinese ? "450px" : "460px",
+        isRentedWidth: isChinese ? "160px" : "160px",
+    };
 
     return (
         <Box
@@ -19,19 +28,19 @@ export default function Informaion_strip({ user, classroomId, rentalDate, isRent
             }}
         >
             <Box sx={{ display: 'flex' }}>
-                <Typography variant="body1" sx={{ minWidth: "160px" }}>
+                <Typography variant="body1" sx={{ minWidth: styles.classroomIdWidth }}>
                     {t('教室編號')}: {classroomId}
                 </Typography>
-                <Typography variant="body1" sx={{ minWidth: "90px" }}>
+                <Typography variant="body1" sx={{ minWidth: styles.floorWidth }}>
                     {t('樓層')}: {floor}
                 </Typography>
-                <Typography variant="body1" sx={{ minWidth: "200px" }}>
+                <Typography variant="body1" sx={{ minWidth: styles.userWidth }}>
                     {t('借用人')}: {t(user)}&nbsp;&nbsp;
                 </Typography>
-                <Typography variant="body1" sx={{ minWidth: "470px" }}>
+                <Typography variant="body1" sx={{ minWidth: styles.rentalTimeWidth }}>
                     {t('借用時間')}: {rentalDate}&nbsp; {t('到')} &nbsp;{endTime}&nbsp;&nbsp;
                 </Typography>
-                <Typography variant="body1" sx={{ minWidth: "160px" }}>
+                <Typography variant="body1" sx={{ minWidth: styles.isRentedWidth }}>
                     {t('審查結果')}: {isRented}&nbsp;&nbsp;
                 </Typography>
             </Box>
