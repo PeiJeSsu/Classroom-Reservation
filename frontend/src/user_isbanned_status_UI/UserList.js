@@ -28,7 +28,7 @@ export default function UserList({ user, reload, setReload }) {
         }
     }, [reload]);
 
-    const usersToDisplay = user ? users.filter(u => u.email.includes(user.email)) : users;
+    const usersToDisplay = user ? users.filter(u => u.email.split('@')[0].includes(user.email.split('@')[0])) : users;
 
     return (
         <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>

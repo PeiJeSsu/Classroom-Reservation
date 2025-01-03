@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import {Autocomplete, TextField, Typography} from '@mui/material';
-import {apiConfig} from "../config/apiConfig";
+import { Autocomplete, TextField, Typography } from '@mui/material';
+import { apiConfig } from "../config/apiConfig";
 import { useTranslation } from 'react-i18next';
 
 const UserSelector = ({ user, setUser, disabled }) => {
     const { t } = useTranslation();
     const [users, setUsers] = useState([]);
+    const [inputValue, setInputValue] = useState(''); 
 
     useEffect(() => {
         apiConfig.get('/api/users/allUsers')
@@ -24,6 +25,13 @@ const UserSelector = ({ user, setUser, disabled }) => {
     const handleValueUpdate = (value) => {
         if (typeof value === 'object' && value !== null) {
             setUser(value);
+        } else if (value === null || value.trim() === '') {
+            setUser({
+                email: '',
+                role: 'unknown',
+                isBanned: false,
+                unbanTime: null,
+            });
         } else if (typeof value === 'string') {
             const matchedUser = users.find(user => user.email.split('@')[0] === value);
             if (matchedUser) {
@@ -43,13 +51,32 @@ const UserSelector = ({ user, setUser, disabled }) => {
         handleValueUpdate(value);
     };
 
+    const handleInputChange = (event, value) => {
+        setInputValue(value);
+    };
+
     const handleInputBlur = (event) => {
         handleValueUpdate(event.target.value);
     };
 
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter' && inputValue.trim() === '') {
+            setUser({
+                email: '',
+                role: 'unknown',
+                isBanned: false,
+                unbanTime: null,
+            });
+        }
+    };
+
+    const filteredUsers = users.filter(user =>
+        user.email.split('@')[0].includes(inputValue)
+    );
+
     return (
         <Autocomplete
-            options={users}
+            options={filteredUsers}
             getOptionLabel={(option) => {
                 if (typeof option === 'string')
                     return option;
@@ -57,8 +84,12 @@ const UserSelector = ({ user, setUser, disabled }) => {
             }}
             groupBy={(option) => option.role}
             freeSolo
-            value={user || null}
+            value={null}
             onChange={handleUserChange}
+            onInputChange={handleInputChange}
+            onBlur={handleInputBlur}
+            onKeyDown={handleKeyDown}
+            inputValue={inputValue}
             renderOption={(props, option) => (
                 <li {...props}>
                     <Typography sx={{ display: 'inline-block', width: '10ch' }}>
@@ -71,7 +102,6 @@ const UserSelector = ({ user, setUser, disabled }) => {
                     {...params}
                     label={t("請選擇使用者（輸入關鍵字查詢）")}
                     variant="outlined"
-                    onBlur={handleInputBlur}
                 />
             )}
             sx={{ minWidth: 300 }}
