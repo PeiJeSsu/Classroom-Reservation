@@ -151,7 +151,8 @@ const resources = {
             "沒有找到相關的教室，請檢查後端是否已經啟動，並且資料庫中確實存在資料": "No relevant classroom found. Please check if the backend is running and the database contains the data.",
             "沒有找到相關的使用者，請檢查後端是否已經啟動，並且資料庫中確實存在資料": "No relevant user found. Please check if the backend is running and the database contains the data.",
             "沒有找到相關的申請，請檢查後端是否已經啟動，並且資料庫中確實存在資料": "No relevant application found. Please check if the backend is running and the database contains the data.",
-            "沒有找到相關的使用者資訊，請檢查後端是否已經啟動，並且資料庫中確實存在資料": "No relevant user information found. Please check if the backend is running and the database contains the data."
+            "沒有找到相關的使用者資訊，請檢查後端是否已經啟動，並且資料庫中確實存在資料": "No relevant user information found. Please check if the backend is running and the database contains the data.",
+            "請填寫借用人": "Please fill in the borrower"
         }
     },
 

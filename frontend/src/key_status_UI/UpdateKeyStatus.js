@@ -11,6 +11,7 @@ import KeyStatusSelector from "./KeyStatusSelector";
 import BanUser from "../user_isbanned_status_UI/update_isbanned_status/BanUser";
 import {apiConfig} from "../config/apiConfig";
 import { useTranslation } from 'react-i18next';
+import ErrorSnackbar from "../custom_snackbar/ErrorSnackbar";
 
 const theme = createTheme({
     palette: {
@@ -31,6 +32,8 @@ const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClas
     const [tmpBorrower, setTmpBorrower] = useState(initialBorrower);
     const [openBanUser, setOpenBanUser] = useState(false);
     const [isCheckBoxChecked, setIsCheckBoxChecked] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [openSnackbar, setOpenSnackbar] = useState(false);
 
     useLayoutEffect(() => {
         if (open) {
@@ -44,12 +47,21 @@ const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClas
     }, [open, initialFloor, initialClassroomCode, initialKeyStatus, initialBorrower]);
 
     const handleSubmit = async () => {
+        if (inputKeyStatus !== "AVAILABLE" && (!inputBorrower || !inputBorrower.email.trim())) {
+            setErrorMessage(t('請填寫借用人'));
+            setOpenSnackbar(true);
+            setTimeout(() => {
+                setErrorMessage(t('請填寫借用人'));
+                setOpenSnackbar(true);
+            }, 100);
+            return;
+        }
         try {
             const url = `/classroom_build/${classroomId}/update-status`;
             const params = {
                 keyStatus: inputKeyStatus,
                 ...(inputKeyStatus !== 'AVAILABLE' && {
-                    borrower: inputBorrower.email,
+                    borrower: inputBorrower.email.trim(),
                     borrowerRole: inputBorrower.role
                 })
             };
@@ -146,6 +158,11 @@ const UpdateKeyStatus = ({ open, onClose, classroomId, initialFloor, initialClas
                     onClose={() => setOpenBanUser(false)}
                     user={tmpBorrower}
                     setReload={setReload}
+                />
+                <ErrorSnackbar
+                    open={openSnackbar}
+                    onClose={() => setOpenSnackbar(false)}
+                    message={errorMessage}
                 />
             </LocalizationProvider>
         </ThemeProvider>
