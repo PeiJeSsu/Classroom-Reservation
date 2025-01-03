@@ -52,7 +52,7 @@ export default function Personal_information() {
                             isRented={item.isRented}
                             denyReason={item.denyReason}
                             floor={item.floor}
-                            endTime={item.endtime}
+                            endTime={item.endTime}
                         />
                     ))}
                 </Box>
