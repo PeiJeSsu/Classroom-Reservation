@@ -66,22 +66,23 @@ public class ClassroomController {
     }
 
     @PatchMapping("/{roomNumber}/ban")
-    public ResponseEntity<String> banClassroom(
+    public ResponseEntity<Classroom> banClassroom(
             @PathVariable String roomNumber,
             @RequestParam Integer unbanTime) {
         try {
             Classroom bannedClassroom = classroomService.banClassroomByRoomNumber(roomNumber, unbanTime);
             if (bannedClassroom != null) {
-                return ResponseEntity.ok("Classroom banned successfully.");
+                return ResponseEntity.ok(bannedClassroom);
             } else {
-                return ResponseEntity.status(404).body("User not found.");
+                return ResponseEntity.status(404).body(null); // 教室找不到，回傳 404 和 null
             }
         } catch (ClassroomAlreadyBannedLongerException e) {
-            return ResponseEntity.status(400).body(e.getMessage());
+            return ResponseEntity.status(400).body(null); // 當已被禁用且嘗試設定較短禁用時間時，回傳 400 和 null
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("An error occurred: " + e.getMessage());
+            return ResponseEntity.status(500).body(null); // 其他錯誤情況，回傳 500 和 null
         }
     }
+
 
 
     @PatchMapping("/{roomNumber}/unban")
