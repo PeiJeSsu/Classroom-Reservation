@@ -19,8 +19,8 @@ export default function Personal_information() {
                     const transformedData = data.map((item) => ({
                         user: item.borrower,
                         classroom: item.classroom,
-                        rentalDate: new Date(item.startTime).toLocaleString(),
-                        endTime: new Date(item.endTime).toLocaleString(),
+                        rentalDate: new Date(item.startTime).toLocaleString('zh-TW', { hour12: false }),
+                        endTime: new Date(item.endTime).toLocaleString('zh-TW', { hour12: false }),
                         isRented: item.isApproved === null || item.isApproved === undefined
                             ? t("尚未審核")
                             : item.isApproved ? t("同意") : t("不同意"),
