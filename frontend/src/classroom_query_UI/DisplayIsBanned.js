@@ -30,7 +30,7 @@ const DisplayIsBanned = ({ userEmail, isBanned, setIsBanned, displayReload, setD
     }, [userEmail, setIsBanned, displayReload]);
 
     const formatUnbanTime = (timeString) => {
-        const date = new Date(timeString);
+        const date = new Date(new Date(timeString).getTime() + 8 * 60 * 60 * 1000)
         return date.toLocaleString('zh-TW', {
             year: 'numeric',
             month: '2-digit',
