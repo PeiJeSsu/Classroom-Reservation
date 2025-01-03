@@ -37,7 +37,7 @@ public class Classroom {
         return roomNumber;
     }
 
-    public boolean isBanned() { return isBanned; }
+    public boolean getIsBanned() { return isBanned; }
 
     public LocalDateTime getUnbanTime() { return unbanTime; }
 

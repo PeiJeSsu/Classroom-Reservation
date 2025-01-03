@@ -35,7 +35,7 @@ export default function Informaion_strip({ user, classroomId, rentalDate, isRent
                     {t('樓層')}: {floor}
                 </Typography>
                 <Typography variant="body1" sx={{ minWidth: styles.userWidth }}>
-                    {t('借用人')}: {t(user)}&nbsp;&nbsp;
+                    {t('借用人')}: {user}&nbsp;&nbsp;
                 </Typography>
                 <Typography variant="body1" sx={{ minWidth: styles.rentalTimeWidth }}>
                     {t('借用時間')}: {rentalDate}&nbsp; {t('到')} &nbsp;{endTime}&nbsp;&nbsp;
