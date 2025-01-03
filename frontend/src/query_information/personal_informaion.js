@@ -11,28 +11,21 @@ export default function Personal_information() {
 
     useEffect(() => {
         const userName = localStorage.getItem('userName');
-
+        // console.log("userName", userName);
         if (userName) {
             apiConfig.get(`/api/classroom_apply/borrower/${userName}`)
                 .then((response) => {
-                    if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                    }
-                    return response.json();
-                })
-                .then((data) => {
-                    const transformedData = data.map((item) => {
-                        return {
-                            user: item.borrower,
-                            classroom: item.classroom,
-                            rentalDate: new Date(item.startTime).toLocaleString(),
-                            endtime: new Date(item.endTime).toLocaleString(),
-                            isRented: item.isApproved === null || item.isApproved === undefined
-                                ? t("尚未審核")
-                                : item.isApproved ? t("同意") : t("不同意"),
-                            floor: item.floor
-                        };
-                    });
+                    const data = response.data;
+                    const transformedData = data.map((item) => ({
+                        user: item.borrower,
+                        classroom: item.classroom,
+                        rentalDate: new Date(item.startTime).toLocaleString(),
+                        endTime: new Date(item.endTime).toLocaleString(),
+                        isRented: item.isApproved === null || item.isApproved === undefined
+                            ? t("尚未審核")
+                            : item.isApproved ? t("同意") : t("不同意"),
+                        floor: item.floor,
+                    }));
                     setPersonalInfo(transformedData);
                 })
                 .catch((error) => {
