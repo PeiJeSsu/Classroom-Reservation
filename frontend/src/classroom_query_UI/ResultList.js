@@ -76,7 +76,7 @@ export default function ResultList({ floor, classroomCode, reload, setReload, is
                                 {t("樓層")}: {classroom.floor}
                             </Typography>
                             <Typography variant="body1" sx={{ minWidth: styles.statusWidth }}>
-                                {t("教室狀態")}: {classroom.banned ? t('不可用') : t('可用')}
+                                {t("教室狀態")}: {classroom.isBanned ? t('不可用') : t('可用')}
                             </Typography>
                             {userRole !== "borrower" && (
                                 <>
@@ -94,11 +94,11 @@ export default function ResultList({ floor, classroomCode, reload, setReload, is
                                 <ExportScheduleButton variant="contained" classroom={classroom} />
                             )}
                             <ClassroomStatusButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} />
-                            <MakeChoiceButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} isBanned={isBanned || classroom.banned} setDisplayReload={setDisplayReload} />
+                            <MakeChoiceButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} isBanned={isBanned || classroom.isBanned} setDisplayReload={setDisplayReload} />
                             {userRole !== "borrower" && (
                                 <>
                                     <ClassroomBanStatusButton variant="contained" initialFloor={classroom.floor} initialClassroomCode={classroom.roomNumber} setReload={setReload} />
-                                    <ClassroomUnbanStatusButton variant="contained" initialClassroomCode={classroom.roomNumber} isBanned={classroom.banned} setReload={setReload} />
+                                    <ClassroomUnbanStatusButton variant="contained" initialClassroomCode={classroom.roomNumber} isBanned={classroom.isBanned} setReload={setReload} />
                                 </>
                             )}
                             {userRole !== "borrower" && (

@@ -6,10 +6,9 @@ import ntou.cse.backend.ClassroomBuild.service.ClassroomInitService;
 import ntou.cse.backend.ClassroomBuild.service.ClassroomService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -65,23 +64,22 @@ public class ClassroomController {
     }
 
     @PatchMapping("/{roomNumber}/ban")
-    public Classroom banClassroom(
+    public ResponseEntity<Object> banClassroom(
             @PathVariable String roomNumber,
             @RequestParam Integer unbanTime) {
         try {
             Classroom bannedClassroom = classroomService.banClassroomByRoomNumber(roomNumber, unbanTime);
-            if (bannedClassroom == null) {
-                throw new IllegalArgumentException("Classroom not found with room number: " + roomNumber);
+            if (bannedClassroom != null) {
+                return ResponseEntity.ok(bannedClassroom);
+            } else {
+                return ResponseEntity.status(404).body(null);
             }
-            return bannedClassroom;
         } catch (ClassroomAlreadyBannedLongerException e) {
-            throw new ClassroomAlreadyBannedLongerException(
-                    String.format("%s", e.getMessage()));
+            return ResponseEntity.status(400).body(e.getMessage());
         } catch (Exception e) {
-            throw new RuntimeException("處理禁用時發生錯誤", e);
+            return ResponseEntity.status(500).body(null);
         }
     }
-
 
     @PatchMapping("/{roomNumber}/unban")
     public Classroom unbanClassroom(@PathVariable String roomNumber) {
