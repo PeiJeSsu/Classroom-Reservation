@@ -76,7 +76,7 @@ const ClassroomBanStatus = ({ open, onClose, initialFloor, initialClassroomCode,
                 setSnackbar({ open: true, message: `${t('禁用失敗')}: ${errorData}` });
             }
         } catch (error) {
-            setSnackbar({ open: true, message: `${t('禁用失敗')}: ${error.message}` });
+            setSnackbar({ open: true, message: `${t('教室已被禁用直到 ')} ${error.message} ${t(' 無法禁用更短的時間，若要執行此操作，請先幫教室解除禁用')}` });
         }
     };
 

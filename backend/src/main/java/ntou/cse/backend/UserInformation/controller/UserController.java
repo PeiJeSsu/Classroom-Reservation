@@ -1,5 +1,6 @@
 package ntou.cse.backend.UserInformation.controller;
 
+import ntou.cse.backend.UserInformation.exception.UserAlreadyBannedLongerException;
 import ntou.cse.backend.UserInformation.model.User;
 import ntou.cse.backend.UserInformation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,10 +60,13 @@ public class UserController {
             } else {
                 return ResponseEntity.status(404).body("User not found.");
             }
+        } catch (UserAlreadyBannedLongerException e) {
+            return ResponseEntity.status(400).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(500).body(e.getMessage());
+            return ResponseEntity.status(500).body("An error occurred: " + e.getMessage());
         }
     }
+
 
     @PatchMapping("/{email}/unban")
     public ResponseEntity<String> unbanUser(@PathVariable String email) {

@@ -66,10 +66,11 @@ export default function Query_information_interface() {
     const filteredRentalInfo = Info.filter((item) => {
         if (selectedOption) {
             const inputValue = selectedOption.value || selectedOption.label || selectedOption;
-            return item.user.toLowerCase().includes(inputValue.toLowerCase());
+            return item.user.includes(inputValue.trim());
         }
         return true;
     });
+
 
     return (
         <Box

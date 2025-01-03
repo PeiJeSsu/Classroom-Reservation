@@ -1,11 +1,13 @@
 package ntou.cse.backend.ClassroomBuild.controller;
 
+import ntou.cse.backend.ClassroomBuild.exception.ClassroomAlreadyBannedLongerException;
 import ntou.cse.backend.ClassroomBuild.model.Classroom;
 import ntou.cse.backend.ClassroomBuild.service.ClassroomInitService;
 import ntou.cse.backend.ClassroomBuild.service.ClassroomService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -64,15 +66,23 @@ public class ClassroomController {
     }
 
     @PatchMapping("/{roomNumber}/ban")
-    public Classroom banClassroom(
+    public ResponseEntity<String> banClassroom(
             @PathVariable String roomNumber,
             @RequestParam Integer unbanTime) {
-        Classroom bannedClassroom = classroomService.banClassroomByRoomNumber(roomNumber, unbanTime);
-        if (bannedClassroom == null) {
-            throw new IllegalArgumentException("Classroom not found with room number: " + roomNumber);
+        try {
+            Classroom bannedClassroom = classroomService.banClassroomByRoomNumber(roomNumber, unbanTime);
+            if (bannedClassroom != null) {
+                return ResponseEntity.ok("Classroom banned successfully.");
+            } else {
+                return ResponseEntity.status(404).body("User not found.");
+            }
+        } catch (ClassroomAlreadyBannedLongerException e) {
+            return ResponseEntity.status(400).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("An error occurred: " + e.getMessage());
         }
-        return bannedClassroom;
     }
+
 
     @PatchMapping("/{roomNumber}/unban")
     public Classroom unbanClassroom(@PathVariable String roomNumber) {

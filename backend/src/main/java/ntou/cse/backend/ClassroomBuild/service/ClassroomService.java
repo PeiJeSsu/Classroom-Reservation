@@ -1,6 +1,7 @@
 package ntou.cse.backend.ClassroomBuild.service;
 
 import ntou.cse.backend.ClassroomApply.model.ClassroomApply;
+import ntou.cse.backend.ClassroomBuild.exception.ClassroomAlreadyBannedLongerException;
 import ntou.cse.backend.ClassroomBuild.model.Classroom;
 import ntou.cse.backend.ClassroomBuild.repo.ClassroomRepository;
 import ntou.cse.backend.UserInformation.model.User;
@@ -9,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -78,6 +80,13 @@ public class ClassroomService {
         Optional<Classroom> classroomOptional = classroomRepository.findByRoomNumber(roomNumber);
         if (classroomOptional.isPresent()) {
             Classroom classroom = classroomOptional.get();
+
+            if (classroom.getIsBanned() && classroom.getUnbanTime().isAfter(LocalDateTime.now().plusSeconds(unbanTime))) {
+                throw new ClassroomAlreadyBannedLongerException(
+                        String.format("%s", roomNumber, classroom.getUnbanTime().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
+                );
+            }
+
             classroom.setIsBanned(true);
             classroom.setUnbanTime(LocalDateTime.now().plusSeconds(unbanTime));
             return classroomRepository.save(classroom);
