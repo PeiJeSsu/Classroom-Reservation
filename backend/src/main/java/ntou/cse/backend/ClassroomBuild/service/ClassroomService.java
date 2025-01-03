@@ -83,7 +83,7 @@ public class ClassroomService {
 
             if (classroom.getIsBanned() && classroom.getUnbanTime().isAfter(LocalDateTime.now().plusSeconds(unbanTime))) {
                 throw new ClassroomAlreadyBannedLongerException(
-                        String.format("%s", roomNumber, classroom.getUnbanTime().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
+                        String.format("%s", classroom.getUnbanTime().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
                 );
             }
 
