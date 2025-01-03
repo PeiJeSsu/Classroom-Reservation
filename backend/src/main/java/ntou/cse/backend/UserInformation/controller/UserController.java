@@ -60,7 +60,7 @@ public class UserController {
                 return ResponseEntity.status(404).body("User not found.");
             }
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error banning user: " + e.getMessage());
+            return ResponseEntity.status(500).body(e.getMessage());
         }
     }
 
