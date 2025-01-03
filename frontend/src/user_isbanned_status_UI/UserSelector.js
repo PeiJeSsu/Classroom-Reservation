@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 const UserSelector = ({ user, setUser, disabled }) => {
     const { t } = useTranslation();
     const [users, setUsers] = useState([]);
-    const [inputValue, setInputValue] = useState(''); 
+    const [inputValue, setInputValue] = useState('');
 
     useEffect(() => {
         apiConfig.get('/api/users/allUsers')

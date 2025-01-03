@@ -47,13 +47,12 @@ function Login() {
                 return;
             }
 
-            // 修正 body 的使用方式
             const response = await apiConfig.post("/api/users/role", {
                 email: user.email,
             });
 
             if (response.status >= 200 && response.status < 300) {
-                const role = response.data.role;
+                const role = response.data;
                 const name = email.split("@")[0];
                 localStorage.setItem("userRole", role);
                 localStorage.setItem("userName", name);

@@ -14,13 +14,13 @@ import Information from "../query_information/query_information_interface";
 import Personal_Info from "../query_information/personal_informaion";
 import UserIsBannedStatus from "../user_isbanned_status_UI/UserIsBannedStatus";
 import {FormControl, InputLabel} from "@mui/material";
-import MapSelectionPanel from "../classroom_map_UI/MapSelectionPanel";
 import ClassroomMap from "../classroom_map_UI/ClassroomMap";
 
 export default function BasicTabs() {
     const [value, setValue] = React.useState(0);
     const userRole = localStorage.getItem("userRole");
     const { t, i18n } = useTranslation();
+    // console.log("userRole", userRole);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);

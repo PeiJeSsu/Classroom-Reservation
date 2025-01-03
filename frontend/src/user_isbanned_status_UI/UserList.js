@@ -62,10 +62,17 @@ export default function UserList({ user, reload, setReload }) {
                             </Typography>
                             {user.isBanned && user.unbanTime && (
                                 <Typography variant="body1" sx={{ minWidth: '140px' }}>
-                                    {t('解禁時間')}: {new Date(user.unbanTime).toLocaleString('zh-TW', {
-                                    year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit',
-                                    minute: '2-digit', second: '2-digit', hour12: false
-                                })}
+                                    {t('解禁時間')}: {
+                                    new Date(new Date(user.unbanTime).getTime() + 8 * 60 * 60 * 1000).toLocaleString('zh-TW', {
+                                        year: 'numeric',
+                                        month: '2-digit',
+                                        day: '2-digit',
+                                        hour: '2-digit',
+                                        minute: '2-digit',
+                                        second: '2-digit',
+                                        hour12: false
+                                    })
+                                }
                                 </Typography>
                             )}
                         </Box>
