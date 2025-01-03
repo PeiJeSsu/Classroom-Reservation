@@ -57,7 +57,7 @@ public class UserService {
         if (user != null) {
             if (user.getIsBanned() && user.getUnbanTime().isAfter(LocalDateTime.now().plusSeconds(lastTimeInSeconds))) {
                 throw new UserAlreadyBannedLongerException(
-                        String.format("使用者已被禁用直到 %s，無法禁用更短的時間，若要執行此操作，請先幫使用者解除禁用",
+                        String.format("%s",
                                 user.getUnbanTime().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
                 );
             }

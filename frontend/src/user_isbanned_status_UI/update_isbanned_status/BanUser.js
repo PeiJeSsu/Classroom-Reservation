@@ -67,8 +67,8 @@ const BanUser = ({ open, onClose, user, setReload }) => {
                 onClose();
             }
         } catch (error) {
-            console.error(t('Error banning user:'), error);
-            setErrorMessage(error.response?.data || t('禁用使用者時發生錯誤'));
+            console.error('Error banning user:', error);
+            setErrorMessage(t('使用者已被禁用直到 ') + error.response?.data + t(' 無法禁用更短的時間，若要執行此操作，請先幫使用者解除禁用'));
             setOpenSnackbar(true);
         }
     };
