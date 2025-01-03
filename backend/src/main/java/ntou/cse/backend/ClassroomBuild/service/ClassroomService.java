@@ -130,6 +130,6 @@ public class ClassroomService {
         if (classroomOptional.isPresent()) {
             return classroomOptional.get().getUnbanTime();
         }
-        return null; // 若找不到對應教室，回傳 null
+        return null;
     }
 }
