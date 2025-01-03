@@ -29,6 +29,8 @@ const theme = createTheme({
     }
 });
 
+const MAX_SECONDS = 60 * 365 * 24 * 60 * 60; // 60年
+
 const ClassroomBanStatus = ({ open, onClose, initialFloor, initialClassroomCode, setReload }) => {
     const { t } = useTranslation();
     const [floor, setFloor] = useState(initialFloor);
@@ -42,6 +44,11 @@ const ClassroomBanStatus = ({ open, onClose, initialFloor, initialClassroomCode,
         setSnackbar({ open: false, message: '' });
     };
 
+    const calculateBanDuration = () => {
+        const totalSeconds = (inputMonth * 30 * 24 * 60 * 60) + (inputDay * 24 * 60 * 60) + (inputHour * 60 * 60);
+        return Math.min(totalSeconds, MAX_SECONDS);
+    };
+
     const handleSubmit = async () => {
         try {
             if (inputMonth === 0 && inputDay === 0 && inputHour === 0) {
@@ -50,6 +57,13 @@ const ClassroomBanStatus = ({ open, onClose, initialFloor, initialClassroomCode,
             }
 
             const unbanTime = calculateBanDuration();
+
+            if (unbanTime === MAX_SECONDS) {
+                setSnackbar({
+                    open: true,
+                    message: t('系統最高接受60年的禁用時間，您輸入的時間大於等於60年，將自動設為60年（請注意！這裡的每年皆以365天計算，故有些許誤差）')
+                });
+            }
 
             const response = await apiConfig.patch(`/classroom_build/${classroomCode}/ban?unbanTime=${unbanTime}`);
 
@@ -77,10 +91,6 @@ const ClassroomBanStatus = ({ open, onClose, initialFloor, initialClassroomCode,
         setInputMonth(month);
         setInputDay(day);
         setInputHour(hour);
-    };
-
-    const calculateBanDuration = () => {
-        return (inputMonth * 30 * 24 * 60 * 60) + (inputDay * 24 * 60 * 60) + (inputHour * 60 * 60);
     };
 
     return (

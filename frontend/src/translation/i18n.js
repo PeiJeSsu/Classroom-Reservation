@@ -152,7 +152,8 @@ const resources = {
             "沒有找到相關的使用者，請檢查後端是否已經啟動，並且資料庫中確實存在資料": "No relevant user found. Please check if the backend is running and the database contains the data.",
             "沒有找到相關的申請，請檢查後端是否已經啟動，並且資料庫中確實存在資料": "No relevant application found. Please check if the backend is running and the database contains the data.",
             "沒有找到相關的使用者資訊，請檢查後端是否已經啟動，並且資料庫中確實存在資料": "No relevant user information found. Please check if the backend is running and the database contains the data.",
-            "請填寫借用人": "Please fill in the borrower"
+            "請填寫借用人": "Please fill in the borrower",
+            "系統最高接受60年的禁用時間，您輸入的時間大於等於60年，將自動設為60年（請注意！這裡的每年皆以365天計算，故有些許誤差）": "The maximum acceptable ban duration is 60 years. The time you entered is greater than or equal to 60 years, so it will be automatically set to 60 years. (Please note that each year is calculated as 365 days, so there may be a slight discrepancy.)",
         }
     },
 

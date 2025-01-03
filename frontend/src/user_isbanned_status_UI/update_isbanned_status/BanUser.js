@@ -5,8 +5,10 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import CloseIcon from '@mui/icons-material/Close';
 import LastTimeSelector from './LastTimeSelector';
 import ErrorSnackbar from "../../custom_snackbar/ErrorSnackbar";
-import {apiConfig} from "../../config/apiConfig";
+import { apiConfig } from "../../config/apiConfig";
 import { useTranslation } from 'react-i18next';
+
+const MAX_SECONDS = 60 * 365 * 24 * 60 * 60; // 60年
 
 const theme = createTheme({
     palette: {
@@ -34,22 +36,25 @@ const BanUser = ({ open, onClose, user, setReload }) => {
     }, [open]);
 
     const calculateBanDuration = () => {
-        return (inputMonth * 30 * 24 * 60 * 60) + (inputDay * 24 * 60 * 60) + (inputHour * 60 * 60);
+        const totalSeconds = (inputMonth * 30 * 24 * 60 * 60) + (inputDay * 24 * 60 * 60) + (inputHour * 60 * 60);
+        return Math.min(totalSeconds, MAX_SECONDS);
     };
 
     const handleSubmit = async () => {
         if (inputMonth === 0 && inputDay === 0 && inputHour === 0) {
             setErrorMessage(t('請至少輸入一個非零的時間'));
             setOpenSnackbar(true);
-            setTimeout(() => {
-                setErrorMessage(t('請至少輸入一個非零的時間'));
-                setOpenSnackbar(true);
-            }, 100);
             return;
         }
-        try {
-            const lastTimeInSeconds = calculateBanDuration();
 
+        const lastTimeInSeconds = calculateBanDuration();
+
+        if (lastTimeInSeconds === MAX_SECONDS) {
+            setErrorMessage(t('系統最高接受60年的禁用時間，您輸入的時間大於等於60年，將自動設為60年（請注意！這裡的每年皆以365天計算，故有些許誤差）'));
+            setOpenSnackbar(true);
+        }
+
+        try {
             const response = await apiConfig.patch(`/api/users/${user.email}/ban`, lastTimeInSeconds, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -63,7 +68,7 @@ const BanUser = ({ open, onClose, user, setReload }) => {
             }
         } catch (error) {
             console.error(t('Error banning user:'), error);
-            setErrorMessage(error.response.data);
+            setErrorMessage(error.response?.data || t('禁用使用者時發生錯誤'));
             setOpenSnackbar(true);
         }
     };
